@@ -1,13 +1,13 @@
 <div>
-    <h2>Organizations</h2>
+    <div class="d-sm-flex justify-content-between align-items-center">
+        <h2>Organizations</h2>
+        <a href="{{ route('organizations.create') }}">Register organization</a>
+    </div>
     <div>
         @if (session()->has('message'))
             <x-alert type="success" :message="session('message')"/>
         @endif
     </div>
-    <p>
-        <a href="{{ route('organizations.create') }}">Register organization</a>
-    </p>
     <p>
         <div class="form-group">
             <label for="search">Filter:</label>

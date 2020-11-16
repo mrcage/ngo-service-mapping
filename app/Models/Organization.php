@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\NullableFields;
+use Illuminate\Database\Eloquent\Builder;
 
 class Organization extends Model
 {
@@ -42,5 +43,11 @@ class Organization extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function scopeFilter(Builder $query, $value)
+    {
+        return $query->where('name', 'like', '%' . trim($value) . '%')
+            ->orWhere('email', trim($value));
     }
 }
