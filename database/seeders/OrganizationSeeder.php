@@ -15,7 +15,7 @@ class OrganizationSeeder extends Seeder
     public function run()
     {
         Organization::factory()
-            ->times(50)
+            ->times(150)
             ->create();
     }
 }

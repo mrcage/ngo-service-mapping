@@ -16,7 +16,9 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->string('email')->nullable()->unique();
             $table->timestamps();
         });
     }

@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\OrganizationController;
+use App\Http\Livewire\OrganizationCreate;
+use App\Http\Livewire\OrganizationDelete;
+use App\Http\Livewire\OrganizationDetail;
+use App\Http\Livewire\OrganizationEdit;
+use App\Http\Livewire\OrganizationList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'organizations');
 
-Route::resource('organizations', OrganizationController::class);
+Route::get('/organizations', OrganizationList::class)
+    ->name('organizations.index');
+Route::get('/organizations/create', OrganizationCreate::class)
+    ->name('organizations.create');
+Route::get('/organizations/{organization}', OrganizationDetail::class)
+    ->name('organizations.show');
+Route::get('/organizations/{organization}/edit', OrganizationEdit::class)
+    ->name('organizations.edit');
+Route::get('/organizations/{organization}/delete', OrganizationDelete::class)
+    ->name('organizations.delete');

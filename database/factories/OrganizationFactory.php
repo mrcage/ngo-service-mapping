@@ -21,9 +21,11 @@ class OrganizationFactory extends Factory
      */
     public function definition()
     {
+        $description = $this->faker->optional(0.7)->paragraphs;
         return [
-            'name' => $this->faker->unique()->name,
-            'description' => $this->faker->optional(0.7)->text,
+            'name' => $this->faker->unique()->company,
+            'description' => $description !== null ? implode("\n", $description) : null,
+            'email' => $this->faker->optional(0.9)->companyEmail,
         ];
     }
 }
