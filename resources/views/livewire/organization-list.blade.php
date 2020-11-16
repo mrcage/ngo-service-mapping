@@ -18,8 +18,9 @@
               class="form-control" />
         </div>
     </p>
+    <p wire:loading>Searching...</p>
     @if(filled($search) && $organizations->isNotEmpty())
-        <p>
+        <p wire:loading.remove>
             <em>Listing {{ $organizations->count() }} organizations matching '{{ trim($search) }}':</em>
         </p>
     @endif

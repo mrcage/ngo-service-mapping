@@ -7,7 +7,8 @@
     </div>
     @isset($organization->email)
         <p>
-            E-Mail: <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
+            <x-bi-envelope-fill/>
+            <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
         </p>
     @endisset
     @isset($organization->description)
