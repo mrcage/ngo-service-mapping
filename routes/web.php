@@ -23,10 +23,13 @@ Route::redirect('/', 'organizations');
 Route::get('/organizations', OrganizationList::class)
     ->name('organizations.index');
 Route::get('/organizations/create', OrganizationCreate::class)
-    ->name('organizations.create');
+    ->name('organizations.create')
+    ->middleware(['verified']);
 Route::get('/organizations/{organization}', OrganizationDetail::class)
     ->name('organizations.show');
 Route::get('/organizations/{organization}/edit', OrganizationEdit::class)
-    ->name('organizations.edit');
+    ->name('organizations.edit')
+    ->middleware(['verified']);
 Route::get('/organizations/{organization}/delete', OrganizationDelete::class)
-    ->name('organizations.delete');
+    ->name('organizations.delete')
+    ->middleware(['verified']);
