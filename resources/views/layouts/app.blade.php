@@ -6,19 +6,14 @@
 
         <title>{{ $title }} | GR3W</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-        </style>
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @livewireStyles
     </head>
     <body>
-        {{ $slot }}
+        <div class="container my-3">
+            {{ $slot }}
+        </div>
+        <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireScripts
     </body>
 </html>

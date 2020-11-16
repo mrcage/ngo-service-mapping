@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "045dbabe0212928b5dfe5c187784ce72",
+    "content-hash": "560af687a9dee41acee3d528b1b7d112",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -496,6 +496,48 @@
                 }
             ],
             "time": "2020-10-13T01:26:01+00:00"
+        },
+        {
+            "name": "dyrynda/laravel-nullable-fields",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michaeldyrynda/laravel-nullable-fields.git",
+                "reference": "dc3345b1bd2e971237aab5d961f34532d0ee269b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaeldyrynda/laravel-nullable-fields/zipball/dc3345b1bd2e971237aab5d961f34532d0ee269b",
+                "reference": "dc3345b1bd2e971237aab5d961f34532d0ee269b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "illuminate/events": "^8.0",
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "utility",
+            "autoload": {
+                "psr-4": {
+                    "Dyrynda\\Database\\Support\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dyrynda",
+                    "email": "michael@dyrynda.com.au",
+                    "homepage": "https://dyrynda.com.au"
+                }
+            ],
+            "description": "This trait allows you to easily flag attributes that should be set as null when being persisted to the database using the Laravel PHP Framework.",
+            "time": "2020-09-08T02:53:35+00:00"
         },
         {
             "name": "egulias/email-validator",

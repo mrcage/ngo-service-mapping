@@ -22,6 +22,7 @@ class OrganizationEdit extends Component
         ],
         'organization.description' => [
             'nullable',
+            'min:3',
         ],
         'organization.email' => [
             'nullable',
