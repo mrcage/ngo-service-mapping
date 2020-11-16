@@ -32,6 +32,8 @@ class OrganizationEdit extends Component
 
     public function render()
     {
+        $this->authorize('update', $this->organization);
+
         return view('livewire.organization-edit')
             ->layout(null, [
                 'title' => $this->organization->name . ' | Edit Organization',
@@ -40,7 +42,7 @@ class OrganizationEdit extends Component
 
     public function submit()
     {
-        // $this->authorize('update', $this->organization);
+        $this->authorize('update', $this->organization);
 
         $this->validate();
         $this->validate([

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,24 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @livewireStyles
     </head>
-    <body>
-        <div class="container my-3">
-            {{ $slot }}
-        </div>
+    <body class="d-flex flex-column h-100">
+        <main role="main" class="flex-shrink-0">
+            <div class="container my-3">
+                {{ $slot }}
+            </div>
+        </main>
+        <footer class="footer mt-auto py-3">
+            <div class="container text-center">
+                @auth
+                    {{ Auth::user()->name }}
+                    | <a href="">Logout</a>
+                @endauth
+                @guest
+                    <a href="">Login</a>
+                    | <a href="">Register</a>
+                @endguest
+            </div>
+          </footer>
         <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireScripts
     </body>

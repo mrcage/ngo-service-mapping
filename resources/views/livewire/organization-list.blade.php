@@ -1,7 +1,9 @@
 <div>
     <div class="d-sm-flex justify-content-between align-items-center">
         <h2>Organizations</h2>
-        <a href="{{ route('organizations.create') }}">Register organization</a>
+        @can('create', App\Model\Organization::class)
+            <a href="{{ route('organizations.create') }}">Register organization</a>
+        @endcan
     </div>
     <div>
         @if (session()->has('message'))

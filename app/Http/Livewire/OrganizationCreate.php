@@ -37,6 +37,8 @@ class OrganizationCreate extends Component
 
     public function render()
     {
+        $this->authorize('create', Organization::class);
+
         return view('livewire.organization-create')
             ->layout(null, [
                 'title' => 'Register Organization',
@@ -45,7 +47,7 @@ class OrganizationCreate extends Component
 
     public function submit()
     {
-        // $this->authorize('create', Organization::class);
+        $this->authorize('create', Organization::class);
 
         $this->validate();
 

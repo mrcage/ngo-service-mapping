@@ -19,8 +19,12 @@
         </p>
     @endif
     <p>
-        <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
-        <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
+        @can('update', $organization)
+            <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
+        @endcan
+        @can('delete', $organization)
+            <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
+        @endcan
         <a href="{{ route('organizations.index') }}">Return to list</a>
     </p>
 </div>

@@ -14,6 +14,8 @@ class OrganizationDelete extends Component
 
     public function render()
     {
+        $this->authorize('delete', $this->organization);
+
         return view('livewire.organization-delete')
             ->layout(null, [
                 'title' => $this->organization->name . ' | Delete Organization',
@@ -22,7 +24,7 @@ class OrganizationDelete extends Component
 
     public function submit()
     {
-        // $this->authorize('delete', $this->organization);
+        $this->authorize('delete', $this->organization);
 
         $this->organization->delete();
 
