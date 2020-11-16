@@ -12,7 +12,11 @@
             <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
         </p>
     @endisset
-    @markdown($organization->description)
+    @isset($organization->description)
+        @markdown($organization->description)
+    @else
+        <p><em>No description has been provided.</em></p>
+    @endif
     <p>
         <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
         <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
