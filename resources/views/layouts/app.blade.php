@@ -15,15 +15,20 @@
                 {{ $slot }}
             </div>
         </main>
-        <footer class="footer mt-auto py-3">
+        <footer class="footer mt-auto py-3 bg-light">
             <div class="container text-center">
                 @auth
-                    {{ Auth::user()->name }}
-                    | <a href="">Logout</a>
+                    Logged in as <strong>{{ Auth::user()->name }}</strong> |
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 @endauth
                 @guest
-                    <a href="">Login</a>
-                    | <a href="">Register</a>
+                    <a href="{{ route('login') }}">Login</a> |
+                    <a href="{{ route('register') }}">Register</a>
                 @endguest
             </div>
           </footer>
