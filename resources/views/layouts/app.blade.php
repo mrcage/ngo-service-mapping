@@ -18,7 +18,7 @@
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container text-center">
                 @auth
-                    Logged in as <strong>{{ Auth::user()->name }}</strong> |
+                    Logged in as <a href="{{ route('user-profile-information') }}">{{ Auth::user()->name }}</a> |
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Logout
                     </a>

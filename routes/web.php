@@ -5,6 +5,7 @@ use App\Http\Livewire\OrganizationDelete;
 use App\Http\Livewire\OrganizationDetail;
 use App\Http\Livewire\OrganizationEdit;
 use App\Http\Livewire\OrganizationList;
+use App\Http\Livewire\UserProfile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,7 @@ Route::get('/organizations/{organization}/edit', OrganizationEdit::class)
 Route::get('/organizations/{organization}/delete', OrganizationDelete::class)
     ->name('organizations.delete')
     ->middleware(['verified']);
+
+Route::get('/user', UserProfile::class)
+    ->name('user-profile-information')
+    ->middleware('auth');

@@ -1,10 +1,8 @@
 <div>
     <h2>{{ $organization->name }}</h2>
-    <div>
-        @if (session()->has('message'))
-            <x-alert type="success" :message="session('message')"/>
-        @endif
-    </div>
+    @if (session()->has('message'))
+        <x-alert type="success" :message="session('message')"/>
+    @endif
     @isset($organization->email)
         <p>
             <x-bi-envelope-fill/>

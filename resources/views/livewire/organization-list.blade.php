@@ -5,11 +5,9 @@
             <a href="{{ route('organizations.create') }}">Register organization</a>
         @endcan
     </div>
-    <div>
-        @if (session()->has('message'))
-            <x-alert type="success" :message="session('message')"/>
-        @endif
-    </div>
+    @if (session()->has('message'))
+        <x-alert type="success" :message="session('message')"/>
+    @endif
     <p>
         <div class="form-group">
             <label for="search">Filter:</label>
