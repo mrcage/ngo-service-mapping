@@ -11,6 +11,6 @@
         </div>
     </div>
     <p class="text-center">
-        <a href="/">Return to overview</a>
+        <a href="{{ route('home') }}">Return to overview</a>
     </p>
 </div>

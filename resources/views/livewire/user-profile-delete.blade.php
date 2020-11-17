@@ -1,7 +1,7 @@
 <div>
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
-        <a href="/" class="btn btn-primary">Go to overview</a>
+        <a href="{{ route('home') }}" class="btn btn-primary">Go to overview</a>
     @else
         <form wire:submit.prevent="submit">
             <p>Do you really want do delete your account and all related data?</p>

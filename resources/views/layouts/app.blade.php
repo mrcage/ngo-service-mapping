@@ -12,7 +12,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container d-flex">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <x-bi-signpost-split class="h3 p-0 m-0"/>
                     <span class="d-none d-sm-inline">{{ config('app.name') }}</span>
                 </a>

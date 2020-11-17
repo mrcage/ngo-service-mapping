@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'organizations');
+Route::redirect('/', 'organizations')
+    ->name('home');
 
 Route::get('/organizations', OrganizationList::class)
     ->name('organizations.index');

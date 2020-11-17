@@ -52,7 +52,7 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
         <p class="mt-5 mb-3 text-muted">
-            <a href="/">Back to overview</a> |
+            <a href="{{ route('home') }}">Back to overview</a> |
             <a href="{{ route('login') }}">Login</a>
         </p>
     </form>
