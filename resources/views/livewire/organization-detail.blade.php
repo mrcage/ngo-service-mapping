@@ -19,6 +19,8 @@
     <p>
         @can('update', $organization)
             <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
+        @else
+            <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a> |
         @endcan
         @can('delete', $organization)
             <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
