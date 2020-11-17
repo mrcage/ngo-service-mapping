@@ -12,7 +12,10 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container d-flex">
-                <a class="navbar-brand" href="/"><x-bi-signpost-split class="h3 p-0 m-0"/></a>
+                <a class="navbar-brand" href="/">
+                    <x-bi-signpost-split class="h3 p-0 m-0"/>
+                    <span class="d-none d-sm-inline">{{ config('app.name') }}</span>
+                </a>
                 <span>
                     @auth
                         <a href="{{ route('user-profile-information') }}">{{ Auth::user()->name }}</a> |

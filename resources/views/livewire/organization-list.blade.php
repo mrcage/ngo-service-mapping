@@ -8,16 +8,16 @@
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
-    <p>
-        <div class="form-group">
-            <label for="search">Filter:</label>
-            <input
-              wire:model.debounce.500ms="search"
-              type="search"
-              id="search"
-              class="form-control" />
+    <div class="input-group mb-3 mt-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Filter</span>
         </div>
-    </p>
+        <input
+            wire:model.debounce.500ms="search"
+            type="search"
+            id="search"
+            class="form-control"/>
+    </div>
     <p wire:loading>Searching...</p>
     @if(filled($search) && $organizations->isNotEmpty())
         <p wire:loading.remove>
