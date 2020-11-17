@@ -5,7 +5,7 @@
     <form wire:submit.prevent="submit">
         <div class="card my-3">
             <div class="card-body pb-0">
-                <h5 class="card-title">Password update:</h5>
+                <h5 class="card-title">Password update</h5>
                 <div class="form-group">
                     <label for="inputCurrentPassword">Current password</label>
                     <input

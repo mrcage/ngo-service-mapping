@@ -6,6 +6,7 @@ use App\Http\Livewire\OrganizationDetail;
 use App\Http\Livewire\OrganizationEdit;
 use App\Http\Livewire\OrganizationList;
 use App\Http\Livewire\UserProfile;
+use App\Http\Livewire\UserProfileDelete;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,8 @@ Route::get('/organizations/{organization}/delete', OrganizationDelete::class)
 
 Route::get('/user', UserProfile::class)
     ->name('user-profile-information')
+    ->middleware('auth');
+
+Route::get('/user/delete', UserProfileDelete::class)
+    ->name('user-profile-delete')
     ->middleware('auth');
