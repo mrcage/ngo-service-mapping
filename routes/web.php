@@ -42,4 +42,4 @@ Route::get('/user', UserProfile::class)
 
 Route::get('/user/delete', UserProfileDelete::class)
     ->name('user-profile-delete')
-    ->middleware('auth');
+    ->middleware('auth', 'password.confirm');
