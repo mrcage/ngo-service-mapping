@@ -27,6 +27,13 @@ class Organization extends Model
 		'website',
 	];
 
+    protected static function booted()
+    {
+        static::deleting(function ($organization) {
+            $organization->sectors()->detach();
+        });
+    }
+
     public function sluggable(): array
     {
         return [

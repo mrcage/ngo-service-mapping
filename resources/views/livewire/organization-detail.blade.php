@@ -3,14 +3,13 @@
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
-    @if($organization->sectors->isNotEmpty())
+    @isset($organization->description)
+        @markdown($organization->description)
+    @else
         <p>
-            <strong>Sectors:</strong>
-            @foreach($organization->sectors->sortBy('name') as $sector)
-                <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>@unless($loop->last), @endunless
-            @endforeach
+            <em>No description has been provided.</em>
         </p>
-    @endisset
+    @endif
     @isset($organization->email)
         <p>
             <x-bi-envelope-fill/>
@@ -23,13 +22,16 @@
             <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
         </p>
     @endisset
-    @isset($organization->description)
-        @markdown($organization->description)
-    @else
-        <p>
-            <em>No description has been provided.</em>
-        </p>
-    @endif
+    @if($organization->sectors->isNotEmpty())
+        <h3>Sectors</h3>
+        <ul>
+            @foreach($organization->sectors->sortBy('name') as $sector)
+                <li>
+                    <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>@unless($loop->last), @endunless
+                </li>
+            @endforeach
+        </ul>
+    @endisset
     <p>
         @can('update', $organization)
             <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
