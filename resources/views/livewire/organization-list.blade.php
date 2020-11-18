@@ -27,16 +27,19 @@
         </p>
     @endif
     @if($organizations->isNotEmpty())
-        <div class="list-group">
+        <div class="list-group mb-3">
             @foreach ($organizations as $organization)
                 <a href="{{  route('organizations.show', $organization) }}" class="list-group-item list-group-item-action">{{ $organization->name }}</a>
             @endforeach
         </div>
         @if(blank($search))
-            <p class="mt-2">
+            <p>
                 <small>There are {{ $organizations->count() }} organizations registered.</small>
             </p>
         @endif
+        <p>
+            <a href="{{ route('organizations.export') }}">Download Excel sheet</a>
+        </p>
     @else
         <x-alert type="info" message="No organizations found."/>
     @endif
