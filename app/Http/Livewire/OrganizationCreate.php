@@ -15,23 +15,7 @@ class OrganizationCreate extends PageComponent
 
     public Organization $organization;
 
-    protected $rules = [
-        'organization.name' => [
-            'filled',
-            'string',
-            'min:3',
-            'max:255',
-            'unique:App\Models\Organization,name',
-        ],
-        'organization.description' => [
-            'nullable',
-        ],
-        'organization.email' => [
-            'nullable',
-            'email',
-            'unique:App\Models\Organization,email',
-        ],
-    ];
+    protected $listeners = ['formSubmitted'];
 
     public function mount()
     {
@@ -40,10 +24,9 @@ class OrganizationCreate extends PageComponent
         $this->organization = new Organization();
     }
 
-    public function submit()
+    public function formSubmitted($organization)
     {
-        $this->validate();
-
+        $this->organization->fill($organization);
         $this->organization->save();
 
         session()->flash('message', 'Organization successfully registered.');
