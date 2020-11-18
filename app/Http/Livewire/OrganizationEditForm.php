@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
+use App\Models\Sector;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -11,6 +13,10 @@ class OrganizationEditForm extends Component
     public Organization $organization;
 
     public string $cancelUrl;
+
+    public array $checkedSectors;
+
+    public Collection $sectors;
 
     protected $rules = [
         'organization.name' => [
@@ -33,6 +39,12 @@ class OrganizationEditForm extends Component
             'max:255',
         ],
     ];
+
+    public function mount()
+    {
+        $this->checkedSectors = $this->organization->sectors->pluck('slug')->toArray();
+        $this->sectors = Sector::orderBy('name')->get();
+    }
 
     public function render()
     {
@@ -57,6 +69,6 @@ class OrganizationEditForm extends Component
             ]);
         }
 
-        $this->emit('formSubmitted', $this->organization);
+        $this->emit('formSubmitted', $this->organization, $this->checkedSectors);
     }
 }

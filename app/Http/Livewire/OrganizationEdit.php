@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
+use App\Models\Sector;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrganizationEdit extends PageComponent
@@ -25,10 +26,11 @@ class OrganizationEdit extends PageComponent
         $this->authorize('update', $this->organization);
     }
 
-    public function formSubmitted($organization)
+    public function formSubmitted($organization, array $checkedSectors)
     {
         $this->organization->fill($organization);
         $this->organization->save();
+        $this->organization->sectors()->sync(Sector::whereIn('slug', $checkedSectors)->get());
 
         session()->flash('message', 'Organization successfully updated.');
 

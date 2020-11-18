@@ -1,6 +1,7 @@
 <div>
     <form wire:submit.prevent="submit">
         @csrf
+
         <div class="form-group">
             <label for="name">Name:</label>
             <input
@@ -13,6 +14,7 @@
               class="form-control @error('organization.name') is-invalid @enderror">
             @error('organization.name') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+
         <div class="form-group">
             <label for="description">Description:</label>
             <textarea
@@ -23,6 +25,7 @@
             ></textarea>
             @error('organization.description') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+
         <div class="form-group">
             <label for="email">E-Mail address:</label>
             <input
@@ -33,6 +36,7 @@
               class="form-control @error('organization.email') is-invalid @enderror">
               @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+
         <div class="form-group">
             <label for="website">Website:</label>
             <input
@@ -43,6 +47,23 @@
               class="form-control @error('organization.website') is-invalid @enderror">
               @error('organization.website') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+
+        <p class="mb-2">Sectors:</p>
+        <div class="mb-3">
+            @foreach($sectors as $sector)
+                <div class="custom-control custom-checkbox">
+                    <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="sector-{{ $sector->slug }}"
+                        value="{{ $sector->slug }}"
+                        wire:model.defer="checkedSectors"
+                    >
+                    <label class="custom-control-label" for="sector-{{ $sector->slug }}">{{ $sector->name }} </label>
+                </div>
+            @endforeach
+        </div>
+
         <p class="d-flex justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary">
                 <span wire:loading wire:target="submit">Saving...</span>

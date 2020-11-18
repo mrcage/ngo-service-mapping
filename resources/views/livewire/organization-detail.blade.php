@@ -15,6 +15,9 @@
             <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
         </p>
     @endisset
+    @if($organization->sectors->isNotEmpty())
+        <p><strong>Sectors:</strong> {{ $organization->sectors->sortBy('name')->map(fn ($s) => $s->name)->implode(', ') }}</p>
+    @endisset
     @isset($organization->description)
         @markdown($organization->description)
     @else

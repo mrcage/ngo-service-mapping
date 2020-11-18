@@ -27,11 +27,6 @@ class Organization extends Model
 		'website',
 	];
 
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
     public function sluggable(): array
     {
         return [
@@ -51,5 +46,10 @@ class Organization extends Model
     {
         return $query->where('name', 'like', '%' . trim($value) . '%')
             ->orWhere('email', trim($value));
+    }
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class);
     }
 }

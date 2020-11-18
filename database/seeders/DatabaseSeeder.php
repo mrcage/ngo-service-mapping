@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $this->call([
+            SectorSeeder::class,
             OrganizationSeeder::class,
         ]);
     }
