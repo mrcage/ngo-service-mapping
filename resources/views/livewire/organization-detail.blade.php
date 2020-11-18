@@ -39,6 +39,6 @@
         @can('delete', $organization)
             <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
         @endcan
-        <a href="{{ route('organizations.index') }}">Return to list</a>
+        <a href="{{ route('organizations.index') }}">Return to list of organizations</a>
     </p>
 </div>
