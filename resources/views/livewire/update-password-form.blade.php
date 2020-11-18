@@ -41,10 +41,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                <span class="d-flex align-items-center">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <span wire:loading wire:target="submit" class="ml-2">Saving changes...</span>
-                </span>
+                <button type="submit" class="btn btn-primary">
+                    <span wire:loading wire:target="submit">Saving changes...</span>
+                    <span wire:loading.remove wire:target="submit">Save</span>
+                </button>
             </div>
         </div>
     </form>

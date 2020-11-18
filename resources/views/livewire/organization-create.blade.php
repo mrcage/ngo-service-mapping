@@ -10,6 +10,7 @@
               required
               wire:model.defer="organization.name"
               autocomplete="off"
+              autofocus
               class="form-control @error('organization.name') is-invalid @enderror">
             @error('organization.name') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
@@ -34,10 +35,10 @@
               @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
         <p class="d-flex justify-content-between align-items-center">
-            <span class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <span wire:loading wire:target="submit" class="ml-2">Registering...</span>
-            </span>
+            <button type="submit" class="btn btn-primary">
+                <span wire:loading wire:target="submit">Registering...</span>
+                <span wire:loading.remove wire:target="submit">Save</span>
+            </button>
             <a href="{{ route('organizations.index') }}">Cancel</a>
         </p>
     </form>

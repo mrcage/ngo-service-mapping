@@ -19,7 +19,7 @@
     <p>
         @can('update', $organization)
             <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
-        @else
+        @elseif(isset($organization->email))
             <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a> |
         @endcan
         @can('delete', $organization)

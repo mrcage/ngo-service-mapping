@@ -33,11 +33,11 @@
               class="form-control @error('organization.email') is-invalid @enderror">
               @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
-        <p class="d-flex justify-content-between align-items-center">
-            <span class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <span wire:loading wire:target="submit" class="ml-2">Saving changes...</span>
-            </span>
+        <p>
+            <button type="submit" class="btn btn-primary">
+                <span wire:loading wire:target="submit">Saving changes...</span>
+                <span wire:loading.remove wire:target="submit">Save</span>
+            </button>
         </p>
     </form>
 </div>

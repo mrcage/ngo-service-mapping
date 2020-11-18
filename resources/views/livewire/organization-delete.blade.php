@@ -6,10 +6,10 @@
             Should the organization <strong>{{ $organization->name }}</strong> really be removed?
         </p>
         <p class="d-flex justify-content-between align-items-center">
-            <span class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-danger">Delete</button>
-                <span wire:loading wire:target="submit" class="ml-2">Deleting...</span>
-            </span>
+            <button type="submit" class="btn btn-danger">
+                <span wire:loading wire:target="submit">Deleting...</span>
+                <span wire:loading.remove wire:target="submit">Delete</span>
+            </button>
             <a href="{{ route('organizations.show', $organization) }}">Cancel</a>
         </p>
     </form>

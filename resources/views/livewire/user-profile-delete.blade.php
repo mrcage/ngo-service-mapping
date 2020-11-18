@@ -7,13 +7,17 @@
             <p>Do you really want do delete your account and all related data?</p>
             <div class="d-flex justify-content-between">
                 <span class="d-flex align-items-center">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <span wire:loading wire:target="submit" class="ml-2">Processing...</span>
+                    <button type="submit" class="btn btn-danger">
+                        <span wire:loading wire:target="submit">Processing...</span>
+                        <span wire:loading.remove wire:target="submit">Delete</span>
+                    </button>
                     <a
                         wire:loading.remove
                         wire:target="submit"
                         href="{{ route('user-profile-information') }}"
-                        class="btn btn-secondary ml-2">Cancel</a>
+                        class="btn btn-secondary ml-2">
+                        Cancel
+                    </a>
                 </span>
             </div>
         </form>
