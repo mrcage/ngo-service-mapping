@@ -2,11 +2,13 @@
 
 use App\Http\Livewire\HomePage;
 use App\Http\Livewire\OrganizationCreate;
+use App\Http\Livewire\OrganizationCreateExternal;
 use App\Http\Livewire\OrganizationDelete;
 use App\Http\Livewire\OrganizationDetail;
 use App\Http\Livewire\OrganizationEdit;
 use App\Http\Livewire\OrganizationEditExternal;
 use App\Http\Livewire\OrganizationList;
+use App\Http\Livewire\OrganizationRequestCreateLink;
 use App\Http\Livewire\OrganizationRequestEditLink;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
@@ -33,6 +35,11 @@ Route::get('/organizations', OrganizationList::class)
 Route::get('/organizations/create', OrganizationCreate::class)
     ->name('organizations.create')
     ->middleware(['verified', 'can:create,App\Models\Organization']);
+Route::get('/organizations/requestCreateLink', OrganizationRequestCreateLink::class)
+    ->name('organizations.requestCreateLink');
+Route::get('/organizations/createExternal/{email}', OrganizationCreateExternal::class)
+    ->name('organizations.createExternal')
+    ->middleware(['signed']);
 Route::get('/organizations/{organization}', OrganizationDetail::class)
     ->name('organizations.show');
 Route::get('/organizations/{organization}/edit', OrganizationEdit::class)

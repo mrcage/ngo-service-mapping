@@ -29,12 +29,14 @@
         <div class="form-group">
             <label for="email">E-Mail address:</label>
             <input
-              type="email"
-              id="email"
-              wire:model.defer="organization.email"
-              autocomplete="off"
-              class="form-control @error('organization.email') is-invalid @enderror">
-              @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            type="email"
+            id="email"
+            autocomplete="off"
+            @if($disableEmail) disabled value="{{ $organization->email }}"
+            @else wire:model.defer="organization.email"
+            @endif
+            class="form-control @error('organization.email') is-invalid @enderror">
+            @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="form-group">

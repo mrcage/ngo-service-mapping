@@ -16,6 +16,8 @@ class OrganizationEditForm extends Component
 
     public array $checkedSectors;
 
+    public bool $disableEmail = false;
+
     public Collection $sectors;
 
     protected $rules = [
