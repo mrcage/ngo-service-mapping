@@ -9,6 +9,7 @@
               required
               wire:model.defer="organization.name"
               autocomplete="off"
+              @unless($organization->name) autofocus @endunless
               class="form-control @error('organization.name') is-invalid @enderror">
             @error('organization.name') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
