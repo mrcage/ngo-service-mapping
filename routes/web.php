@@ -8,6 +8,8 @@ use App\Http\Livewire\OrganizationEdit;
 use App\Http\Livewire\OrganizationEditExternal;
 use App\Http\Livewire\OrganizationList;
 use App\Http\Livewire\OrganizationRequestEditLink;
+use App\Http\Livewire\SectorDetail;
+use App\Http\Livewire\SectorList;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserProfileDelete;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +46,11 @@ Route::get('/organizations/{organization}/requestEditLink', OrganizationRequestE
 Route::get('/organizations/{organization}/editExternal', OrganizationEditExternal::class)
     ->name('organizations.editExternal')
     ->middleware(['signed']);
+
+Route::get('/sectors', SectorList::class)
+    ->name('sectors.index');
+Route::get('/sectors/{sector}', SectorDetail::class)
+    ->name('sectors.show');
 
 Route::get('/user', UserProfile::class)
     ->name('user-profile-information')

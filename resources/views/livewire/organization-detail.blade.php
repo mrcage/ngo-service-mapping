@@ -3,6 +3,14 @@
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
+    @if($organization->sectors->isNotEmpty())
+        <p>
+            <strong>Sectors:</strong>
+            @foreach($organization->sectors->sortBy('name') as $sector)
+                <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>@unless($loop->last), @endunless
+            @endforeach
+        </p>
+    @endisset
     @isset($organization->email)
         <p>
             <x-bi-envelope-fill/>
@@ -14,9 +22,6 @@
             <x-bi-globe/>
             <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
         </p>
-    @endisset
-    @if($organization->sectors->isNotEmpty())
-        <p><strong>Sectors:</strong> {{ $organization->sectors->sortBy('name')->map(fn ($s) => $s->name)->implode(', ') }}</p>
     @endisset
     @isset($organization->description)
         @markdown($organization->description)
