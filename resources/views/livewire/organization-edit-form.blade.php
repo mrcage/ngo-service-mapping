@@ -32,6 +32,16 @@
               class="form-control @error('organization.email') is-invalid @enderror">
               @error('organization.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+        <div class="form-group">
+            <label for="website">Website:</label>
+            <input
+              type="url"
+              id="website"
+              wire:model.defer="organization.website"
+              autocomplete="off"
+              class="form-control @error('organization.website') is-invalid @enderror">
+              @error('organization.website') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
         <p class="d-flex justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary">
                 <span wire:loading wire:target="submit">Saving...</span>

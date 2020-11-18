@@ -9,6 +9,12 @@
             <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
         </p>
     @endisset
+    @isset($organization->website)
+        <p>
+            <x-bi-globe/>
+            <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
+        </p>
+    @endisset
     @isset($organization->description)
         @markdown($organization->description)
     @else

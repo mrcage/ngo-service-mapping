@@ -26,6 +26,7 @@ class OrganizationFactory extends Factory
             'name' => $this->faker->unique()->company,
             'description' => $description !== null ? implode("\n", $description) : null,
             'email' => $this->faker->optional(0.9)->companyEmail,
+            'website' => $this->faker->optional(0.7)->url,
         ];
     }
 }

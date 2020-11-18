@@ -18,11 +18,13 @@ class Organization extends Model
         'name',
         'description',
         'email',
+        'website',
     ];
 
 	protected $nullable = [
 		'description',
 		'email',
+		'website',
 	];
 
     /**

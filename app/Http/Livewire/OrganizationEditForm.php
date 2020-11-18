@@ -26,7 +26,12 @@ class OrganizationEditForm extends Component
         'organization.email' => [
             'nullable',
             'email',
-        ]
+        ],
+        'organization.website' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
     ];
 
     public function render()
