@@ -4,7 +4,7 @@
         @can('create', App\Model\Organization::class)
             <a href="{{ route('organizations.create') }}">Register organization</a>
         @else
-            <a href="{{ route('organizations.requestCreateLink') }}">Register organization</a>
+            <a href="{{ route('organizations.requestCreateLink') }}">Request to register organization</a>
         @endcan
     </div>
     @if (session()->has('message'))
