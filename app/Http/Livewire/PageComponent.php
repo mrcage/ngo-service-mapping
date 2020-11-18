@@ -18,7 +18,7 @@ abstract class PageComponent extends Component
     protected function getView($args = [])
     {
         return view($this->view, $args)
-            ->layout(null, [
+            ->extends('layouts.app', [
                 'title' => method_exists($this, 'title') ? $this->title() : $this->title,
             ]);
     }

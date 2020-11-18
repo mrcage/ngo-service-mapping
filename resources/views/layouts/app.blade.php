@@ -9,14 +9,14 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @livewireStyles
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container d-flex">
+    <body class="bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <x-bi-signpost-split class="h3 p-0 m-0"/>
                     <span class="d-none d-sm-inline">{{ config('app.name') }}</span>
                 </a>
-                <span>
+                <span class="navbar-text">
                     @auth
                         <a href="{{ route('user-profile-information') }}">{{ Auth::user()->name }}</a> |
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -37,7 +37,7 @@
         </nav>
         <main role="main">
             <div class="container my-3">
-                {{ $slot }}
+                @yield('content')
             </div>
         </main>
         <script src="{{ asset('js/app.js') }}" defer></script>
