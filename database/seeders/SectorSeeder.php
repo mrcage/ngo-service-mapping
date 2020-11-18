@@ -15,19 +15,23 @@ class SectorSeeder extends Seeder
     public function run()
     {
         foreach ([
-            'WASH',
-            'Food',
-            'Shelter',
-            'Protection',
-            'Medical',
-            'Legal Aid',
+            'Agriculture',
+            'Camp Coordination and Camp Management',
+            'Climate Change and Environment',
+            'Coordination',
+            'Disaster Management',
             'Education',
-            'Sport',
-            'Logistics',
-            'Advocacy',
-            'Children',
-            'LGBTQI+',
-            'Women',
+            'Food and Nutrition',
+            'Gender',
+            'Health',
+            'HIV/Aids',
+            'Mine Action',
+            'Peacekeeping and Peacebuilding',
+            'Protection and Human Rights',
+            'Recovery and Reconstruction',
+            'Safety and Security',
+            'Shelter and Non-Food Items',
+            'Water, Sanitation & Hygiene',
         ] as $sector) {
             Sector::create(['name' => $sector]);
         }
