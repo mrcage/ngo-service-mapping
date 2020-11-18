@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\HomePage;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationDelete;
 use App\Http\Livewire\OrganizationDetail;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'organizations')
+Route::get('/', HomePage::class)
     ->name('home');
 
 Route::get('/organizations', OrganizationList::class)
