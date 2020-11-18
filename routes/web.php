@@ -30,18 +30,17 @@ Route::get('/organizations', OrganizationList::class)
     ->name('organizations.index');
 Route::get('/organizations/create', OrganizationCreate::class)
     ->name('organizations.create')
-    ->middleware(['auth', 'verified']);
+    ->middleware(['verified', 'can:create,App\Models\Organization']);
 Route::get('/organizations/{organization}', OrganizationDetail::class)
     ->name('organizations.show');
 Route::get('/organizations/{organization}/edit', OrganizationEdit::class)
     ->name('organizations.edit')
-    ->middleware(['auth', 'verified']);
+    ->middleware(['verified']);
 Route::get('/organizations/{organization}/delete', OrganizationDelete::class)
     ->name('organizations.delete')
-    ->middleware(['auth', 'verified']);
+    ->middleware(['verified']);
 Route::get('/organizations/{organization}/requestEditLink', OrganizationRequestEditLink::class)
-    ->name('organizations.requestEditLink')
-    ->middleware(['guest']);
+    ->name('organizations.requestEditLink');
 Route::get('/organizations/{organization}/editExternal', OrganizationEditExternal::class)
     ->name('organizations.editExternal')
     ->middleware(['signed']);

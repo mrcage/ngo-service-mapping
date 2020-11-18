@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
-use Livewire\Component;
 
-class OrganizationList extends Component
+class OrganizationList extends PageComponent
 {
+    protected $view = 'livewire.organization-list';
+
+    protected $title = 'Organizations';
+
     public string $search = '';
 
     public function mount()
@@ -24,13 +27,11 @@ class OrganizationList extends Component
             session()->forget('organizations.search');
         }
 
-        return view('livewire.organization-list', [
+        return $this->getView([
             'organizations' => Organization::query()
                 ->when(filled($this->search), fn ($q) => $q->filter($this->search))
                 ->orderBy('name')
                 ->get(),
-        ])->layout(null, [
-            'title' => 'Organizations',
         ]);
     }
 }

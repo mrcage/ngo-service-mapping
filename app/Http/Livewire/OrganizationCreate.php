@@ -3,12 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
-use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class OrganizationCreate extends Component
+class OrganizationCreate extends PageComponent
 {
     use AuthorizesRequests;
+
+    protected $view = 'livewire.organization-create';
+
+    protected $title = 'Register Organization';
 
     public Organization $organization;
 
@@ -32,23 +35,13 @@ class OrganizationCreate extends Component
 
     public function mount()
     {
-        $this->organization = new Organization();
-    }
-
-    public function render()
-    {
         $this->authorize('create', Organization::class);
 
-        return view('livewire.organization-create')
-            ->layout(null, [
-                'title' => 'Register Organization',
-            ]);
+        $this->organization = new Organization();
     }
 
     public function submit()
     {
-        $this->authorize('create', Organization::class);
-
         $this->validate();
 
         $this->organization->save();

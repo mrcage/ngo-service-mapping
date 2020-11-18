@@ -4,10 +4,16 @@ namespace App\Http\Livewire;
 
 use App\Models\Organization;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 
-class OrganizationEditExternal extends Component
+class OrganizationEditExternal extends PageComponent
 {
+    protected $view = 'livewire.organization-edit-external';
+
+    protected function title()
+    {
+        return $this->organization->name . ' | Edit your Organization';
+    }
+
     public Organization $organization;
 
     protected $rules = [
@@ -26,14 +32,6 @@ class OrganizationEditExternal extends Component
             'email',
         ]
     ];
-
-    public function render()
-    {
-        return view('livewire.organization-edit-external')
-            ->layout(null, [
-                'title' => $this->organization->name . ' | Edit your Organization',
-            ]);
-    }
 
     public function submit()
     {

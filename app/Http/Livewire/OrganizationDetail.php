@@ -3,17 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
-use Livewire\Component;
 
-class OrganizationDetail extends Component
+class OrganizationDetail extends PageComponent
 {
-    public Organization $organization;
+    protected $view = 'livewire.organization-detail';
 
-    public function render()
+    protected function title()
     {
-        return view('livewire.organization-detail')
-            ->layout(null, [
-                'title' => $this->organization->name . ' | Organization',
-            ]);
+        return $this->organization->name . ' | Organization';
     }
+
+    public Organization $organization;
 }

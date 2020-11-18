@@ -3,13 +3,19 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
-use Livewire\Component;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class OrganizationEdit extends Component
+class OrganizationEdit extends PageComponent
 {
     use AuthorizesRequests;
+
+    protected $view = 'livewire.organization-edit';
+
+    protected function title()
+    {
+        return $this->organization->name . ' | Edit Organization';
+    }
 
     public Organization $organization;
 
@@ -30,20 +36,13 @@ class OrganizationEdit extends Component
         ]
     ];
 
-    public function render()
+    public function mount()
     {
         $this->authorize('update', $this->organization);
-
-        return view('livewire.organization-edit')
-            ->layout(null, [
-                'title' => $this->organization->name . ' | Edit Organization',
-            ]);
     }
 
     public function submit()
     {
-        $this->authorize('update', $this->organization);
-
         $this->validate();
         $this->validate([
             'organization.name' => Rule::unique(Organization::class, 'name')

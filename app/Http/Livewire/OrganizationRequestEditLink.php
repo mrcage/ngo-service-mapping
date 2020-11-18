@@ -5,19 +5,17 @@ namespace App\Http\Livewire;
 use App\Mail\SendOrganizationEditLink;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Component;
 
-class OrganizationRequestEditLink extends Component
+class OrganizationRequestEditLink extends PageComponent
 {
-    public Organization $organization;
+    protected $view = 'livewire.organization-request-edit-link';
 
-    public function render()
+    protected function title()
     {
-        return view('livewire.organization-request-edit-link')
-            ->layout(null, [
-                'title' => $this->organization->name . ' | Edit your Organization',
-            ]);
+        return $this->organization->name . ' | Edit your Organization';
     }
+
+    public Organization $organization;
 
     public function submit()
     {

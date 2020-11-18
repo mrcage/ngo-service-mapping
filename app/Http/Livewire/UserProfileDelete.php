@@ -4,23 +4,18 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
-class UserProfileDelete extends Component
+class UserProfileDelete extends PageComponent
 {
+    protected $view = 'livewire.user-profile-delete';
+
+    protected $title = 'Delete user account';
+
     public User $user;
 
     public function mount()
     {
         $this->user = Auth::user();
-    }
-
-    public function render()
-    {
-        return view('livewire.user-profile-delete')
-            ->layout(null, [
-                'title' => 'Delete user account',
-            ]);
     }
 
     public function submit()
