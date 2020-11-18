@@ -39,8 +39,10 @@
             <small><a href="{{ route('password.email') }}">Forgot your password?</a></small>
         </p>
         <p class="mt-5 mb-3 text-muted">
-            <a href="{{ route('home') }}">Back to overview</a> |
-            <a href="{{ route('register') }}">Register</a>
+            <a href="{{ route('home') }}">Back to overview</a>
+            @if(config('auth.allow_user_registrtion'))
+                | <a href="{{ route('register') }}">Register</a>
+            @endif
         </p>
     </form>
 @endsection

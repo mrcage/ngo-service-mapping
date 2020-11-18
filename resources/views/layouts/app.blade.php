@@ -27,8 +27,10 @@
                         </form>
                     @endauth
                     @guest
-                        <a href="{{ route('login') }}">Login</a> |
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">Login</a>
+                        @if(config('auth.allow_user_registrtion'))
+                            | <a href="{{ route('register') }}">Register</a>
+                        @endif
                     @endguest
                 </span>
             </div>

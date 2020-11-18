@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,10 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        if (! config('auth.allow_user_registrtion')) {
+            abort(Response::HTTP_UNAUTHORIZED);
+        }
+
         Validator::make($input, [
             'name' => [
                 'required',
