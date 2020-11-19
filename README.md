@@ -7,6 +7,7 @@
   * BCMath
   * Ctype
   * Fileinfo
+  * GD
   * JSON
   * Mbstring
   * OpenSSL
