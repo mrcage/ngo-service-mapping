@@ -60,3 +60,19 @@ Run these commands:
     docker-compose exec web php artisan migrate --seed
 
 Visit http://localhost:8000 to open the application.
+
+# Heroku deployment
+
+Make sure [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is installed.
+
+    heroku create --region eu
+    php artisan key:generate --show
+    heroku config:set APP_KEY=...
+    git push heroku HEAD:master
+    heroku config:set DB_CONNECTION=pgsql
+    heroku config:set APP_ENV=local
+    heroku config:set LOG_CHANNEL=errorlog
+    heroku run php artisan migrate --force
+    heroku open
+
+See https://devcenter.heroku.com/articles/getting-started-with-laravel
