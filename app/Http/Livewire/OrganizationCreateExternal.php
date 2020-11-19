@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\UpdateOrganization;
 use App\Models\Organization;
 use App\Models\Sector;
 
@@ -23,12 +24,9 @@ class OrganizationCreateExternal extends PageComponent
         $this->organization->email = $this->email;
     }
 
-    public function formSubmitted($organization, array $checkedSectors)
+    public function formSubmitted($formData, array $checkedSectors, UpdateOrganization $action)
     {
-        $this->organization->fill($organization);
-        $this->organization->type()->associate($organization['type_id']);
-        $this->organization->save();
-        $this->organization->sectors()->sync(Sector::whereIn('slug', $checkedSectors)->get());
+        $action->update($this->organization, $formData, $checkedSectors);
 
         session()->flash('message', 'Organization successfully registered.');
 
