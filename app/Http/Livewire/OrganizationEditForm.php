@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Sector;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
@@ -20,12 +21,18 @@ class OrganizationEditForm extends Component
 
     public Collection $sectors;
 
+    public Collection $types;
+
     protected $rules = [
         'organization.name' => [
             'filled',
             'string',
             'min:3',
             'max:255',
+        ],
+        'organization.type_id' => [
+            'required',
+            'exists:organization_types,id',
         ],
         'organization.description' => [
             'nullable',
@@ -42,10 +49,15 @@ class OrganizationEditForm extends Component
         ],
     ];
 
+    protected $validationAttributes = [
+        'organization.type_id' => 'type'
+    ];
+
     public function mount()
     {
         $this->checkedSectors = $this->organization->sectors->pluck('slug')->toArray();
         $this->sectors = Sector::orderBy('name')->get();
+        $this->types = OrganizationType::orderBy('name')->get();
     }
 
     public function render()

@@ -11,6 +11,8 @@ use App\Http\Livewire\OrganizationEditExternal;
 use App\Http\Livewire\OrganizationList;
 use App\Http\Livewire\OrganizationRequestCreateLink;
 use App\Http\Livewire\OrganizationRequestEditLink;
+use App\Http\Livewire\OrganizationTypeDetail;
+use App\Http\Livewire\OrganizationTypeList;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\UserProfile;
@@ -58,6 +60,11 @@ Route::get('/organizations/{organization}/requestEditLink', OrganizationRequestE
 Route::get('/organizations/{organization}/editExternal', OrganizationEditExternal::class)
     ->name('organizations.editExternal')
     ->middleware(['signed']);
+
+Route::get('/types', OrganizationTypeList::class)
+    ->name('types.index');
+Route::get('/types/{type}', OrganizationTypeDetail::class)
+    ->name('types.show');
 
 Route::get('/sectors', SectorList::class)
     ->name('sectors.index');

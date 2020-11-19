@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +18,7 @@ class DatabaseSeeder extends Seeder
         {
             $this->call([
                 SectorSeeder::class,
+                OrganizationTypeSeeder::class,
             ]);
         }
         else
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 UserSeeder::class,
                 SectorSeeder::class,
+                OrganizationTypeSeeder::class,
                 OrganizationSeeder::class,
             ]);
         }

@@ -26,6 +26,7 @@ class OrganizationCreateExternal extends PageComponent
     public function formSubmitted($organization, array $checkedSectors)
     {
         $this->organization->fill($organization);
+        $this->organization->type()->associate($organization['type_id']);
         $this->organization->save();
         $this->organization->sectors()->sync(Sector::whereIn('slug', $checkedSectors)->get());
 

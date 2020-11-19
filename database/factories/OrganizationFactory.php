@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Sector;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -39,7 +40,14 @@ class OrganizationFactory extends Factory
     public function configure()
     {
         $sectors = Sector::all();
-        return $this->afterCreating(function (Organization $organization) use ($sectors) {
+        $types = OrganizationType::all();
+
+        return $this->afterMaking(function (Organization $organization) use ($types) {
+            if ($types->isNotEmpty()) {
+                $type = $types->random();
+                $organization->type()->associate($type);
+            }
+        })->afterCreating(function (Organization $organization) use ($sectors) {
             if ($sectors->isNotEmpty()) {
                 $num = mt_rand(0, $sectors->count());
                 $chosen_sectors = $sectors->random($num);

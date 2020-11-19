@@ -3,6 +3,10 @@
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
+    <p>
+        <x-bi-tag-fill/>
+        <a href="{{ route('types.show', $organization->type) }}">{{ $organization->type->name }}</a>
+    </p>
     @isset($organization->description)
         @markdown($organization->description)
     @else

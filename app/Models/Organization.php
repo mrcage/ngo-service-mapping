@@ -59,4 +59,9 @@ class Organization extends Model
     {
         return $this->belongsToMany(Sector::class);
     }
+
+    public function type()
+    {
+        return $this->belongsTo(OrganizationType::class, 'type_id');
+    }
 }

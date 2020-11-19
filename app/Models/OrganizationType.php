@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
-class Sector extends Model
+class OrganizationType extends Model
 {
     use Sluggable;
 
@@ -32,6 +32,6 @@ class Sector extends Model
 
     public function organizations()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->hasMany(Organization::class, 'type_id');
     }
 }
