@@ -14,6 +14,9 @@ class SectorList extends PageComponent
 
     public function mount()
     {
-        $this->sectors = Sector::orderBy('name')->get();
+        $this->sectors = Sector::query()
+            ->has('organizations')
+            ->orderBy('name')
+            ->get();
     }
 }

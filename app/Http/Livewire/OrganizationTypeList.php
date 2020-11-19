@@ -14,6 +14,9 @@ class OrganizationTypeList extends PageComponent
 
     public function mount()
     {
-        $this->types = OrganizationType::orderBy('name')->get();
+        $this->types = OrganizationType::query()
+            ->has('organizations')
+            ->orderBy('name')
+            ->get();
     }
 }
