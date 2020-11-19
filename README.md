@@ -74,7 +74,7 @@ Make sure [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is inst
 
     git push heroku HEAD:master
 
-    heroku run php artisan migrate --force
+    heroku run php artisan migrate --seed --force
     heroku open
 
 See https://devcenter.heroku.com/articles/getting-started-with-laravel
