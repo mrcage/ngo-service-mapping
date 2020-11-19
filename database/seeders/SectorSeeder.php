@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Sector;
 use Illuminate\Database\Seeder;
+use Schema;
 
 class SectorSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class SectorSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        Sector::truncate();
         foreach ([
             'Agriculture',
             'Camp Coordination and Camp Management',
@@ -35,5 +38,6 @@ class SectorSeeder extends Seeder
         ] as $sector) {
             Sector::create(['name' => $sector]);
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

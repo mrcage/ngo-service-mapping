@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\OrganizationType;
 use Illuminate\Database\Seeder;
+use Schema;
 
 class OrganizationTypeSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class OrganizationTypeSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        OrganizationType::truncate();
         foreach ([
             'Academic and Research Institution',
             'Government',
@@ -25,5 +28,6 @@ class OrganizationTypeSeeder extends Seeder
         ] as $sector) {
             OrganizationType::create(['name' => $sector]);
         }
+        Schema::enableForeignKeyConstraints();
     }
 }
