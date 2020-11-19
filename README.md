@@ -87,7 +87,7 @@ Push code to heroku git repository:
 
     git push heroku HEAD:master
 
-Run database migrations:
+Run database migrations if needed, with seeder:
 
     heroku run php artisan migrate --seed --force
 
