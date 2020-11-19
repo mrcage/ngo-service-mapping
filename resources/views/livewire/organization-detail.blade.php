@@ -31,7 +31,7 @@
         <ul>
             @foreach($organization->sectors->sortBy('name') as $sector)
                 <li>
-                    <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>@unless($loop->last), @endunless
+                    <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>
                 </li>
             @endforeach
         </ul>
