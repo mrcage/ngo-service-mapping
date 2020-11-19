@@ -66,13 +66,22 @@ Visit http://localhost:8000 to open the application.
 Make sure [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is installed.
 
     heroku create --region eu
+    heroku addons:create heroku-postgresql:hobby-dev
     php artisan key:generate --show
     heroku config:set APP_KEY=...
-    git push heroku HEAD:master
     heroku config:set DB_CONNECTION=pgsql
     heroku config:set APP_ENV=local
     heroku config:set LOG_CHANNEL=errorlog
+
+    git push heroku HEAD:master
+
     heroku run php artisan migrate --force
     heroku open
 
 See https://devcenter.heroku.com/articles/getting-started-with-laravel
+
+To send e-mails via [Mailgun](https://www.mailgun.com/):
+
+    heroku config:set MAIL_MAILER=mailgun
+    heroku config:set MAILGUN_DOMAIN=...
+    heroku config:set MAILGUN_SECRET=...
