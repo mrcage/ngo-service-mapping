@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,13 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
-            ->times(25)
-            ->create();
-
-        $this->call([
-            SectorSeeder::class,
-            OrganizationSeeder::class,
-        ]);
+        if (App::environment() === 'production')
+        {
+            $this->call([
+                SectorSeeder::class,
+            ]);
+        }
+        else
+        {
+            $this->call([
+                UserSeeder::class,
+                SectorSeeder::class,
+                OrganizationSeeder::class,
+            ]);
+        }
     }
 }
