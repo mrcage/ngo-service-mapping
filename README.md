@@ -67,7 +67,7 @@ Make sure [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is inst
 
 Create an app:
 
-    heroku create --region eu
+    heroku create --region eu <APPNAME>
 
 Add a database (PostgreSQL):
 
