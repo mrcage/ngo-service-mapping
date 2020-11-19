@@ -38,8 +38,25 @@ Install Javascript packages and compile assets:
 ## Deployment
 
     composer install --optimize-autoloader --no-dev
-    artisan cache:clear
-    artisan view:cache
-    artisan config:cache
-    artisan route:cache
-    artisan migrate --force
+    php artisan cache:clear
+    php artisan view:cache
+    php artisan config:cache
+    php artisan route:cache
+    php artisan migrate --force
+
+## Docker container
+
+Ensure the following values are set in the `.evn` file:
+
+    DB_HOST=db
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=laravel_password
+
+Run these commands:
+
+    docker-compose up --build -d
+    docker-compose exec web php artisan migrate --seed
+
+Visit http://localhost:8000 to open the application.
