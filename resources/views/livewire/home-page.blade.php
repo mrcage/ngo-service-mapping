@@ -1,5 +1,6 @@
 <div>
     <h2>Overview</h2>
+    ENV {{ App::environment() }}
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif

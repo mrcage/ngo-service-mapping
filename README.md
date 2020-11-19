@@ -70,7 +70,6 @@ Make sure [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is inst
     php artisan key:generate --show
     heroku config:set APP_KEY=...
     heroku config:set DB_CONNECTION=pgsql
-    heroku config:set APP_ENV=local
     heroku config:set LOG_CHANNEL=errorlog
 
     git push heroku HEAD:master
