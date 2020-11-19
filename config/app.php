@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'NGO Service Map'),
+    'name' => env('APP_NAME', 'Humanitarian Organizations Service Map'),
 
     /*
     |--------------------------------------------------------------------------
