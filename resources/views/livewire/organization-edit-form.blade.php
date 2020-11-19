@@ -50,21 +50,23 @@
               @error('organization.website') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
-        <p class="mb-2">Sectors:</p>
-        <div class="mb-3">
-            @foreach($sectors as $sector)
-                <div class="custom-control custom-checkbox">
-                    <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="sector-{{ $sector->slug }}"
-                        value="{{ $sector->slug }}"
-                        wire:model.defer="checkedSectors"
-                    >
-                    <label class="custom-control-label" for="sector-{{ $sector->slug }}">{{ $sector->name }} </label>
-                </div>
-            @endforeach
-        </div>
+        @if($sectors->isNotEmpty())
+            <p class="mb-2">Sectors:</p>
+            <div class="mb-3">
+                @foreach($sectors as $sector)
+                    <div class="custom-control custom-checkbox">
+                        <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="sector-{{ $sector->slug }}"
+                            value="{{ $sector->slug }}"
+                            wire:model.defer="checkedSectors"
+                        >
+                        <label class="custom-control-label" for="sector-{{ $sector->slug }}">{{ $sector->name }} </label>
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
         <p class="d-flex justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary">
