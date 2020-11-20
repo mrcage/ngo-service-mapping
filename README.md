@@ -46,7 +46,7 @@ Install Javascript packages and compile assets:
 
 ## Docker container
 
-Ensure the following values are set in the `.evn` file:
+Ensure the following values are set in the `.env` file:
 
     DB_HOST=db
     DB_PORT=3306
