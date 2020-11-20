@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Exports;
+namespace App\Exports\Sheets;
 
+use App\Exports\DefaultWorksheetStyles;
 use App\Models\Organization;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class OrganizationsExport implements FromQuery, WithMapping, WithHeadings, WithColumnFormatting, ShouldAutoSize, WithStyles, WithProperties
+class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithColumnFormatting, ShouldAutoSize, WithStyles
 {
     use DefaultWorksheetStyles;
 
@@ -28,6 +28,7 @@ class OrganizationsExport implements FromQuery, WithMapping, WithHeadings, WithC
     {
         return [
             'Name',
+            'Type',
             'Description',
             'E-Mail',
             'Website',
@@ -40,6 +41,7 @@ class OrganizationsExport implements FromQuery, WithMapping, WithHeadings, WithC
     {
         return [
             $organization->name,
+            $organization->type->name,
             $organization->description,
             $organization->email,
             $organization->website,
@@ -52,14 +54,6 @@ class OrganizationsExport implements FromQuery, WithMapping, WithHeadings, WithC
     {
         return [
             'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-        ];
-    }
-
-    public function properties(): array
-    {
-        return [
-            'title'   => 'List of organizations',
-            'creator' => config('app.name'),
         ];
     }
 }

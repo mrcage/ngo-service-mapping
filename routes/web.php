@@ -1,6 +1,6 @@
 <?php
 
-use App\Exports\OrganizationsExport;
+use App\Exports\DataExport;
 use App\Http\Livewire\HomePage;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
@@ -35,10 +35,6 @@ Route::get('/', HomePage::class)
 
 Route::get('/organizations', OrganizationList::class)
     ->name('organizations.index');
-Route::get('/organizations/export', function () {
-        return Excel::download(new OrganizationsExport, 'organizations.xlsx');
-    })
-    ->name('organizations.export');
 Route::get('/organizations/create', OrganizationCreate::class)
     ->name('organizations.create')
     ->middleware(['verified', 'can:create,App\Models\Organization']);
@@ -77,3 +73,8 @@ Route::get('/user', UserProfile::class)
 Route::get('/user/delete', UserProfileDelete::class)
     ->name('user-profile-delete')
     ->middleware(['auth', 'password.confirm']);
+
+Route::get('/export', function () {
+    return Excel::download(new DataExport, config('app.name') . ' Data Export.xlsx');
+})
+->name('export');

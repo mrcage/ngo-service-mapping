@@ -37,9 +37,6 @@
                 <small>There are {{ $organizations->count() }} organizations registered.</small>
             </p>
         @endif
-        <p>
-            <a href="{{ route('organizations.export') }}">Download Excel sheet</a>
-        </p>
     @else
         <x-alert type="info" message="No organizations found."/>
     @endif

@@ -13,4 +13,7 @@
     <p>
         <a href="{{ route('sectors.index') }}" class="btn btn-outline-primary btn-block">List of sectors</a>
     </p>
+    <p>
+        <a href="{{ route('export') }}" class="btn btn-outline-primary btn-block">Export data</a>
+    </p>
 </div>
