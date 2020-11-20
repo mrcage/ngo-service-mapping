@@ -33,7 +33,7 @@ class OrganizationTypesSheet implements FromQuery, WithMapping, WithHeadings, Sh
     {
         return [
             $organizationType->name,
-            $organizationType->organizations()->count(),
+            $organizationType->organizations()->count() ?? 0,
         ];
     }
 }
