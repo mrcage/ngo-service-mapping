@@ -1,5 +1,10 @@
 <div>
-    <h2>Organization Types</h2>
+    <div class="d-sm-flex justify-content-between align-items-center">
+        <h2>Organization Types</h2>
+        @can('create', App\Model\OrganizationType::class)
+            <a href="{{ route('types.manage') }}">Manage organization types</a>
+        @endcan
+    </div>
     @if($types->isNotEmpty())
         <div class="list-group mt-3">
             @foreach ($types as $type)
@@ -10,6 +15,6 @@
             @endforeach
         </div>
     @else
-        <x-alert type="info" message="No types registered."/>
+        <x-alert type="info" message="No types registered or assigned to organizations."/>
     @endif
 </div>

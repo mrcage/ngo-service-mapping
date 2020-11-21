@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Mail\SendOrganizationCreateLink;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 
 class OrganizationRequestCreateLink extends PageComponent
 {
@@ -24,7 +25,7 @@ class OrganizationRequestCreateLink extends PageComponent
     {
         $this->validate();
         $this->validate([
-            'email' => 'unique:App\Models\Organization,email',
+            'email' => Rule::unique(Organization::class, 'email'),
         ]);
 
         Mail::to($this->email)->send(new SendOrganizationCreateLink($this->email));

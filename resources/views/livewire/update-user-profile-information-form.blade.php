@@ -10,21 +10,23 @@
                     <label for="inputName">Name:</label>
                     <input
                         type="text"
-                        wire:model="name"
+                        wire:model.defer="name"
                         id="inputName"
+                        required
                         class="form-control @error('name') is-invalid @enderror"
-                        required>
+                    >
                     @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="form-group">
                     <label for="inputEmail">E-mail address:</label>
                     <div class="input-group">
                         <input
-                            type="text"
-                            wire:model="email"
+                            type="email"
+                            wire:model.defer="email"
                             id="inputEmail"
+                            required
                             class="form-control @error('email') is-invalid @enderror"
-                            required>
+                        >
                         <div class="input-group-append">
                             @isset($user->email_verified_at)
                                 <span class="input-group-text text-success">
@@ -36,8 +38,8 @@
                                 </span>
                             @endisset
                         </div>
+                        @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
             </div>
             <div class="card-footer">

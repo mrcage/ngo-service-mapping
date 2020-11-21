@@ -13,8 +13,10 @@ use App\Http\Livewire\OrganizationRequestCreateLink;
 use App\Http\Livewire\OrganizationRequestEditLink;
 use App\Http\Livewire\OrganizationTypeDetail;
 use App\Http\Livewire\OrganizationTypeList;
+use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
+use App\Http\Livewire\SectorManage;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserProfileDelete;
 use Illuminate\Support\Facades\Route;
@@ -35,12 +37,12 @@ Route::get('/', HomePage::class)
 
 Route::get('/organizations', OrganizationList::class)
     ->name('organizations.index');
-Route::get('/organizations/create', OrganizationCreate::class)
+Route::get('/organizations/_create', OrganizationCreate::class)
     ->name('organizations.create')
     ->middleware(['verified', 'can:create,App\Models\Organization']);
 Route::get('/organizations/requestCreateLink', OrganizationRequestCreateLink::class)
     ->name('organizations.requestCreateLink');
-Route::get('/organizations/createExternal/{email}', OrganizationCreateExternal::class)
+Route::get('/organizations/_createExternal/{email}', OrganizationCreateExternal::class)
     ->name('organizations.createExternal')
     ->middleware(['signed']);
 Route::get('/organizations/{organization}', OrganizationDetail::class)
@@ -59,11 +61,15 @@ Route::get('/organizations/{organization}/editExternal', OrganizationEditExterna
 
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
+Route::get('/types/_manage', OrganizationTypeManage::class)
+    ->name('types.manage');
 Route::get('/types/{type}', OrganizationTypeDetail::class)
     ->name('types.show');
 
 Route::get('/sectors', SectorList::class)
     ->name('sectors.index');
+Route::get('/sectors/_manage', SectorManage::class)
+    ->name('sectors.manage');
 Route::get('/sectors/{sector}', SectorDetail::class)
     ->name('sectors.show');
 

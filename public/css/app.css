@@ -10907,6 +10907,10 @@ a.text-dark:focus {
   max-width: 700px;
 }
 
+/**
+* Sign-in
+*/
+
 .form-signin {
   width: 100%;
   max-width: 330px;
@@ -10940,5 +10944,15 @@ a.text-dark:focus {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+/**
+* Tables
+*/
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
 }
 
