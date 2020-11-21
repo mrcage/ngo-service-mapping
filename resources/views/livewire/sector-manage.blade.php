@@ -39,6 +39,7 @@
                                     type="submit"
                                     class="btn btn-success btn-sm"
                                     aria-label="Save"
+                                    wire:key="submit_{{ $loop->index }}"
                                 >
                                     <span
                                         wire:loading
@@ -55,6 +56,7 @@
                                     class="btn btn-secondary btn-sm"
                                     wire:click="cancelEdit"
                                     aria-label="Cancel"
+                                    wire:key="cancelEdit_{{ $loop->index }}"
                                 >
                                     <x-bi-x-circle/>
                                 </button>
@@ -64,6 +66,7 @@
                                     class="btn btn-danger btn-sm"
                                     aria-label="Delete"
                                     wire:click="deleteItem"
+                                    wire:key="deleteItem{{ $loop->index }}"
                                 >
                                     <span
                                         wire:loading
@@ -80,6 +83,7 @@
                                     class="btn btn-secondary btn-sm"
                                     aria-label="Cancel"
                                     wire:click="cancelDelete"
+                                    wire:key="cancelDelete_{{ $loop->index }}"
                                 >
                                     <x-bi-x-circle/>
                                 </button>
@@ -90,6 +94,7 @@
                                         class="btn btn-primary btn-sm"
                                         wire:click="editItem('{{ $item->getRouteKey() }}')"
                                         aria-label="Edit"
+                                        wire:key="editItem_{{ $loop->index }}"
                                     >
                                         <x-bi-pencil-fill/>
                                     </button>
@@ -100,6 +105,7 @@
                                         class="btn btn-warning btn-sm"
                                         wire:click="confirmDeleteItem('{{ $item->getRouteKey() }}')"
                                         aria-label="Delete"
+                                        wire:key="confirmDeleteItem_{{ $loop->index }}"
                                     >
                                         <x-bi-trash/>
                                     </button>
@@ -133,6 +139,7 @@
                                     type="submit"
                                     class="btn btn-success btn-sm"
                                     aria-label="Save"
+                                    wire:key="submit_0"
                                 >
                                     <span
                                         wire:loading
@@ -149,6 +156,7 @@
                                     class="btn btn-secondary btn-sm"
                                     wire:click="cancelEdit"
                                     aria-label="Cancel"
+                                    wire:key="cancelEdit_0"
                                 >
                                     <x-bi-x-circle/>
                                 </button>
@@ -158,6 +166,7 @@
                                     class="btn btn-primary btn-sm"
                                     wire:click="newItem"
                                     aria-label="Create"
+                                    wire:key="newItem_0"
                                 >
                                     <x-bi-plus-circle/>
                                 </button>
