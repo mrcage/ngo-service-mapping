@@ -13,6 +13,7 @@ use App\Http\Livewire\OrganizationRequestCreateLink;
 use App\Http\Livewire\OrganizationRequestEditLink;
 use App\Http\Livewire\OrganizationTypeDetail;
 use App\Http\Livewire\OrganizationTypeList;
+use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
@@ -60,6 +61,8 @@ Route::get('/organizations/{organization}/editExternal', OrganizationEditExterna
 
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
+Route::get('/types/_manage', OrganizationTypeManage::class)
+    ->name('types.manage');
 Route::get('/types/{type}', OrganizationTypeDetail::class)
     ->name('types.show');
 
