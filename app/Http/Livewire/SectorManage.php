@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Sector;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class SectorManage extends PageComponent
@@ -18,6 +19,8 @@ class SectorManage extends PageComponent
     public Collection $items;
 
     public ?Sector $selectedItem = null;
+
+    public ?Sector $deletionItem = null;
 
     protected $rules = [
         'selectedItem.name' => [
@@ -36,14 +39,23 @@ class SectorManage extends PageComponent
             ->get();
     }
 
+    public function getAllowCreateProperty()
+    {
+        return Auth::user()->can('create', Sector::class);
+    }
+
     public function newItem()
     {
         $this->selectedItem = new Sector();
+
+        $this->emit('editorReady');
     }
 
     public function editItem(Sector $item)
     {
         $this->selectedItem = $item;
+
+        $this->emit('editorReady');
     }
 
     public function cancelEdit()
@@ -84,14 +96,28 @@ class SectorManage extends PageComponent
         }
     }
 
-    public function deleteItem(Sector $item)
+    public function confirmDeleteItem(Sector $item)
     {
-        $this->authorize('delete', $item);
+        $this->deletionItem = $item;
+    }
 
-        $item->delete();
+    public function cancelDelete()
+    {
+        $this->deletionItem = null;
+    }
 
-        if (($key = $this->items->search(fn ($s) => $s->id === $item->id)) !== false) {
-            $this->items->forget($key);
+    public function deleteItem()
+    {
+        if ($this->deletionItem !== null) {
+            $this->authorize('delete', $this->deletionItem);
+
+            $this->deletionItem->delete();
+
+            if (($key = $this->items->search(fn ($s) => $s->id === $this->deletionItem->id)) !== false) {
+                $this->items->forget($key);
+            }
+
+            $this->deletionItem = null;
         }
     }
 }

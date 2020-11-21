@@ -10,6 +10,6 @@
             @endforeach
         </div>
     @else
-        <x-alert type="info" message="No types registered."/>
+        <x-alert type="info" message="No types registered or assigned to organizations."/>
     @endif
 </div>

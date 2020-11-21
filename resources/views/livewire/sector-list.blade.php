@@ -18,6 +18,6 @@
             @endforeach
         </div>
     @else
-        <x-alert type="info" message="No sectors registered."/>
+        <x-alert type="info" message="No sectors registered or assigned to organizations."/>
     @endif
 </div>

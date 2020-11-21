@@ -12,21 +12,23 @@
                 @foreach ($items as $item)
                     @php
                         $isEditor = optional($selectedItem)->id === $item->id;
+                        $isDelete = optional($deletionItem)->id === $item->id;
                     @endphp
-                    <tr>
+                    <tr class="@if($isDelete) table-danger @endif">
                         <td class="p-1 align-middle">
                             @if($isEditor)
                                 <input
                                     type="text"
                                     id="name"
                                     required
-                                    autofocus
                                     autocomplete="off"
                                     placeholder="Name"
                                     wire:model.defer="selectedItem.name"
                                     class="form-control form-control-sm @error("selectedItem.name") is-invalid @enderror"
                                 >
                                 @error("selectedItem.name") <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @elseif($isDelete)
+                                <del>{{ $item->name }}</del>
                             @else
                                 {{ $item->name }}
                             @endif
@@ -56,6 +58,31 @@
                                 >
                                     <x-bi-x-circle/>
                                 </button>
+                            @elseif($isDelete)
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    aria-label="Delete"
+                                    wire:click="deleteItem"
+                                >
+                                    <span
+                                        wire:loading
+                                        wire:target="deleteItem"
+                                        class="spinner-border spinner-border-sm"
+                                        role="status"
+                                        aria-hidden="true"></span>
+                                    <span
+                                        wire:loading.remove
+                                        wire:target="deleteItem"><x-bi-trash/></span>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary btn-sm"
+                                    aria-label="Cancel"
+                                    wire:click="cancelDelete"
+                                >
+                                    <x-bi-x-circle/>
+                                </button>
                             @else
                                 @can('update', $item)
                                     <button
@@ -71,7 +98,7 @@
                                     <button
                                         type="button"
                                         class="btn btn-warning btn-sm"
-                                        wire:click="deleteItem('{{ $item->getRouteKey() }}')"
+                                        wire:click="confirmDeleteItem('{{ $item->getRouteKey() }}')"
                                         aria-label="Delete"
                                     >
                                         <x-bi-trash/>
@@ -81,7 +108,7 @@
                         </td>
                     </tr>
                 @endforeach
-                @can('create', App\Model\Sector::class)
+                @if($this->allowCreate)
                     @php
                         $isEditor = $selectedItem !== null && $selectedItem->id === null;
                     @endphp
@@ -92,7 +119,6 @@
                                     type="text"
                                     id="name"
                                     required
-                                    autofocus
                                     autocomplete="off"
                                     placeholder="Name"
                                     wire:model.defer="selectedItem.name"
@@ -138,7 +164,7 @@
                             @endif
                         </td>
                     </tr>
-                @endcan
+                @endif
             </tbody>
         </table>
     </form>
@@ -146,3 +172,13 @@
         <a href="{{ route('sectors.index') }}">Return to list of sectors</a>
     </p>
 </div>
+
+@push('scripts')
+<script>
+    window.addEventListener('livewire:load', () => {
+        @this.on('editorReady', () => {
+            document.querySelector('input#name').focus()
+        })
+    })
+</script>
+@endpush

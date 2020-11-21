@@ -68,7 +68,6 @@ class SectorPolicy
     public function delete(User $user, Sector $sector)
     {
         // TODO
-        // return $sector->organizations()->count() == 0;
         return true;
     }
 }

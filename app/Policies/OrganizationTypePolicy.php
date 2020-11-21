@@ -68,6 +68,6 @@ class OrganizationTypePolicy
     public function delete(User $user, OrganizationType $organizationType)
     {
         // TODO
-        return true;
+        return $organizationType->organizations()->count() == 0;
     }
 }
