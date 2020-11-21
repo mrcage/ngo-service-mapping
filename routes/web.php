@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\DataExport;
+use App\Http\Livewire\DataExport as LivewireDataExport;
 use App\Http\Livewire\HomePage;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
@@ -80,7 +81,5 @@ Route::get('/user/delete', UserProfileDelete::class)
     ->name('user-profile-delete')
     ->middleware(['auth', 'password.confirm']);
 
-Route::get('/export', function () {
-    return Excel::download(new DataExport, config('app.name') . ' Data Export.xlsx');
-})
-->name('export');
+Route::get('/export', LivewireDataExport::class)
+    ->name('export');
