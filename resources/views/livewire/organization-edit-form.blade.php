@@ -75,11 +75,11 @@
                             <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="sector-{{ $sector->slug }}"
+                                id="sector-{{ $sector->getRouteKey() }}"
                                 value="{{ $sector->slug }}"
                                 wire:model.defer="checkedSectors"
                             >
-                            <label class="custom-control-label" for="sector-{{ $sector->slug }}">{{ $sector->name }} </label>
+                            <label class="custom-control-label" for="sector-{{ $sector->getRouteKey() }}">{{ $sector->name }} </label>
                         </div>
                     @endforeach
                 </div>

@@ -15,6 +15,13 @@ class Sector extends Model
         'name',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($sector) {
+            $sector->organizations()->detach();
+        });
+    }
+
     public function sluggable(): array
     {
         return [
