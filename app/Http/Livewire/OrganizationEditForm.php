@@ -78,8 +78,8 @@ class OrganizationEditForm extends Component
             ]);
         } else {
             $this->validate([
-                'organization.name' => 'unique:App\Models\Organization,name',
-                'organization.email' => 'unique:App\Models\Organization,email',
+                'organization.name' => Rule::unique(Organization::class, 'name'),
+                'organization.email' => Rule::unique(Organization::class, 'email'),
             ]);
         }
 

@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\OrganizationType;
 
-class OrganizationTypeManage extends PageComponent
+class OrganizationTypeManage extends NameTypeForm
 {
-    use AuthorizesRequests;
-
     protected $view = 'livewire.organization-type-manager';
 
     protected $title = 'Manage Organization Types';
 
+    protected $modelClass = OrganizationType::class;
 }
