@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Sector;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SectorManage extends PageComponent
 {
@@ -15,80 +15,83 @@ class SectorManage extends PageComponent
 
     protected $title = 'Manage Sectors';
 
-    public Collection $sectors;
+    public Collection $items;
 
-    public array $newSectors;
-
-    public array $newItem = [];
-
-    public array $deletedIndexes = [];
+    public ?Sector $selectedItem = null;
 
     protected $rules = [
-        'sectors.*.name' => [
+        'selectedItem.name' => [
             'required',
             'string',
             'min:3',
         ],
-        // 'newItem.name' => 'string|min:6',
     ];
 
     public function mount()
     {
         $this->authorize('create', Sector::class);
 
-        $this->sectors = Sector::query()
+        $this->items = Sector::query()
             ->orderBy('name')
             ->get();
+    }
 
-        $this->newSectors = [];
+    public function newItem()
+    {
+        $this->selectedItem = new Sector();
+    }
+
+    public function editItem(Sector $item)
+    {
+        $this->selectedItem = $item;
+    }
+
+    public function cancelEdit()
+    {
+        $this->selectedItem = null;
     }
 
     public function submit()
     {
-        $this->validate();
+        if ($this->selectedItem !== null) {
+            if ($this->selectedItem->exists) {
+                $this->authorize('update', $this->selectedItem);
+            } else {
+                $this->authorize('create', Sector::class);
+            }
 
-        foreach ($this->deletedIndexes as $index) {
-            $this->sectors->get($index)->delete();
-            $this->sectors->forget($index);
+            $this->validate();
+            if ($this->selectedItem->exists) {
+                $this->validate([
+                    'selectedItem.name' => Rule::unique(Sector::class, 'name')
+                        ->ignore($this->selectedItem->id),
+                ]);
+            } else {
+                $this->validate([
+                    'selectedItem.name' => 'unique:App\Models\Sector,name',
+                ]);
+            }
+
+            $this->selectedItem->save();
+
+            if (($key = $this->items->search(fn ($s) => $s->id === $this->selectedItem->id)) !== false) {
+                $this->items[$key] = $this->selectedItem;
+            } else {
+                $this->items[] = $this->selectedItem;
+            }
+
+            $this->selectedItem = null;
         }
-
-        foreach ($this->sectors as $sector) {
-            $sector->save();
-        }
-
-        foreach ($this->newSectors as $data) {
-            $sector = new Sector();
-            $sector->fill($data);
-            $sector->save();
-        }
-
-        session()->flash('message', 'Sectors successfully updated.');
-
-        return redirect()->route('sectors.index');
     }
 
-    public function deleteItem($index)
+    public function deleteItem(Sector $item)
     {
-        if (($key = array_search($index, $this->deletedIndexes)) !== false) {
-            unset($this->deletedIndexes[$key]);
-        } else {
-            $this->deletedIndexes[] = $index;
-        }
-    }
+        $this->authorize('delete', $item);
 
-    public function addItem()
-    {
-        $validatedData = Validator::make(
-            $this->newItem,
-            [
-                'name' => [
-                    'required',
-                    'string',
-                    'min:3',
-                ]
-            ],
-        )->validate();
-        $this->newSectors[] = $validatedData;
-        $this->reset('newItem');
+        $item->delete();
+
+        if (($key = $this->items->search(fn ($s) => $s->id === $item->id)) !== false) {
+            $this->items->forget($key);
+        }
     }
 }

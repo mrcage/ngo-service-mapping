@@ -9,103 +9,140 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($sectors as $index => $sector)
+                @foreach ($items as $item)
                     @php
-                        $markedForDeletion = in_array($index, $deletedIndexes);
+                        $isEditor = optional($selectedItem)->id === $item->id;
                     @endphp
                     <tr>
-                        <td class="p-1">
-                            <input
-                                type="text"
-                                id="name"
-                                required
-                                autocomplete="off"
-                                placeholder="Name"
-                                wire:model.defer="sectors.{{ $index }}.name"
-                                class="form-control form-control-sm @error("sectors.$index.name") is-invalid @enderror"
-                                @if($markedForDeletion) disabled @endif
-                            >
-                            @error("sectors.$index.name") <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <td class="p-1 align-middle">
+                            @if($isEditor)
+                                <input
+                                    type="text"
+                                    id="name"
+                                    required
+                                    autofocus
+                                    autocomplete="off"
+                                    placeholder="Name"
+                                    wire:model.defer="selectedItem.name"
+                                    class="form-control form-control-sm @error("selectedItem.name") is-invalid @enderror"
+                                >
+                                @error("selectedItem.name") <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @else
+                                {{ $item->name }}
+                            @endif
                         </td>
                         <td class="p-1 fit">
-                            <button
-                                type="button"
-                                class="btn @if($markedForDeletion) btn-danger @else btn-warning @endif btn-sm"
-                                wire:click="deleteItem('{{ $index }}')"
-                                {{-- @cannot('delete', $sector) disabled title="Can only delete sector if no organizations are assigned" @endcannot --}}
-                            >
-                                @if($markedForDeletion)
+                            @if($isEditor)
+                                <button
+                                    type="submit"
+                                    class="btn btn-success btn-sm"
+                                    aria-label="Save"
+                                >
+                                    <span
+                                        wire:loading
+                                        wire:target="submit"
+                                        class="spinner-border spinner-border-sm"
+                                        role="status"
+                                        aria-hidden="true"></span>
+                                    <span
+                                        wire:loading.remove
+                                        wire:target="submit"><x-bi-check-circle/></span>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary btn-sm"
+                                    wire:click="cancelEdit"
+                                    aria-label="Cancel"
+                                >
                                     <x-bi-x-circle/>
-                                @else
-                                    <x-bi-trash/>
-                                @endif
-                            </button>
+                                </button>
+                            @else
+                                @can('update', $item)
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-sm"
+                                        wire:click="editItem('{{ $item->getRouteKey() }}')"
+                                        aria-label="Edit"
+                                    >
+                                        <x-bi-pencil-fill/>
+                                    </button>
+                                @endcan
+                                @can('delete', $item)
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning btn-sm"
+                                        wire:click="deleteItem('{{ $item->getRouteKey() }}')"
+                                        aria-label="Delete"
+                                    >
+                                        <x-bi-trash/>
+                                    </button>
+                                @endcan
+                            @endif
                         </td>
                     </tr>
                 @endforeach
-                @foreach ($newSectors as $index => $sector)
-                    {{-- @php
-                        $markedForDeletion = in_array($index, $deletedIndexes);
-                    @endphp --}}
+                @can('create', App\Model\Sector::class)
+                    @php
+                        $isEditor = $selectedItem !== null && $selectedItem->id === null;
+                    @endphp
                     <tr>
-                        <td class="p-1">
-                            <input
-                                type="text"
-                                id="name"
-                                required
-                                autocomplete="off"
-                                placeholder="Name"
-                                {{-- wire:model.defer="sectors.{{ $index }}.name" --}}
-                                {{-- class="form-control form-control-sm @error("sectors.$index.name") is-invalid @enderror" --}}
-                                {{-- @if($markedForDeletion) disabled @endif --}}
-                            >
-                            {{-- @error("sectors.$index.name") <div class="invalid-feedback">{{ $message }}</div> @enderror --}}
+                        <td class="p-1 align-middle">
+                            @if($isEditor)
+                                <input
+                                    type="text"
+                                    id="name"
+                                    required
+                                    autofocus
+                                    autocomplete="off"
+                                    placeholder="Name"
+                                    wire:model.defer="selectedItem.name"
+                                    class="form-control form-control-sm @error("selectedItem.name") is-invalid @enderror"
+                                >
+                                @error("selectedItem.name") <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @endif
                         </td>
                         <td class="p-1 fit">
-                            <button
-                                type="button"
-                                class="btn @if($markedForDeletion) btn-danger @else btn-warning @endif btn-sm"
-                                {{-- wire:click="deleteItem('{{ $index }}')" --}}
-                                {{-- @cannot('delete', $sector) disabled title="Can only delete sector if no organizations are assigned" @endcannot --}}
-                            >
-                                @if($markedForDeletion)
+                            @if($isEditor)
+                                <button
+                                    type="submit"
+                                    class="btn btn-success btn-sm"
+                                    aria-label="Save"
+                                >
+                                    <span
+                                        wire:loading
+                                        wire:target="submit"
+                                        class="spinner-border spinner-border-sm"
+                                        role="status"
+                                        aria-hidden="true"></span>
+                                    <span
+                                        wire:loading.remove
+                                        wire:target="submit"><x-bi-check-circle/></span>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary btn-sm"
+                                    wire:click="cancelEdit"
+                                    aria-label="Cancel"
+                                >
                                     <x-bi-x-circle/>
-                                @else
-                                    <x-bi-trash/>
-                                @endif
-                            </button>
+                                </button>
+                            @else
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-sm"
+                                    wire:click="newItem"
+                                    aria-label="Create"
+                                >
+                                    <x-bi-plus-circle/>
+                                </button>
+                            @endif
                         </td>
                     </tr>
-                @endforeach
-                <tr>
-                    <td class="p-1">
-                        <input
-                            type="text"
-                            id="name"
-                            autocomplete="off"
-                            placeholder="Name"
-                            wire:model.defer="newItem.name"
-                            class="form-control form-control-sm @error("name") is-invalid @enderror">
-                        @error("name") <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </td>
-                    <td class="p-1 fit">
-                        <button
-                            type="button"
-                            class="btn btn-success btn-sm"
-                            wire:click="addItem"
-                        >
-                            <x-bi-plus-circle/>
-                        </button>
-                    </td>
-                </tr>
+                @endcan
             </tbody>
         </table>
-        <p class="d-flex justify-content-between align-items-center">
-            <button type="submit" class="btn btn-primary">
-                <span wire:loading wire:target="submit">Saving...</span>
-                <span wire:loading.remove wire:target="submit">Save changes</span>
-            </button>
-            <a href="{{ route('sectors.index') }}">Cancel</a>
-        </p>
     </form>
+    <p>
+        <a href="{{ route('sectors.index') }}">Return to list of sectors</a>
+    </p>
 </div>
