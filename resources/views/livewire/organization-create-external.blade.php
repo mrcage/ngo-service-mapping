@@ -7,5 +7,4 @@
             :disable-email="true">
     </div>
     <p wire:loading>Registering...</p>
-    </form>
 </div>

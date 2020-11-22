@@ -3,6 +3,7 @@
         "_ide_helper.php": true,
         ".phpstorm.meta.php": true,
         "public/css/app.css": true,
-        "public/js/app.js": true
+        "public/js/app.js": true,
+        "storage/framework/views": true
     }
 }

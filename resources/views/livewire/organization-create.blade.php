@@ -6,5 +6,4 @@
             :cancel-url="route('organizations.index')">
     </div>
     <p wire:loading>Registering...</p>
-    </form>
 </div>

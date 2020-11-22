@@ -28,7 +28,7 @@
                             class="form-control @error('email') is-invalid @enderror"
                         >
                         <div class="input-group-append">
-                            @isset($user->email_verified_at)
+                            @if($user->isEmailVerified)
                                 <span class="input-group-text text-success">
                                     <x-bi-check-circle class="mr-1"/> Verified
                                 </span>
@@ -36,7 +36,7 @@
                                 <span class="input-group-text text-danger">
                                     <x-bi-exclamation-circle class="mr-1"/> Not verified
                                 </span>
-                            @endisset
+                            @endif
                         </div>
                         @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

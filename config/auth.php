@@ -5,6 +5,9 @@ return [
     // Enable or disable user registration functionality
     'allow_user_registrtion' => (bool) env('ALLOW_USER_REGISTRATION', true),
 
+    // Minimum length of the password
+    'password_min_length' => 8,
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

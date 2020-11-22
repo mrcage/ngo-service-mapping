@@ -18,6 +18,11 @@ use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
+use App\Http\Livewire\UserCreate;
+use App\Http\Livewire\UserDelete;
+use App\Http\Livewire\UserDetail;
+use App\Http\Livewire\UserEdit;
+use App\Http\Livewire\UserList;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserProfileDelete;
 use Illuminate\Support\Facades\Route;
@@ -83,3 +88,19 @@ Route::get('/user/delete', UserProfileDelete::class)
 
 Route::get('/export', LivewireDataExport::class)
     ->name('export');
+
+Route::get('/users', UserList::class)
+    ->name('users.index')
+    ->middleware('auth');
+Route::get('/users/_create', UserCreate::class)
+    ->name('users.create')
+    ->middleware('auth');
+Route::get('/users/{user}', UserDetail::class)
+    ->name('users.show')
+    ->middleware('auth');
+Route::get('/users/{user}/edit', UserEdit::class)
+    ->name('users.edit')
+    ->middleware('auth');
+Route::get('/users/{user}/delete', UserDelete::class)
+    ->name('users.delete')
+    ->middleware('auth');

@@ -16,8 +16,14 @@ trait PasswordValidationRules
         return [
             'required',
             'string',
-            new Password,
+            $this->passwordComplexityRule(),
             'confirmed'
         ];
+    }
+
+    protected function passwordComplexityRule(): Password
+    {
+        return (new Password())
+            ->length(config('auth.password_min_length'));
     }
 }

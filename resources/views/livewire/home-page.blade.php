@@ -13,6 +13,11 @@
     <p>
         <a href="{{ route('sectors.index') }}" class="btn btn-outline-primary btn-block">List of sectors</a>
     </p>
+    @can('viewAny', App\Model\User::class)
+    <p>
+        <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-block">Manage users</a>
+    </p>
+    @endcan
     <p>
         <a href="{{ route('export') }}" class="btn btn-outline-primary btn-block">Export data</a>
     </p>
