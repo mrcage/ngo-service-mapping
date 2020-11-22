@@ -23,7 +23,7 @@
     <p wire:loading>Searching...</p>
     @if(filled($search) && $organizations->isNotEmpty())
         <p wire:loading.remove>
-            <em>Listing {{ $organizations->count() }} organizations matching '{{ trim($search) }}':</em>
+            <em>Listing {{ $organizations->total() }} organizations matching '{{ trim($search) }}':</em>
         </p>
     @endif
     @if($organizations->isNotEmpty())
@@ -32,9 +32,10 @@
                 <a href="{{  route('organizations.show', $organization) }}" class="list-group-item list-group-item-action">{{ $organization->name }}</a>
             @endforeach
         </div>
+        {{ $organizations->links() }}
         @if(blank($search))
             <p>
-                <small>There are {{ $organizations->count() }} organizations registered.</small>
+                <small>There are {{ $organizations->total() }} organizations registered.</small>
             </p>
         @endif
     @else

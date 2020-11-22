@@ -3,20 +3,30 @@
 namespace App\Http\Livewire;
 
 use App\Models\Organization;
+use Livewire\WithPagination;
 
 class OrganizationList extends PageComponent
 {
+    use WithPagination;
+
     protected $view = 'livewire.organization-list';
 
     protected $title = 'Organizations';
 
     public string $search = '';
 
+    protected $paginationTheme = 'bootstrap';
+
     public function mount()
     {
         if (session()->has('organizations.search')) {
             $this->search = session()->pull('organizations.search');
         }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function render()
@@ -31,7 +41,7 @@ class OrganizationList extends PageComponent
             'organizations' => Organization::query()
                 ->when(filled($this->search), fn ($q) => $q->filter($this->search))
                 ->orderBy('name')
-                ->get(),
+                ->paginate(25),
         ]);
     }
 }
