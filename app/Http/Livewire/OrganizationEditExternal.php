@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\UpdateOrganization;
-use App\Models\Organization;
-
-class OrganizationEditExternal extends PageComponent
+class OrganizationEditExternal extends OrganizationManage
 {
     protected $view = 'livewire.organization-edit-external';
 
@@ -14,13 +11,9 @@ class OrganizationEditExternal extends PageComponent
         return $this->organization->name . ' | Edit your Organization';
     }
 
-    public Organization $organization;
-
-    protected $listeners = ['formSubmitted'];
-
-    public function formSubmitted($formData, array $checkedSectors, UpdateOrganization $action)
+    public function submit()
     {
-        $action->update($this->organization, $formData, $checkedSectors);
+        parent::submit();
 
         session()->flash('message', 'Organization successfully updated.');
 

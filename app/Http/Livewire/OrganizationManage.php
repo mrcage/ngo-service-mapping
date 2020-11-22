@@ -7,9 +7,8 @@ use App\Models\OrganizationType;
 use App\Models\Sector;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 
-class OrganizationEditForm extends Component
+abstract class OrganizationManage extends PageComponent
 {
     public Organization $organization;
 
@@ -60,11 +59,6 @@ class OrganizationEditForm extends Component
         $this->types = OrganizationType::orderBy('name')->get();
     }
 
-    public function render()
-    {
-        return view('livewire.organization-edit-form');
-    }
-
     public function submit()
     {
         $this->validate();
@@ -83,6 +77,7 @@ class OrganizationEditForm extends Component
             ]);
         }
 
-        $this->emit('formSubmitted', $this->organization, $this->checkedSectors);
+        $this->organization->save();
+        $this->organization->sectors()->sync(Sector::whereIn('slug', $this->checkedSectors)->get());
     }
 }

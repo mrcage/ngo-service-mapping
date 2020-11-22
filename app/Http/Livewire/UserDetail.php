@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Collection;
 
 class UserDetail extends PageComponent
 {

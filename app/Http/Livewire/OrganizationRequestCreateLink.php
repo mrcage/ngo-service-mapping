@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Mail\SendOrganizationCreateLink;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 

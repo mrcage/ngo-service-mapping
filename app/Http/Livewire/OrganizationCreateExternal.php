@@ -2,31 +2,29 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\UpdateOrganization;
 use App\Models\Organization;
-use App\Models\Sector;
 
-class OrganizationCreateExternal extends PageComponent
+class OrganizationCreateExternal extends OrganizationManage
 {
     protected $view = 'livewire.organization-create-external';
 
     protected $title = 'Register your Organization';
 
-    public Organization $organization;
-
     public string $email;
 
-    protected $listeners = ['formSubmitted'];
+    public bool $disableEmail = true;
 
     public function mount()
     {
         $this->organization = new Organization();
         $this->organization->email = $this->email;
+
+        parent::mount();
     }
 
-    public function formSubmitted($formData, array $checkedSectors, UpdateOrganization $action)
+    public function submit()
     {
-        $action->update($this->organization, $formData, $checkedSectors);
+        parent::submit();
 
         session()->flash('message', 'Organization successfully registered.');
 

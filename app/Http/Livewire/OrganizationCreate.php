@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\UpdateOrganization;
 use App\Models\Organization;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class OrganizationCreate extends PageComponent
+class OrganizationCreate extends OrganizationManage
 {
     use AuthorizesRequests;
 
@@ -14,20 +13,18 @@ class OrganizationCreate extends PageComponent
 
     protected $title = 'Register Organization';
 
-    public Organization $organization;
-
-    protected $listeners = ['formSubmitted'];
-
     public function mount()
     {
         $this->authorize('create', Organization::class);
 
         $this->organization = new Organization();
+
+        parent::mount();
     }
 
-    public function formSubmitted($formData, array $checkedSectors, UpdateOrganization $action)
+    public function submit()
     {
-        $action->update($this->organization, $formData, $checkedSectors);
+        parent::submit();
 
         session()->flash('message', 'Organization successfully registered.');
 

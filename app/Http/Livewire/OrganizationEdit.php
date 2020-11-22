@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\UpdateOrganization;
-use App\Models\Organization;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class OrganizationEdit extends PageComponent
+class OrganizationEdit extends OrganizationManage
 {
     use AuthorizesRequests;
 
@@ -17,18 +15,16 @@ class OrganizationEdit extends PageComponent
         return $this->organization->name . ' | Edit Organization';
     }
 
-    public Organization $organization;
-
-    protected $listeners = ['formSubmitted'];
-
     public function mount()
     {
         $this->authorize('update', $this->organization);
+
+        parent::mount();
     }
 
-    public function formSubmitted($formData, array $checkedSectors, UpdateOrganization $action)
+    public function submit()
     {
-        $action->update($this->organization, $formData, $checkedSectors);
+        parent::submit();
 
         session()->flash('message', 'Organization successfully updated.');
 

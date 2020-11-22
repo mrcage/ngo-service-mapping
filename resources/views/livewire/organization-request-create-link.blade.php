@@ -18,6 +18,7 @@
                   id="email"
                   wire:model.defer="email"
                   autocomplete="off"
+                  autofocus
                   class="form-control @error('email') is-invalid @enderror">
                   @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
