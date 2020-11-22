@@ -53,7 +53,7 @@
                             wire:model.defer="timezone"
                             class="custom-select @error('timezone') is-invalid @enderror">
                             <option value="">- Default timezone -</option>
-                            @foreach($timezones as $value => $label)
+                            @foreach(listTimezones() as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </select>

@@ -2,31 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
-use DateTimeZone;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserCreate extends PageComponent
+class UserCreate extends UserManage
 {
-    use AuthorizesRequests;
-    use PasswordValidationRules;
-
     protected $view = 'livewire.user-create';
 
     protected $title = 'Register User';
-
-    public User $user;
-
-    public $isEmailVerified = false;
-
-    public string $password = '';
-
-    public $timezones;
-
-    public bool $showPassword = false;
 
     protected $rules = [
         'user.name' => [
@@ -63,8 +47,7 @@ class UserCreate extends PageComponent
         $this->user = new User();
         $this->user->is_admin = false;
 
-        $this->timezones = collect(DateTimeZone::listIdentifiers())
-            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)]);
+        parent::mount();
     }
 
     public function submit()
@@ -90,11 +73,5 @@ class UserCreate extends PageComponent
         session()->flash('message', 'User successfully registered.');
 
         return redirect()->route('users.show', $this->user);
-    }
-
-    public function generatePassword()
-    {
-        $this->showPassword = true;
-        $this->password = generateStrongPassword(config('auth.password_min_length'));
     }
 }

@@ -17,15 +17,11 @@ class UpdateUserProfileInformationForm extends Component
 
     public ?string $timezone = '';
 
-    public $timezones;
-
     public function mount(User $user)
     {
         $this->name = $user->name;
         $this->email = $user->email;
         $this->timezone = $user->timezone;
-        $this->timezones = collect(DateTimeZone::listIdentifiers())
-            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)]);
     }
 
     public function render()

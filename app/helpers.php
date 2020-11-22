@@ -13,7 +13,7 @@ if (! function_exists('generateStrongPassword')) {
      * Note: the $add_dashes option will increase the length of the password by
      * floor(sqrt(N)) characters.
      */
-    function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds')
+    function generateStrongPassword(int $length = 9, bool $add_dashes = false, string $available_sets = 'luds'): string
     {
         $sets = array();
         if(strpos($available_sets, 'l') !== false)
@@ -51,5 +51,20 @@ if (! function_exists('generateStrongPassword')) {
         }
         $dash_str .= $password;
         return $dash_str;
+    }
+}
+
+if (! function_exists('listTimezones')) {
+    /**
+     * Returns a list of all valid timezones, where the key is
+     * the timezone identifier and the value is a human friendly timezone label.
+     *
+     * @return array
+     */
+    function listTimezones(): array
+    {
+        return collect(\DateTimeZone::listIdentifiers())
+            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)])
+            ->toArray();
     }
 }

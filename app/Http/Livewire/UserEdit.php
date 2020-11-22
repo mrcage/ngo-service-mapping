@@ -2,34 +2,18 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
-use DateTimeZone;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserEdit extends PageComponent
+class UserEdit extends UserManage
 {
-    use AuthorizesRequests;
-    use PasswordValidationRules;
-
     protected $view = 'livewire.user-edit';
 
     protected function title()
     {
         return $this->user->name . ' | Edit User';
     }
-
-    public User $user;
-
-    public $isEmailVerified;
-
-    public string $password = '';
-
-    public $timezones;
-
-    public bool $showPassword = false;
 
     protected $rules = [
         'user.name' => [
@@ -64,8 +48,7 @@ class UserEdit extends PageComponent
 
         $this->isEmailVerified = $this->user->hasVerifiedEmail();
 
-        $this->timezones = collect(DateTimeZone::listIdentifiers())
-            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)]);
+        parent::mount();
     }
 
     public function submit()
@@ -106,11 +89,5 @@ class UserEdit extends PageComponent
             return true;
         }
         return false;
-    }
-
-    public function generatePassword()
-    {
-        $this->showPassword = true;
-        $this->password = generateStrongPassword(config('auth.password_min_length'));
     }
 }

@@ -1,4 +1,5 @@
 <form wire:submit.prevent="submit" autocomplete="off">
+    @dump($user)
     <div class="form-group">
         <label for="inputName">Name:</label>
         <input
@@ -52,7 +53,15 @@
                     class="btn btn-outline-secondary"
                     type="button"
                     wire:click="generatePassword">
-                    Generate
+                    <span
+                        wire:loading
+                        wire:target="generatePassword"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"></span>
+                    <span
+                        wire:loading.remove
+                        wire:target="generatePassword"><x-bi-arrow-repeat/></span>
                 </button>
             </div>
             @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -78,7 +87,7 @@
             wire:model.defer="user.timezone"
             class="custom-select @error('user-timezone') is-invalid @enderror">
             <option value="">- Default timezone -</option>
-            @foreach($timezones as $value => $label)
+            @foreach(listTimezones() as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
             @endforeach
         </select>
