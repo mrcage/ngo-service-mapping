@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\LogSuccessfulLogin;
+use App\Listeners\SetLocalUserTimezone;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -18,6 +19,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            SetLocalUserTimezone::class,
         ],
         Login::class => [
             LogSuccessfulLogin::class,
