@@ -46,14 +46,14 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
             $organization->email,
             $organization->website,
             $organization->sectors->pluck('name')->implode('; '),
-            Date::dateTimeToExcel($organization->created_at),
+            Date::dateTimeToExcel($organization->created_at->toUserTimezone()),
         ];
     }
 
     public function columnFormats(): array
     {
         return [
-            'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'G' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
 }

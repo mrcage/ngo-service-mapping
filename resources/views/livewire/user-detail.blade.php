@@ -9,7 +9,7 @@
         <x-bi-envelope-fill/>
         <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
         @if($user->hasVerifiedEmail())
-            <span class="text-success ml-2" title="{{ $user->email_verified_at }}">
+            <span class="text-success ml-2" title="{{ $user->email_verified_at->toUserTimezone() }}">
                 <x-bi-check-circle/> Verified
             </span>
         @else
@@ -19,7 +19,7 @@
         @endif
     </p>
 
-    <p title="{{ $user->created_at }}">
+    <p title="{{ $user->created_at->toUserTimezone() }}">
         <x-bi-calendar-plus/>
         Registered {{ $user->created_at->diffForHumans() }}
     </p>
@@ -36,7 +36,7 @@
             <x-bi-door-open/>
             Last login:
             <ul>
-                <li title="{{ $user->last_login_at }}">
+                <li title="{{ $user->last_login_at->toUserTimezone() }}">
                     <x-bi-clock/>
                     {{ $user->last_login_at->diffForHumans() }}
                 </li>
