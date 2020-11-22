@@ -28,7 +28,7 @@
                             class="form-control @error('email') is-invalid @enderror"
                         >
                         <div class="input-group-append">
-                            @if($user->isEmailVerified)
+                            @if($user->hasVerifiedEmail())
                                 <span class="input-group-text text-success">
                                     <x-bi-check-circle class="mr-1"/> Verified
                                 </span>

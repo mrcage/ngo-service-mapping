@@ -48,16 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->orWhere('email', trim($value));
     }
 
-    public function getIsEmailVerifiedAttribute(): bool
+    public function setEmailAsVerified(bool $verified)
     {
-        return isset($this->email_verified_at);
-    }
-
-    public function setIsEmailVerifiedAttribute($value)
-    {
-        if ($value && !isset($this->email_verified_at)) {
-            $this->email_verified_at = now();
-        } else if (!$value) {
+        if ($verified && !$this->hasVerifiedEmail()) {
+            $this->email_verified_at = $this->freshTimestamp();
+        } elseif (!$verified) {
             $this->email_verified_at = null;
         }
     }

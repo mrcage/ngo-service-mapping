@@ -50,7 +50,7 @@ class UserEdit extends PageComponent
     {
         $this->authorize('update', $this->user);
 
-        $this->isEmailVerified = $this->user->isEmailVerified;
+        $this->isEmailVerified = $this->user->hasVerifiedEmail();
     }
 
     public function submit()
@@ -63,7 +63,7 @@ class UserEdit extends PageComponent
             ]
         ]);
 
-        $this->user->isEmailVerified = $this->isEmailVerified;
+        $this->user->setEmailAsVerified($this->isEmailVerified);
 
         $message = 'User successfully updated.';
         if ($this->updatePassword()) {

@@ -19,7 +19,7 @@ class UserCreate extends PageComponent
 
     public User $user;
 
-    public $isEmailVerified;
+    public $isEmailVerified = false;
 
     public string $password = '';
 
@@ -63,7 +63,8 @@ class UserCreate extends PageComponent
             ],
         ]);
 
-        $this->user->isEmailVerified = $this->isEmailVerified;
+        $this->user->setEmailAsVerified($this->isEmailVerified);
+
         $this->user->password = Hash::make($this->password);
 
         $this->user->save();

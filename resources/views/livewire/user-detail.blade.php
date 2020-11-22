@@ -6,8 +6,8 @@
     <p>
         <x-bi-envelope-fill/>
         <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
-        @if($user->isEmailVerified)
-            <span class="text-success ml-2">
+        @if($user->hasVerifiedEmail())
+            <span class="text-success ml-2" title="{{ $user->email_verified_at }}">
                 <x-bi-check-circle/> Verified
             </span>
         @else

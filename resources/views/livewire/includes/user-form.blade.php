@@ -6,6 +6,7 @@
             wire:model.defer="user.name"
             id="inputName"
             required
+            @unless($user->exists) autofocus @endunless
             class="form-control @error('user.name') is-invalid @enderror"
         >
         @error('user.name') <div class="invalid-feedback">{{ $message }}</div> @enderror

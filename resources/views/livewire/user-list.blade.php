@@ -30,7 +30,7 @@
                 <a href="{{  route('users.show', $user) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <span>{{ $user->name }}</span>
                     <small class="d-none d-sm-inline text-right">
-                        <span class="@if($user->isEmailVerified) text-success @else text-danger  @endif">{{ $user->email }}</span>
+                        <span class="@if($user->hasVerifiedEmail()) text-success @else text-danger  @endif">{{ $user->email }}</span>
                         <br>Registered {{ $user->created_at->diffForHumans() }}
                     </small>
                 </a>
