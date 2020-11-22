@@ -1,4 +1,4 @@
-<form wire:submit.prevent="submit">
+<form wire:submit.prevent="submit" autocomplete="off">
     <div class="form-group">
         <label for="inputName">Name:</label>
         <input
@@ -6,6 +6,7 @@
             wire:model.defer="user.name"
             id="inputName"
             required
+            autocomplete="off"
             @unless($user->exists) autofocus @endunless
             class="form-control @error('user.name') is-invalid @enderror"
         >
@@ -18,6 +19,7 @@
             wire:model.defer="user.email"
             id="inputEmail"
             required
+            autocomplete="off"
             class="form-control @error('user.email') is-invalid @enderror"
         >
         @error('user.email') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -41,7 +43,6 @@
             wire:model.defer="password"
             id="inputPassword"
             class="form-control @error('password') is-invalid @enderror"
-            autocomplete="off"
             @unless($user->exists) required @endunless
             @if($user->exists) placeholder="(Leave empty if you don't want to change it)" @endif
         >

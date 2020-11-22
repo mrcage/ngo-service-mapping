@@ -2,7 +2,7 @@
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
-    <form wire:submit.prevent="submit">
+    <form wire:submit.prevent="submit" autocomplete="off">
         <div class="card my-3">
             <div class="card-body pb-0">
                 <h5 class="card-title">Profile information</h5>
@@ -13,6 +13,7 @@
                         wire:model.defer="name"
                         id="inputName"
                         required
+                        autocomplete="off"
                         class="form-control @error('name') is-invalid @enderror"
                     >
                     @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -25,6 +26,7 @@
                             wire:model.defer="email"
                             id="inputEmail"
                             required
+                            autocomplete="off"
                             class="form-control @error('email') is-invalid @enderror"
                         >
                         <div class="input-group-append">
