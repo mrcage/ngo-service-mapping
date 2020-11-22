@@ -39,9 +39,12 @@ class UserCreate extends PageComponent
             'nullable',
             'boolean',
         ],
+        'user.is_admin' => [
+            'boolean',
+        ],
         'password' => [
             'required',
-        ]
+        ],
     ];
 
     public function mount()
@@ -49,6 +52,7 @@ class UserCreate extends PageComponent
         $this->authorize('create', User::class);
 
         $this->user = new User();
+        $this->user->is_admin = false;
     }
 
     public function submit()

@@ -1,5 +1,8 @@
 <div>
     <h2>User profile</h2>
+    @if($user->is_admin)
+        <x-alert type="info" message="This is an administrator account."/>
+    @endif
     <livewire:update-user-profile-information-form :user="$user">
     <livewire:update-password-form :user="$user">
     <div>

@@ -41,8 +41,7 @@ class OrganizationPolicy
      */
     public function create(User $user)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -54,8 +53,7 @@ class OrganizationPolicy
      */
     public function update(User $user, Organization $organization)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -67,7 +65,6 @@ class OrganizationPolicy
      */
     public function delete(User $user, Organization $organization)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 }

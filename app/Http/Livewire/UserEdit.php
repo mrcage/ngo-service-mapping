@@ -41,9 +41,12 @@ class UserEdit extends PageComponent
         'isEmailVerified' => [
             'boolean',
         ],
+        'user.is_admin' => [
+            'boolean',
+        ],
         'password' => [
             'nullable',
-        ]
+        ],
     ];
 
     public function mount()
@@ -60,7 +63,7 @@ class UserEdit extends PageComponent
             'user.email' => [
                 Rule::unique(User::class, 'email')
                     ->ignore($this->user->id),
-            ]
+            ],
         ]);
 
         $this->user->setEmailAsVerified($this->isEmailVerified);
@@ -83,7 +86,7 @@ class UserEdit extends PageComponent
             $this->validate([
                 'password' => [
                     $this->passwordComplexityRule(),
-                ]
+                ],
             ]);
             $this->user->password = Hash::make($this->password);
             return true;

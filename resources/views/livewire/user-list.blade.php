@@ -28,7 +28,10 @@
         <div class="list-group mb-3">
             @foreach ($users as $user)
                 <a href="{{  route('users.show', $user) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    <span>{{ $user->name }}</span>
+                    <span>
+                        @if($user->is_admin) <x-bi-person-badge/> @endif
+                        {{ $user->name }}
+                    </span>
                     <small class="d-none d-sm-inline text-right">
                         <span class="@if($user->hasVerifiedEmail()) text-success @else text-danger  @endif">{{ $user->email }}</span>
                         <br>Registered {{ $user->created_at->diffForHumans() }}

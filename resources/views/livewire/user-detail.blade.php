@@ -5,6 +5,10 @@
         <x-alert type="success" :message="session('message')"/>
     @endif
 
+    @if($user->is_admin)
+        <x-alert type="info" message="This is an administrator account."/>
+    @endif
+
     <p>
         <x-bi-envelope-fill/>
         <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>

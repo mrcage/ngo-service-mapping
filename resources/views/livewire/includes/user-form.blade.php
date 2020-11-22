@@ -29,11 +29,11 @@
             <input
                 type="checkbox"
                 class="custom-control-input"
-                id="customSwitch1"
+                id="emailVerifiedSwitch"
                 value="1"
                 wire:model="isEmailVerified"
             >
-            <label class="custom-control-label" for="customSwitch1">Verified E-Mail address</label>
+            <label class="custom-control-label" for="emailVerifiedSwitch">Verified E-Mail address</label>
         </div>
     </p>
     <div class="form-group">
@@ -48,6 +48,19 @@
         >
         @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
+    <p>
+        <div class="custom-control custom-switch">
+            <input
+                type="checkbox"
+                class="custom-control-input"
+                id="adminSwitch"
+                value="1"
+                wire:model.defer="user.is_admin"
+                @if($user->is_admin && App\Models\User::where('is_admin', true)->count() == 1) disabled @endif
+            >
+            <label class="custom-control-label" for="adminSwitch">Administrator</label>
+        </div>
+    </p>
     <p class="d-flex justify-content-between align-items-center">
         <button type="submit" class="btn btn-primary">
             <span wire:loading wire:target="submit">Saving...</span>

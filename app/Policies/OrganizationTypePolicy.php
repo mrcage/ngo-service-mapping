@@ -41,8 +41,7 @@ class OrganizationTypePolicy
      */
     public function create(User $user)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -54,8 +53,7 @@ class OrganizationTypePolicy
      */
     public function update(User $user, OrganizationType $organizationType)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -67,7 +65,6 @@ class OrganizationTypePolicy
      */
     public function delete(User $user, OrganizationType $organizationType)
     {
-        // TODO
-        return $organizationType->organizations()->count() == 0;
+        return $user->is_admin && $organizationType->organizations()->count() == 0;
     }
 }

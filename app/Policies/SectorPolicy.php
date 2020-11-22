@@ -41,8 +41,7 @@ class SectorPolicy
      */
     public function create(User $user)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -54,8 +53,7 @@ class SectorPolicy
      */
     public function update(User $user, Sector $sector)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 
     /**
@@ -67,7 +65,6 @@ class SectorPolicy
      */
     public function delete(User $user, Sector $sector)
     {
-        // TODO
-        return true;
+        return $user->is_admin;
     }
 }
