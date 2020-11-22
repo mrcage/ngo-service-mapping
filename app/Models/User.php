@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
+    use NullableFields;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_login_at' => 'datetime',
         'is_admin' => 'boolean',
     ];
+
+    protected $attributes = [
+        'is_admin' => false,
+    ];
+
+	protected $nullable = [
+		'timezone',
+	];
 
     public function scopeFilter(Builder $query, $value)
     {

@@ -1,5 +1,4 @@
 <form wire:submit.prevent="submit" autocomplete="off">
-    @dump($user)
     <div class="form-group">
         <label for="inputName">Name:</label>
         <input
