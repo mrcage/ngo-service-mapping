@@ -36,33 +36,51 @@
     @endisset
 
     @isset($user->last_login_at)
-        <p>
-            <x-bi-door-open/>
-            Last login:
-            <ul>
-                <li title="{{ $user->last_login_at->toUserTimezone() }}">
-                    <x-bi-clock/>
-                    {{ $user->last_login_at->diffForHumans() }}
+        <h3>Last login</h3>
+        <ul>
+            <li title="{{ $user->last_login_at->toUserTimezone() }}">
+                <x-bi-clock/>
+                {{ $user->last_login_at->diffForHumans() }}
+            </li>
+            @isset($user->last_login_ip)
+                <li>
+                    <x-bi-globe/>
+                    {{ $user->last_login_ip }}
+                    <button
+                        class="btn btn-sm btn-secondary"
+                        wire:click="fetchIpData"
+                        aria-label="Query IP data"
+                    >
+                        <span
+                            wire:loading
+                            wire:target="fetchIpData"
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"></span>
+                        <span
+                            wire:loading.remove
+                            wire:target="fetchIpData"><x-bi-info-circle/></span>
+                    </button>
+                    @if(count($ipData) > 0)
+                        <ul>
+                            @foreach($ipData as $k => $v)
+                                <li><strong>{{ ucfirst(str_replace('_', ' ', $k)) }}:</strong> {{ $v }}</li>
+                            @endforeach
+                        </ul>
+                    @endisset
                 </li>
-                @isset($user->last_login_ip)
-                    <li>
-                        <x-bi-globe/>
-                        {{ $user->last_login_ip }}
-                        [<a href="https://whatismyipaddress.com/ip/{{ $user->last_login_ip }}" target="_blank">WHOIS</a>]
-                    </li>
-                @endisset
-                @isset($user->last_login_user_agent)
-                    <li title="{{ $user->last_login_user_agent }}">
-                        <x-bi-app/>
-                        @php
-                            $parser = new donatj\UserAgent\UserAgentParser();
-                            $ua = $parser->parse($user->last_login_user_agent);
-                        @endphp
-                        {{ $ua->browser() }} {{ $ua->browserVersion() }} on {{ $ua->platform() }}
-                    </li>
-                @endisset
-            </ul>
-        </p>
+            @endisset
+            @isset($user->last_login_user_agent)
+                <li title="{{ $user->last_login_user_agent }}">
+                    <x-bi-app/>
+                    @php
+                        $parser = new donatj\UserAgent\UserAgentParser();
+                        $ua = $parser->parse($user->last_login_user_agent);
+                    @endphp
+                    {{ $ua->browser() }} {{ $ua->browserVersion() }} on {{ $ua->platform() }}
+                </li>
+            @endisset
+        </ul>
     @endisset
 
     <p>
