@@ -29,6 +29,8 @@ class UserEdit extends PageComponent
 
     public $timezones;
 
+    public bool $showPassword = false;
+
     protected $rules = [
         'user.name' => [
             'required',
@@ -104,5 +106,11 @@ class UserEdit extends PageComponent
             return true;
         }
         return false;
+    }
+
+    public function generatePassword()
+    {
+        $this->showPassword = true;
+        $this->password = generateStrongPassword(config('auth.password_min_length'));
     }
 }

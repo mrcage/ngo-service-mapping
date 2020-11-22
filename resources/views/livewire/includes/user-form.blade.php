@@ -38,15 +38,25 @@
     </p>
     <div class="form-group">
         <label for="inputPassword">@if($user->exists) New password: @else Password: @endif</label>
-        <input
-            type="password"
-            wire:model.defer="password"
-            id="inputPassword"
-            class="form-control @error('password') is-invalid @enderror"
-            @unless($user->exists) required @endunless
-            @if($user->exists) placeholder="(Leave empty if you don't want to change it)" @endif
-        >
-        @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        <div class="input-group mb-3">
+            <input
+                @if($showPassword) type="text" @else type="password" @endif
+                wire:model.defer="password"
+                id="inputPassword"
+                class="form-control @error('password') is-invalid @enderror"
+                @unless($user->exists) required @endunless
+                @if($user->exists) placeholder="(Leave empty if you don't want to change it)" @endif
+            >
+            <div class="input-group-append">
+                <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    wire:click="generatePassword">
+                    Generate
+                </button>
+            </div>
+            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
     </div>
     <p>
         <div class="custom-control custom-switch">

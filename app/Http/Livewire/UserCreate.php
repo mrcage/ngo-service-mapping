@@ -26,6 +26,8 @@ class UserCreate extends PageComponent
 
     public $timezones;
 
+    public bool $showPassword = false;
+
     protected $rules = [
         'user.name' => [
             'required',
@@ -88,5 +90,11 @@ class UserCreate extends PageComponent
         session()->flash('message', 'User successfully registered.');
 
         return redirect()->route('users.show', $this->user);
+    }
+
+    public function generatePassword()
+    {
+        $this->showPassword = true;
+        $this->password = generateStrongPassword(config('auth.password_min_length'));
     }
 }
