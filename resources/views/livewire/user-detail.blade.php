@@ -24,6 +24,13 @@
         Registered {{ $user->created_at->diffForHumans() }}
     </p>
 
+    @isset($user->timezone)
+        <p>
+            <x-bi-watch/>
+            {{ str_replace('_', ' ', $user->timezone) }}
+        </p>
+    @endisset
+
     @isset($user->last_login_at)
         <p>
             <x-bi-door-open/>

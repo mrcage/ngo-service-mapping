@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => $this->faker->boolean(90) ? now() : null,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'timezone' => $this->faker->optional(0.7)->timezone,
             'last_login_at' => $lastLogin ? now() : null,
             'last_login_ip' => $lastLogin ? $this->faker->ipv4 : null,
             'last_login_user_agent' => $lastLogin ? $this->faker->userAgent : null,
