@@ -1,5 +1,5 @@
 <div>
-    <h2>{{ $user->name }}</h2>
+    <h2>{{ $user->name }} <small class="text-muted">User</small></h2>
 
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>

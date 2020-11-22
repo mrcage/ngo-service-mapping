@@ -1,5 +1,5 @@
 <div>
-    <h2>Sector <strong>{{ $sector->name }}</strong></h2>
+    <h2>{{ $sector->name }} <small class="text-muted">Sector</small></h2>
     @if($sector->organizations->isNotEmpty())
         <p>There are {{ $sector->organizations->count() }} organizations registered in this sector.</p>
         <div class="list-group mb-3">

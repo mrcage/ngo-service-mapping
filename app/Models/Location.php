@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Organization extends Model
+class Location extends Model
 {
     use HasFactory;
     use Sluggable;
@@ -17,22 +17,13 @@ class Organization extends Model
     protected $fillable = [
         'name',
         'description',
-        'email',
-        'website',
+        'coordinates',
     ];
 
 	protected $nullable = [
 		'description',
-		'email',
-		'website',
+		'coordinates',
 	];
-
-    protected static function booted()
-    {
-        static::deleting(function ($organization) {
-            $organization->sectors()->detach();
-        });
-    }
 
     public function sluggable(): array
     {
@@ -49,30 +40,19 @@ class Organization extends Model
         return 'slug';
     }
 
-    public function sectors()
-    {
-        return $this->belongsToMany(Sector::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(OrganizationType::class, 'type_id');
-    }
-
     public function services()
     {
         return $this->hasMany(Service::class);
     }
 
-    public function locations()
+    public function organizations()
     {
         // TODO
-        return $this->hasManyThrough(Location::class, Service::class);
+        return $this->hasManyThrough(Organization::class, Service::class);
     }
 
     public function scopeFilter(Builder $query, $value)
     {
-        return $query->where('name', 'like', '%' . trim($value) . '%')
-            ->orWhere('email', trim($value));
+        return $query->where('name', 'like', '%' . trim($value) . '%');
     }
 }

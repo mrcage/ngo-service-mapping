@@ -1,12 +1,15 @@
 <div>
-    <h2>{{ $organization->name }}</h2>
+    <h2>{{ $organization->name }} <small class="text-muted">Organization</small></h2>
+
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
+
     <p>
         <x-bi-tag-fill/>
         <a href="{{ route('types.show', $organization->type) }}">{{ $organization->type->name }}</a>
     </p>
+
     @isset($organization->description)
         @markdown($organization->description)
     @else
@@ -14,18 +17,21 @@
             <em>No description has been provided.</em>
         </p>
     @endif
+
     @isset($organization->email)
         <p>
             <x-bi-envelope-fill/>
             <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
         </p>
     @endisset
+
     @isset($organization->website)
         <p>
             <x-bi-globe/>
             <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
         </p>
     @endisset
+
     @if($organization->sectors->isNotEmpty())
         <h3>Sectors</h3>
         <ul>
@@ -36,6 +42,19 @@
             @endforeach
         </ul>
     @endisset
+
+    @if($organization->services->isNotEmpty())
+        <h3>Services</h3>
+        <ul>
+            @foreach($organization->services->sortBy('name') as $service)
+                <li>
+                    {{ $service->name }}<br>
+                    <x-bi-geo-alt/> <a href="{{ route('locations.show', $service->location) }}">{{ $service->location->name }}</a>
+                </li>
+            @endforeach
+        </ul>
+    @endisset
+
     <p>
         @can('update', $organization)
             <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |

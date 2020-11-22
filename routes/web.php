@@ -1,8 +1,9 @@
 <?php
 
-use App\Exports\DataExport;
 use App\Http\Livewire\DataExport as LivewireDataExport;
 use App\Http\Livewire\HomePage;
+use App\Http\Livewire\LocationDetail;
+use App\Http\Livewire\LocationList;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
 use App\Http\Livewire\OrganizationDelete;
@@ -78,6 +79,11 @@ Route::get('/sectors/_manage', SectorManage::class)
     ->name('sectors.manage');
 Route::get('/sectors/{sector}', SectorDetail::class)
     ->name('sectors.show');
+
+Route::get('/locations', LocationList::class)
+    ->name('locations.index');
+Route::get('/locations/{location}', LocationDetail::class)
+    ->name('locations.show');
 
 Route::get('/user', UserProfile::class)
     ->name('user-profile-information')

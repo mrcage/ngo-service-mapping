@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
                 SectorSeeder::class,
                 OrganizationTypeSeeder::class,
                 OrganizationSeeder::class,
+                LocationSeeder::class,
+                ServiceSeeder::class,
             ]);
         }
     }

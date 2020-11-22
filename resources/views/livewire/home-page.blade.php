@@ -12,6 +12,9 @@
         <a href="{{ route('organizations.index') }}" class="btn btn-outline-primary btn-block">List of organizations</a>
     </p>
     <p>
+        <a href="{{ route('locations.index') }}" class="btn btn-outline-primary btn-block">List of locations</a>
+    </p>
+    <p>
         <a href="{{ route('types.index') }}" class="btn btn-outline-primary btn-block">List of organization types</a>
     </p>
     <p>
