@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use DateTimeZone;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -22,6 +23,8 @@ class UserCreate extends PageComponent
     public $isEmailVerified = false;
 
     public string $password = '';
+
+    public $timezones;
 
     protected $rules = [
         'user.name' => [
@@ -45,6 +48,10 @@ class UserCreate extends PageComponent
         'password' => [
             'required',
         ],
+        'user.timezone' => [
+            'nullable',
+            'timezone',
+        ],
     ];
 
     public function mount()
@@ -53,6 +60,9 @@ class UserCreate extends PageComponent
 
         $this->user = new User();
         $this->user->is_admin = false;
+
+        $this->timezones = collect(DateTimeZone::listIdentifiers())
+            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)]);
     }
 
     public function submit()
@@ -70,6 +80,8 @@ class UserCreate extends PageComponent
         $this->user->setEmailAsVerified($this->isEmailVerified);
 
         $this->user->password = Hash::make($this->password);
+
+        $this->user->timezone = filled($this->user->timezone) ? $this->user->timezone : null;
 
         $this->user->save();
 

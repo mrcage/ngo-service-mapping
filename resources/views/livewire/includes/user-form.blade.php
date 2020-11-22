@@ -61,6 +61,19 @@
             <label class="custom-control-label" for="adminSwitch">Administrator</label>
         </div>
     </p>
+    <div class="form-group">
+        <label for="timezone">Timezone:</label>
+        <select
+            id="timezone"
+            wire:model.defer="user.timezone"
+            class="custom-select @error('user-timezone') is-invalid @enderror">
+            <option value="">- Default timezone -</option>
+            @foreach($timezones as $value => $label)
+                <option value="{{ $value }}">{{ $label }}</option>
+            @endforeach
+        </select>
+        @error('user.timezone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </div>
     <p class="d-flex justify-content-between align-items-center">
         <button type="submit" class="btn btn-primary">
             <span wire:loading wire:target="submit">Saving...</span>

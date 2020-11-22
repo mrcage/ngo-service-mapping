@@ -9,7 +9,7 @@ class UserTimeZoneMixin
     public function toUserTimezone() {
         return static function () {
             $date = self::this();
-            if (Auth::check() && Auth::user()->timezone !== null) {
+            if (Auth::check() && filled(Auth::user()->timezone)) {
                 return $date->timezone(Auth::user()->timezone);
             }
             return $date;

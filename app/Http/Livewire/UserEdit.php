@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use DateTimeZone;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,8 @@ class UserEdit extends PageComponent
 
     public string $password = '';
 
+    public $timezones;
+
     protected $rules = [
         'user.name' => [
             'required',
@@ -47,6 +50,10 @@ class UserEdit extends PageComponent
         'password' => [
             'nullable',
         ],
+        'user.timezone' => [
+            'nullable',
+            'timezone',
+        ],
     ];
 
     public function mount()
@@ -54,6 +61,9 @@ class UserEdit extends PageComponent
         $this->authorize('update', $this->user);
 
         $this->isEmailVerified = $this->user->hasVerifiedEmail();
+
+        $this->timezones = collect(DateTimeZone::listIdentifiers())
+            ->mapWithKeys(fn ($tz) => [$tz => str_replace('_', ' ', $tz)]);
     }
 
     public function submit()
@@ -72,6 +82,8 @@ class UserEdit extends PageComponent
         if ($this->updatePassword()) {
             $message .= ' The password has been changed.';
         }
+
+        $this->user->timezone = filled($this->user->timezone) ? $this->user->timezone : null;
 
         $this->user->save();
 
