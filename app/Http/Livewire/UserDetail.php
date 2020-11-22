@@ -33,6 +33,7 @@ class UserDetail extends PageComponent
         $geoIp = geoip()->getLocation($ip);
         collect($geoIp->toArray())
             ->except('ip', 'default', 'cached')
+            ->filter()
             ->each(function ($item, $key) {
                 $this->ipData[$key] = $item;
             });
