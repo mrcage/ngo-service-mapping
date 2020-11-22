@@ -21,7 +21,7 @@
     <p wire:loading>Searching...</p>
     @if(filled($search) && $users->isNotEmpty())
         <p wire:loading.remove>
-            <em>Listing {{ $users->count() }} users matching '{{ trim($search) }}':</em>
+            <em>Listing {{ $users->total() }} users matching '{{ trim($search) }}':</em>
         </p>
     @endif
     @if($users->isNotEmpty())
@@ -39,9 +39,10 @@
                 </a>
             @endforeach
         </div>
+        {{ $users->links() }}
         @if(blank($search))
             <p>
-                <small>There are {{ $users->count() }} users registered.</small>
+                <small>There are {{ $users->total() }} users registered.</small>
             </p>
         @endif
     @else
