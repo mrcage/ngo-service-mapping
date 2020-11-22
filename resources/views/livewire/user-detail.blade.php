@@ -1,8 +1,10 @@
 <div>
     <h2>{{ $user->name }}</h2>
+
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
     @endif
+
     <p>
         <x-bi-envelope-fill/>
         <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
@@ -16,22 +18,42 @@
             </span>
         @endif
     </p>
+
     <p title="{{ $user->created_at }}">
         <x-bi-calendar-plus/>
         Registered {{ $user->created_at->diffForHumans() }}
     </p>
+
     @isset($user->last_login_at)
         <p>
             <x-bi-door-open/>
-            Last login: <span title="{{ $user->last_login_at }}">{{ $user->last_login_at->diffForHumans() }}</span>
-            @isset($user->last_login_ip)
-                from <a href="https://whatismyipaddress.com/ip/{{ $user->last_login_ip }}" target="_blank">{{ $user->last_login_ip }}</a>
-            @endisset
-            @isset($user->last_login_user_agent)
-                with {{ $user->last_login_user_agent }}
-            @endisset
+            Last login:
+            <ul>
+                <li title="{{ $user->last_login_at }}">
+                    <x-bi-clock/>
+                    {{ $user->last_login_at->diffForHumans() }}
+                </li>
+                @isset($user->last_login_ip)
+                    <li>
+                        <x-bi-globe/>
+                        {{ $user->last_login_ip }}
+                        [<a href="https://whatismyipaddress.com/ip/{{ $user->last_login_ip }}" target="_blank">WHOIS</a>]
+                    </li>
+                @endisset
+                @isset($user->last_login_user_agent)
+                    <li title="{{ $user->last_login_user_agent }}">
+                        <x-bi-app/>
+                        @php
+                            $parser = new donatj\UserAgent\UserAgentParser();
+                            $ua = $parser->parse($user->last_login_user_agent);
+                        @endphp
+                        {{ $ua->browser() }} {{ $ua->browserVersion() }} on {{ $ua->platform() }}
+                    </li>
+                @endisset
+            </ul>
         </p>
     @endisset
+
     <p>
         @can('update', $user)
             <a href="{{ route('users.edit', $user) }}">Edit</a> |
