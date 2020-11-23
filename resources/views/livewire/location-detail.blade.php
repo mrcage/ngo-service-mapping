@@ -24,14 +24,13 @@
 
     @if($location->services->isNotEmpty())
         <h3>Services</h3>
-        <ul>
-            @foreach($location->services->sortBy('name') as $service)
-                <li>
-                    {{ $service->name }}<br>
-                    <x-bi-diagram-2/> <a href="{{ route('organizations.show', $service->organization) }}">{{ $service->organization->name }}</a>
-                </li>
-            @endforeach
-        </ul>
+        @foreach($location->services->sortBy('name') as $service)
+            <h5>{{ $service->name }}</h5>
+            <p><x-bi-diagram-2/> <a href="{{ route('organizations.show', $service->organization) }}">{{ $service->organization->name }}</a></p>
+            @isset($service->description)
+                @markdown($service->description)
+            @endif
+        @endforeach
         <h3>Organizations</h3>
         <ul>
             @foreach($location->organizations()->orderBy('name')->get() as $organization)

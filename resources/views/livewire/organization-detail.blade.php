@@ -32,32 +32,31 @@
         </p>
     @endisset
 
+    @if($organization->services->isNotEmpty())
+        <h3>Services</h3>
+        @foreach($organization->services->sortBy('name') as $service)
+            <h5>{{ $service->name }}</h5>
+            <p><x-bi-geo-alt/> <a href="{{ route('locations.show', $service->location) }}">{{ $service->location->name }}</a></p>
+            @isset($service->description)
+                @markdown($service->description)
+            @endif
+        @endforeach
+        <h3>Locations</h3>
+        <ul>
+            @foreach($organization->locations()->get()->sortBy('name') as $location)
+                <li>
+                    <a href="{{ route('locations.show', $location) }}">{{ $location->name }}</a>
+                </li>
+            @endforeach
+        </ul>
+    @endisset
+
     @if($organization->sectors->isNotEmpty())
         <h3>Sectors</h3>
         <ul>
             @foreach($organization->sectors->sortBy('name') as $sector)
                 <li>
                     <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @endisset
-
-    @if($organization->services->isNotEmpty())
-        <h3>Services</h3>
-        <ul>
-            @foreach($organization->services->sortBy('name') as $service)
-                <li>
-                    {{ $service->name }}<br>
-                    <x-bi-geo-alt/> <a href="{{ route('locations.show', $service->location) }}">{{ $service->location->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-        <h3>Locations</h3>
-        <ul>
-            @foreach($organization->locations()->get()->sortBy('name') as $location)
-                <li>
-                    <a href="{{ route('locations.show', $location) }}">{{ $location->name }}</a>
                 </li>
             @endforeach
         </ul>
