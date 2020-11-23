@@ -53,6 +53,14 @@
                 </li>
             @endforeach
         </ul>
+        <h3>Locations</h3>
+        <ul>
+            @foreach($organization->locations()->get()->sortBy('name') as $location)
+                <li>
+                    <a href="{{ route('locations.show', $location) }}">{{ $location->name }}</a>
+                </li>
+            @endforeach
+        </ul>
     @endisset
 
     <p>

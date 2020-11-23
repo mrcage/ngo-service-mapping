@@ -28,7 +28,15 @@
             @foreach($location->services->sortBy('name') as $service)
                 <li>
                     {{ $service->name }}<br>
-                    <x-bi-people/> <a href="{{ route('organizations.show', $service->organization) }}">{{ $service->organization->name }}</a>
+                    <x-bi-diagram-2/> <a href="{{ route('organizations.show', $service->organization) }}">{{ $service->organization->name }}</a>
+                </li>
+            @endforeach
+        </ul>
+        <h3>Organizations</h3>
+        <ul>
+            @foreach($location->organizations()->orderBy('name')->get() as $organization)
+                <li>
+                    <a href="{{ route('organizations.show', $organization) }}">{{ $organization->name }}</a>
                 </li>
             @endforeach
         </ul>

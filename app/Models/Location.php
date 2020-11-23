@@ -47,8 +47,7 @@ class Location extends Model
 
     public function organizations()
     {
-        // TODO
-        return $this->hasManyThrough(Organization::class, Service::class);
+        return $this->belongsToMany(Organization::class, 'services')->distinct();
     }
 
     public function scopeFilter(Builder $query, $value)
