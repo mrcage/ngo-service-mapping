@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 OrganizationTypeSeeder::class,
                 OrganizationSeeder::class,
                 LocationSeeder::class,
+                TargetGroupSeeder::class,
                 ServiceSeeder::class,
             ]);
         }

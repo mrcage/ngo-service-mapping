@@ -19,6 +19,9 @@ use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
+use App\Http\Livewire\TargetGroupDetail;
+use App\Http\Livewire\TargetGroupList;
+use App\Http\Livewire\TargetGroupManage;
 use App\Http\Livewire\UserCreate;
 use App\Http\Livewire\UserDelete;
 use App\Http\Livewire\UserDetail;
@@ -84,6 +87,13 @@ Route::get('/locations', LocationList::class)
     ->name('locations.index');
 Route::get('/locations/{location}', LocationDetail::class)
     ->name('locations.show');
+
+Route::get('/target-groups', TargetGroupList::class)
+    ->name('target-groups.index');
+Route::get('/target-groups/_manage', TargetGroupManage::class)
+    ->name('target-groups.manage');
+Route::get('/target-groups/{targetGroup}', TargetGroupDetail::class)
+    ->name('target-groups.show');
 
 Route::get('/user', UserProfile::class)
     ->name('user-profile-information')

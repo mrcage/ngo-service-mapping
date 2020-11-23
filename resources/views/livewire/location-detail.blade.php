@@ -27,6 +27,13 @@
         @foreach($location->services->sortBy('name') as $service)
             <h5>{{ $service->name }}</h5>
             <p><x-bi-diagram-2/> <a href="{{ route('organizations.show', $service->organization) }}">{{ $service->organization->name }}</a></p>
+            @if($service->targetGroups->isNotEmpty())
+                <p><x-bi-people/>
+                    @foreach($service->targetGroups as $targetGroup)
+                        <a href="{{ route('target-groups.show', $targetGroup) }}">{{ $targetGroup->name }}</a>@unless($loop->last),@endunless
+                    @endforeach
+                </p>
+            @endif
             @isset($service->description)
                 @markdown($service->description)
             @endif

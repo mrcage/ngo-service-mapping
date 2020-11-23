@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Service;
+use App\Models\TargetGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServiceFactory extends Factory
@@ -39,6 +40,7 @@ class ServiceFactory extends Factory
     {
         $locations = Location::all();
         $organizations = Organization::all();
+        $targetGroups = TargetGroup::all();
 
         return $this->afterMaking(function (Service $service) use ($locations, $organizations) {
             if ($locations->isNotEmpty()) {
@@ -46,6 +48,12 @@ class ServiceFactory extends Factory
             }
             if ($organizations->isNotEmpty()) {
                 $service->organization()->associate($organizations->random());
+            }
+        })->afterCreating(function (Service $service) use ($targetGroups) {
+            if ($targetGroups->isNotEmpty()) {
+                $num = mt_rand(0, $targetGroups->count());
+                $selection = $targetGroups->random($num);
+                $service->targetGroups()->sync($selection);
             }
         });
     }

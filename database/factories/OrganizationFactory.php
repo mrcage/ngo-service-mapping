@@ -50,8 +50,8 @@ class OrganizationFactory extends Factory
         })->afterCreating(function (Organization $organization) use ($sectors) {
             if ($sectors->isNotEmpty()) {
                 $num = mt_rand(0, $sectors->count());
-                $chosen_sectors = $sectors->random($num);
-                $organization->sectors()->sync($chosen_sectors);
+                $selection = $sectors->random($num);
+                $organization->sectors()->sync($selection);
             }
         });
     }

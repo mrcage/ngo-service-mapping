@@ -20,6 +20,9 @@
     <p>
         <a href="{{ route('sectors.index') }}" class="btn btn-outline-primary btn-block">List of sectors</a>
     </p>
+    <p>
+        <a href="{{ route('target-groups.index') }}" class="btn btn-outline-primary btn-block">List of target groups</a>
+    </p>
     @can('viewAny', App\Model\User::class)
     <p>
         <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-block">Manage users</a>

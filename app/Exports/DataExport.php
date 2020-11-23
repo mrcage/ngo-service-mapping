@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Exports\Sheets\OrganizationsSheet;
 use App\Exports\Sheets\OrganizationTypesSheet;
 use App\Exports\Sheets\SectorsSheet;
+use App\Exports\Sheets\TargetGroupsSheet;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\WithProperties;
@@ -22,6 +23,7 @@ class DataExport implements WithMultipleSheets, WithProperties
         $sheets[] = new OrganizationsSheet();
         $sheets[] = new OrganizationTypesSheet();
         $sheets[] = new SectorsSheet();
+        $sheets[] = new TargetGroupsSheet();
         return $sheets;
     }
 

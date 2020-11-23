@@ -30,4 +30,9 @@ class Service extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public function targetGroups()
+    {
+        return $this->belongsToMany(TargetGroup::class);
+    }
 }
