@@ -47,6 +47,14 @@ trait DefaultWorksheetStyles
             ->getBottom()
             ->setBorderStyle(Border::BORDER_MEDIUM);
 
+        // Column alignments
+        if (isset($this->columnAlignment)) {
+            foreach ($this->columnAlignment as $column => $alignment) {
+                $sheet->getStyle($column . '1:' . $column . $sheet->getHighestRow())
+                    ->getAlignment()->setHorizontal($alignment);
+            }
+        }
+
         // Freeze first line
         $sheet->freezePane('B2');
 

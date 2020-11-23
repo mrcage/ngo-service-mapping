@@ -3,7 +3,7 @@
 namespace App\Exports\Sheets;
 
 use App\Exports\DefaultWorksheetStyles;
-use App\Models\Organization;
+use App\Models\Location;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -11,28 +11,30 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithColumnFormatting, ShouldAutoSize, WithStyles
+class LocationsSheet implements FromQuery, WithMapping, WithHeadings, WithColumnFormatting, ShouldAutoSize, WithStyles
 {
     use DefaultWorksheetStyles;
 
-    protected $worksheetTitle = 'Organizations';
+    protected array $columnAlignment = [
+        'C' => Alignment::HORIZONTAL_RIGHT,
+    ];
+
+    protected $worksheetTitle = 'Locations';
 
     public function query()
     {
-        return Organization::orderBy('name');
+        return Location::orderBy('name');
     }
 
     public function headings(): array
     {
         return [
             'Name',
-            'Type',
             'Description',
-            'E-Mail',
-            'Website',
-            'Sectors',
+            'Coordinates',
             'Registered',
             'Updated',
         ];
@@ -42,11 +44,8 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
     {
         return [
             $organization->name,
-            $organization->type->name,
             $organization->description,
-            $organization->email,
-            $organization->website,
-            $organization->sectors->pluck('name')->implode('; '),
+            isset($organization->latitude) && isset($organization->longitude) ? $organization->latitude . ',' . $organization->longitude : null,
             Date::dateTimeToExcel($organization->created_at->toUserTimezone()),
             Date::dateTimeToExcel($organization->updated_at->toUserTimezone()),
         ];
@@ -56,8 +55,8 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
     {
         // TODO: Format date according to user locale / settings
         return [
-            'G' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'H' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'D' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'E' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

@@ -5,9 +5,14 @@
         <x-alert type="success" :message="session('message')"/>
     @endif
 
-    <p>
-        <x-bi-tag-fill/>
-        <a href="{{ route('types.show', $organization->type) }}">{{ $organization->type->name }}</a>
+    <p class="d-sm-flex justify-content-between">
+        <span title="Organization type">
+            <x-bi-tag-fill/>
+            <a href="{{ route('types.show', $organization->type) }}">{{ $organization->type->name }}</a>
+        </span>
+        <span class="d-block d-sm-inline" title="Last updated: {{ $organization->updated_at->toUserTimezone() }}">
+            <x-bi-clock/> {{ $organization->updated_at->diffForHumans() }}
+        </span>
     </p>
 
     @isset($organization->description)

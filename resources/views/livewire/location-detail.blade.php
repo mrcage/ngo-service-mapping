@@ -5,14 +5,19 @@
         <x-alert type="success" :message="session('message')"/>
     @endif
 
-    @if(isset($location->latitude) && isset($location->longitude))
-        <p>
-            <x-bi-geo-alt/>
-            <a href="http://www.google.com/maps/place/{{ $location->latitude }},{{ $location->longitude }}" target="_blank">
-                {{ $location->latitude }}, {{ $location->longitude }}
-            </a>
-        </p>
-    @endif
+    <p class="d-sm-flex justify-content-between">
+        @if(isset($location->latitude) && isset($location->longitude))
+            <span title="Coordinates">
+                <x-bi-geo-alt/>
+                <a href="http://www.google.com/maps/place/{{ $location->latitude }},{{ $location->longitude }}" target="_blank">
+                    {{ $location->latitude }}, {{ $location->longitude }}
+                </a>
+            </span>
+        @endif
+        <span class="d-block d-sm-inline" title="Last updated: {{ $location->updated_at->toUserTimezone() }}">
+            <x-bi-clock/> {{ $location->updated_at->diffForHumans() }}
+        </span>
+    </p>
 
     @isset($location->description)
         @markdown($location->description)

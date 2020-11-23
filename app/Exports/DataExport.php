@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Exports\Sheets\LocationsSheet;
 use App\Exports\Sheets\OrganizationsSheet;
 use App\Exports\Sheets\OrganizationTypesSheet;
 use App\Exports\Sheets\SectorsSheet;
@@ -21,6 +22,7 @@ class DataExport implements WithMultipleSheets, WithProperties
     {
         $sheets = [];
         $sheets[] = new OrganizationsSheet();
+        $sheets[] = new LocationsSheet();
         $sheets[] = new OrganizationTypesSheet();
         $sheets[] = new SectorsSheet();
         $sheets[] = new TargetGroupsSheet();
