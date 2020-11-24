@@ -23,6 +23,7 @@
                 <select
                     id="type"
                     wire:model.defer="organization.type_id"
+                    required
                     class="custom-select @error('organization.type_id') is-invalid @enderror">
                     <option value="">- Select type -</option>
                     @foreach($types as $type)
@@ -66,24 +67,6 @@
                 class="form-control @error('organization.website') is-invalid @enderror">
                 @error('organization.website') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-
-            @if($sectors->isNotEmpty())
-                <p class="mb-2">Sectors:</p>
-                <div class="mb-3">
-                    @foreach($sectors as $sector)
-                        <div class="custom-control custom-checkbox">
-                            <input
-                                type="checkbox"
-                                class="custom-control-input"
-                                id="sector-{{ $sector->getRouteKey() }}"
-                                value="{{ $sector->slug }}"
-                                wire:model.defer="checkedSectors"
-                            >
-                            <label class="custom-control-label" for="sector-{{ $sector->getRouteKey() }}">{{ $sector->name }} </label>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
 
             <p class="d-flex justify-content-between align-items-center">
                 <button type="submit" class="btn btn-primary">

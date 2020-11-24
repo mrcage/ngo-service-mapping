@@ -75,6 +75,16 @@ Route::get('/organizations/{organization}/editExternal', OrganizationEditExterna
     ->name('organizations.editExternal')
     ->middleware(['signed']);
 
+Route::get('/organizations/{organization}/service/_create', ServiceCreate::class)
+    ->name('organizations.services.create')
+    ->middleware('auth');
+Route::get('/organizations/{organization}/service/{service}/edit', ServiceEdit::class)
+    ->name('organizations.services.edit')
+    ->middleware('auth');
+Route::get('/organizations/{organization}/service/{service}/delete', ServiceDelete::class)
+    ->name('organizations.services.delete')
+    ->middleware('auth');
+
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
 Route::get('/types/_manage', OrganizationTypeManage::class)

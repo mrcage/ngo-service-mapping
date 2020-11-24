@@ -18,7 +18,8 @@ class Service extends Model
     ];
 
 	protected $nullable = [
-		'description',
+        'description',
+        'sector_id',
     ];
 
     protected static function booted()

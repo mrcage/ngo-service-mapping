@@ -38,9 +38,25 @@
         </p>
     @endif
 
-    @if($organization->services->isNotEmpty())
-        <hr>
+    <p>
+        @can('update', $organization)
+            <a href="{{ route('organizations.edit', $organization) }}">Edit</a>
+        @elseif(isset($organization->email))
+            <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a>
+        @endcan
+        @can('delete', $organization)
+            | <a href="{{ route('organizations.delete', $organization) }}">Delete</a>
+        @endcan
+    </p>
+
+    <hr>
+    <div class="d-sm-flex justify-content-between align-items-center">
         <h3>Services</h3>
+        @can('create', App\Model\Service::class)
+            <a href="{{ route('organizations.services.create', $organization) }}">Register service</a>
+        @endcan
+    </div>
+    @if($organization->services->isNotEmpty())
         @foreach($organization->services->sortBy('name') as $service)
             <h5>{{ $service->name }}</h5>
             <p>
@@ -63,6 +79,14 @@
             @isset($service->description)
                 @markdown($service->description)
             @endif
+            <p>
+                @can('update', $service)
+                    <a href="{{ route('organizations.services.edit', [$organization, $service]) }}">Edit</a>
+                @endcan
+                @can('delete', $service)
+                    | <a href="{{ route('organizations.services.delete', [$organization, $service]) }}">Delete</a>
+                @endcan
+            </p>
             <hr>
         @endforeach
 
@@ -132,17 +156,11 @@
                 </div>
             @endif
         </div>
+    @else
+        <p><em>No services registered.</em></p>
     @endisset
 
     <p>
-        @can('update', $organization)
-            <a href="{{ route('organizations.edit', $organization) }}">Edit</a> |
-        @elseif(isset($organization->email))
-            <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a> |
-        @endcan
-        @can('delete', $organization)
-            <a href="{{ route('organizations.delete', $organization) }}">Delete</a> |
-        @endcan
         <a href="{{ route('organizations.index') }}">Return to list of organizations</a>
     </p>
 </div>

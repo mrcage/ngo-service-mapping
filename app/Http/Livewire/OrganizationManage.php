@@ -14,11 +14,7 @@ abstract class OrganizationManage extends PageComponent
 
     public string $cancelUrl;
 
-    public array $checkedSectors;
-
     public bool $disableEmail = false;
-
-    public Collection $sectors;
 
     public Collection $types;
 
@@ -54,8 +50,6 @@ abstract class OrganizationManage extends PageComponent
 
     public function mount()
     {
-        $this->checkedSectors = $this->organization->sectors->pluck('slug')->toArray();
-        $this->sectors = Sector::orderBy('name')->get();
         $this->types = OrganizationType::orderBy('name')->get();
     }
 
@@ -78,6 +72,5 @@ abstract class OrganizationManage extends PageComponent
         }
 
         $this->organization->save();
-        $this->organization->sectors()->sync(Sector::whereIn('slug', $this->checkedSectors)->get());
     }
 }

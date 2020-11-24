@@ -27,21 +27,52 @@
         </div>
 
         @unless($service->exists)
+            @isset($location)
+                <div class="form-group">
+                    <label for="organization">Organization:</label>
+                    <select
+                        id="organization"
+                        wire:model.defer="service.organization_id"
+                        required
+                        class="custom-select @error('service.organization_id') is-invalid @enderror">
+                        <option value="">- Select organization -</option>
+                        @foreach(App\Models\Organization::orderBy('name')->get() as $organization)
+                            <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('service.organization_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+            @elseif ($organization)
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <select
+                        id="location"
+                        wire:model.defer="service.location_id"
+                        required
+                        class="custom-select @error('service.location_id') is-invalid @enderror">
+                        <option value="">- Select location -</option>
+                        @foreach(App\Models\Location::orderBy('name')->get() as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('service.location_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+            @endisset
+        @endunless
+
         <div class="form-group">
-            <label for="organization">Organization:</label>
+            <label for="sector">Sector:</label>
             <select
-                id="organization"
-                wire:model.defer="service.organization_id"
-                required
-                class="custom-select @error('service.organization_id') is-invalid @enderror">
-                <option value="">- Select organization -</option>
-                @foreach(App\Models\Organization::orderBy('name')->get() as $organization)
-                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                id="sector"
+                wire:model.defer="service.sector_id"
+                class="custom-select @error('service.sector_id') is-invalid @enderror">
+                <option value="">- Select sector -</option>
+                @foreach($sectors as $sector)
+                    <option value="{{ $sector->id }}">{{ $sector->name }}</option>
                 @endforeach
             </select>
-            @error('service.organization_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            @error('service.sector_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
-        @endunless
 
         <div class="form-group">
             <label for="description">Description:</label>
@@ -53,6 +84,24 @@
                 ></textarea>
             @error('service.description') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+
+        @if($targetGroups->isNotEmpty())
+            <p class="mb-2">Target groups:</p>
+            <div class="mb-3">
+                @foreach($targetGroups as $targetGroup)
+                    <div class="custom-control custom-checkbox">
+                        <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="targetGroup-{{ $targetGroup->getRouteKey() }}"
+                            value="{{ $targetGroup->slug }}"
+                            wire:model.defer="checkedTargetGroups"
+                        >
+                        <label class="custom-control-label" for="targetGroup-{{ $targetGroup->getRouteKey() }}">{{ $targetGroup->name }} </label>
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
         <p class="d-flex justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary">

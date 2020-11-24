@@ -36,14 +36,14 @@
         @endcan
     </p>
 
+    <hr>
+    <div class="d-sm-flex justify-content-between align-items-center">
+        <h3>Services</h3>
+        @can('create', App\Model\Service::class)
+            <a href="{{ route('locations.services.create', $location) }}">Register service</a>
+        @endcan
+    </div>
     @if($location->services->isNotEmpty())
-        <hr>
-        <div class="d-sm-flex justify-content-between align-items-center">
-            <h3>Services</h3>
-            @can('create', App\Model\Service::class)
-                <a href="{{ route('locations.services.create', $location) }}">Register service</a>
-            @endcan
-        </div>
         @foreach($location->services->sortBy('name') as $service)
             <h5>{{ $service->name }}</h5>
             <p>
@@ -147,6 +147,8 @@
                 </div>
             @endif
         </div>
+    @else
+        <p><em>No services registered.</em></p>
     @endisset
 
     <p>
