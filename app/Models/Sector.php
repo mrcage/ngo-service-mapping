@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Collection;
 
 class Sector extends Model
 {
@@ -18,7 +19,7 @@ class Sector extends Model
     protected static function booted()
     {
         static::deleting(function ($sector) {
-            $sector->organizations()->detach();
+            $sector->services->each(function ($service) { $service->sector()->dissociate();});
         });
     }
 
@@ -37,8 +38,30 @@ class Sector extends Model
         return 'slug';
     }
 
-    public function organizations()
+    public function services()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->hasMany(Service::class);
+    }
+
+    public function organizations(): Collection
+    {
+        return $this->services->map(fn ($s) => $s->organization)->unique('id');
+    }
+
+    public function locations(): Collection
+    {
+        return $this->services->map(fn ($s) => $s->location)->unique('id');
+    }
+
+    public function targetGroups(): Collection
+    {
+        return $this->services->flatMap(fn ($s) => $s->targetGroups)->unique('id');
+    }
+
+    public function organizationTypes(): Collection
+    {
+        return $this->services->map(fn ($s) => $s->organization)
+            ->map(fn ($o) => $o->type)
+            ->unique('id');
     }
 }

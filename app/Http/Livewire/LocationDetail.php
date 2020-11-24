@@ -14,4 +14,16 @@ class LocationDetail extends PageComponent
     }
 
     public Location $location;
+
+    public string $tab;
+
+    public function mount()
+    {
+        $this->tab = session()->get('locations.detail.tab', 'sectors');
+    }
+
+    public function updatedTab($value)
+    {
+        session()->put('locations.detail.tab', $value);
+    }
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Location;
 use App\Models\Organization;
+use App\Models\Sector;
 use App\Models\Service;
 use App\Models\TargetGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -41,13 +42,17 @@ class ServiceFactory extends Factory
         $locations = Location::all();
         $organizations = Organization::all();
         $targetGroups = TargetGroup::all();
+        $sectors = Sector::all();
 
-        return $this->afterMaking(function (Service $service) use ($locations, $organizations) {
+        return $this->afterMaking(function (Service $service) use ($locations, $organizations, $sectors) {
             if ($locations->isNotEmpty()) {
                 $service->location()->associate($locations->random());
             }
             if ($organizations->isNotEmpty()) {
                 $service->organization()->associate($organizations->random());
+            }
+            if ($sectors->isNotEmpty()) {
+                $service->sector()->associate($sectors->random());
             }
         })->afterCreating(function (Service $service) use ($targetGroups) {
             if ($targetGroups->isNotEmpty()) {

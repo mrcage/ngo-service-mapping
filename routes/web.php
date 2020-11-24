@@ -2,7 +2,10 @@
 
 use App\Http\Livewire\DataExport as LivewireDataExport;
 use App\Http\Livewire\HomePage;
+use App\Http\Livewire\LocationCreate;
+use App\Http\Livewire\LocationDelete;
 use App\Http\Livewire\LocationDetail;
+use App\Http\Livewire\LocationEdit;
 use App\Http\Livewire\LocationList;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
@@ -72,26 +75,38 @@ Route::get('/organizations/{organization}/editExternal', OrganizationEditExterna
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
 Route::get('/types/_manage', OrganizationTypeManage::class)
-    ->name('types.manage');
+    ->name('types.manage')
+    ->middleware('auth');
 Route::get('/types/{type}', OrganizationTypeDetail::class)
     ->name('types.show');
 
 Route::get('/sectors', SectorList::class)
     ->name('sectors.index');
 Route::get('/sectors/_manage', SectorManage::class)
-    ->name('sectors.manage');
+    ->name('sectors.manage')
+    ->middleware('auth');
 Route::get('/sectors/{sector}', SectorDetail::class)
     ->name('sectors.show');
 
 Route::get('/locations', LocationList::class)
     ->name('locations.index');
+Route::get('/locations/_create', LocationCreate::class)
+    ->name('locations.create')
+    ->middleware('auth');
 Route::get('/locations/{location}', LocationDetail::class)
     ->name('locations.show');
+Route::get('/locations/{location}/edit', LocationEdit::class)
+    ->name('locations.edit')
+    ->middleware('auth');
+Route::get('/locations/{location}/delete', LocationDelete::class)
+    ->name('locations.delete')
+    ->middleware('auth');
 
 Route::get('/target-groups', TargetGroupList::class)
     ->name('target-groups.index');
 Route::get('/target-groups/_manage', TargetGroupManage::class)
-    ->name('target-groups.manage');
+    ->name('target-groups.manage')
+    ->middleware('auth');
 Route::get('/target-groups/{targetGroup}', TargetGroupDetail::class)
     ->name('target-groups.show');
 

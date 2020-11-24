@@ -14,4 +14,16 @@ class TargetGroupDetail extends PageComponent
     }
 
     public TargetGroup $targetGroup;
+
+    public string $tab;
+
+    public function mount()
+    {
+        $this->tab = session()->get('target-groups.detail.tab', 'services');
+    }
+
+    public function updatedTab($value)
+    {
+        session()->put('target-groups.detail.tab', $value);
+    }
 }

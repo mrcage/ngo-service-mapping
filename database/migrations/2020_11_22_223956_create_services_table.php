@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->text('description')->nullable();
             $table->foreignId('organization_id')->constrained();
             $table->foreignId('location_id')->constrained();
+            $table->foreignId('sector_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

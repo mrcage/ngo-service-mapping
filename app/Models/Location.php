@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Location extends Model
 {
@@ -17,13 +18,22 @@ class Location extends Model
     protected $fillable = [
         'name',
         'description',
-        'coordinates',
+        'latitude',
+        'longitude',
     ];
 
 	protected $nullable = [
 		'description',
-		'coordinates',
-	];
+        'latitude',
+        'longitude',
+    ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($location) {
+            $location->services->each(function ($service) { $service->delete(); });
+        });
+    }
 
     public function sluggable(): array
     {
@@ -48,6 +58,23 @@ class Location extends Model
     public function organizations()
     {
         return $this->belongsToMany(Organization::class, 'services')->distinct();
+    }
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'services')->distinct();
+    }
+
+    public function targetGroups(): Collection
+    {
+        return $this->services->flatMap(fn ($s) => $s->targetGroups)->unique('id');
+    }
+
+    public function organizationTypes(): Collection
+    {
+        return $this->services->map(fn ($s) => $s->organization)
+            ->map(fn ($o) => $o->type)
+            ->unique('id');
     }
 
     public function scopeFilter(Builder $query, $value)

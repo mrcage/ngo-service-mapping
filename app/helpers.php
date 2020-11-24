@@ -68,3 +68,10 @@ if (! function_exists('listTimezones')) {
             ->toArray();
     }
 }
+
+if (! function_exists('googleMapsPlaceUrlByCoordinates')) {
+    function googleMapsPlaceUrlByCoordinates(float $latitude, float $longitude): string
+    {
+        return 'http://www.google.com/maps/place/' . $latitude . ',' . $longitude;
+    }
+}

@@ -25,7 +25,7 @@ class SectorsSheet implements FromQuery, WithMapping, WithHeadings, ShouldAutoSi
     {
         return [
             'Name',
-            'Number of organizations',
+            'Number of services',
         ];
     }
 
@@ -33,7 +33,7 @@ class SectorsSheet implements FromQuery, WithMapping, WithHeadings, ShouldAutoSi
     {
         return [
             $sector->name,
-            $sector->organizations()->count() ?? 0,
+            $sector->services()->count() ?? 0,
         ];
     }
 }

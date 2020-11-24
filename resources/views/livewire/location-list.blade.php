@@ -1,7 +1,9 @@
 <div>
     <div class="d-sm-flex justify-content-between align-items-center">
         <h2>Locations</h2>
-        {{-- TODO --}}
+        @can('create', App\Model\Location::class)
+            <a href="{{ route('locations.create') }}">Register location</a>
+        @endcan
     </div>
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
@@ -25,7 +27,12 @@
     @if($locations->isNotEmpty())
         <div class="list-group mb-3">
             @foreach ($locations as $location)
-                <a href="{{  route('locations.show', $location) }}" class="list-group-item list-group-item-action">{{ $location->name }}</a>
+                <a href="{{  route('locations.show', $location) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    {{ $location->name }}
+                    <small class="d-none d-sm-inline text-right">
+                        {{ $location->services()->count() }} services
+                    </small>
+                </a>
             @endforeach
         </div>
         {{ $locations->links() }}

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class Organization extends Model
 {
@@ -30,7 +31,7 @@ class Organization extends Model
     protected static function booted()
     {
         static::deleting(function ($organization) {
-            $organization->sectors()->detach();
+            $organization->services->each(function ($service) { $service->delete(); });
         });
     }
 
@@ -49,11 +50,6 @@ class Organization extends Model
         return 'slug';
     }
 
-    public function sectors()
-    {
-        return $this->belongsToMany(Sector::class);
-    }
-
     public function type()
     {
         return $this->belongsTo(OrganizationType::class, 'type_id');
@@ -67,6 +63,16 @@ class Organization extends Model
     public function locations()
     {
         return $this->belongsToMany(Location::class, 'services')->distinct();
+    }
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'services')->distinct();
+    }
+
+    public function targetGroups(): Collection
+    {
+        return $this->services->flatMap(fn ($s) => $s->targetGroups)->unique('id');
     }
 
     public function scopeFilter(Builder $query, $value)

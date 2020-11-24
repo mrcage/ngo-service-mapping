@@ -23,55 +23,115 @@
         </p>
     @endif
 
-    @isset($organization->email)
+    @if(isset($organization->email) || isset($organization->website))
         <p>
-            <x-bi-envelope-fill/>
-            <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
+            @isset($organization->email)
+                <x-bi-envelope-fill/>
+                <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
+                <br>
+            @endisset
+            @isset($organization->website)
+                <x-bi-globe/>
+                <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
+                <br>
+            @endisset
         </p>
-    @endisset
-
-    @isset($organization->website)
-        <p>
-            <x-bi-globe/>
-            <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
-        </p>
-    @endisset
+    @endif
 
     @if($organization->services->isNotEmpty())
+        <hr>
         <h3>Services</h3>
         @foreach($organization->services->sortBy('name') as $service)
             <h5>{{ $service->name }}</h5>
-            <p><x-bi-geo-alt/> <a href="{{ route('locations.show', $service->location) }}">{{ $service->location->name }}</a></p>
-            @if($service->targetGroups->isNotEmpty())
-                <p><x-bi-people/>
-                    @foreach($service->targetGroups as $targetGroup)
+            <p>
+                @isset($service->sector)
+                    <x-bi-pie-chart/>
+                    <a href="{{ route('sectors.show', $service->sector) }}">{{ $service->sector->name }}</a>
+                    <br>
+                @endif
+                <x-bi-geo-alt/>
+                <a href="{{ route('locations.show', $service->location) }}">{{ $service->location->name }}</a>
+                <br>
+                @if($service->targetGroups()->exists())
+                    <x-bi-people/>
+                    @foreach($service->targetGroups()->orderBy('name')->get() as $targetGroup)
                         <a href="{{ route('target-groups.show', $targetGroup) }}">{{ $targetGroup->name }}</a>@unless($loop->last),@endunless
                     @endforeach
-                </p>
-            @endif
+                    <br>
+                @endif
+            </p>
             @isset($service->description)
                 @markdown($service->description)
             @endif
+            <hr>
         @endforeach
-        <h3>Locations</h3>
-        <ul>
-            @foreach($organization->locations()->get()->sortBy('name') as $location)
-                <li>
-                    <a href="{{ route('locations.show', $location) }}">{{ $location->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @endisset
 
-    @if($organization->sectors->isNotEmpty())
-        <h3>Sectors</h3>
-        <ul>
-            @foreach($organization->sectors->sortBy('name') as $sector)
-                <li>
-                    <a href="{{ route('sectors.show', $sector) }}">{{ $sector->name }}</a>
+        <h3>Coverage</h3>
+        @php
+            $tabs = [
+                'sectors' => [
+                    'label' => 'Sectors',
+                    'icon' => 'bi-pie-chart'
+                ],
+                'locations' => [
+                    'label' => 'Locations',
+                    'icon' => 'bi-geo-alt'
+                ],
+                'targetGroups' => [
+                    'label' => 'Target Groups',
+                    'icon' => 'bi-people'
+                ],
+            ];
+        @endphp
+        <ul class="nav nav-tabs">
+            @foreach($tabs as $key => $val)
+                <li class="nav-item">
+                    <a
+                        class="nav-link @if($tab == $key) active @endif"
+                        href="#"
+                        wire:click.prevent="$set('tab', '{{ $key }}')">
+                        <x-dynamic-component component="{{ $val['icon'] }}"/>
+                        <span class="d-none d-sm-inline">{{ $val['label'] }}</span>
+                    </a>
                 </li>
             @endforeach
         </ul>
+        <div wire:loading class="w-100 my-4">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div wire:loading.remove>
+            @if($tab == 'sectors')
+                <div class="list-group list-group-flush mb-3">
+                    @foreach($organization->sectors()->orderBy('name')->get() as $sector)
+                        <a href="{{ route('sectors.show', $sector) }}" class="list-group-item list-group-item-action">
+                            {{ $sector->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+            @if($tab == 'locations')
+                <div class="list-group list-group-flush mb-3">
+                    @foreach($organization->locations()->orderBy('name')->get() as $location)
+                        <a href="{{ route('locations.show', $location) }}" class="list-group-item list-group-item-action">
+                            {{ $location->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+            @if($tab == 'targetGroups')
+                <div class="list-group list-group-flush mb-3">
+                    @foreach($organization->targetGroups()->sortBy('name') as $targetGroup)
+                        <a href="{{ route('target-groups.show', $targetGroup) }}" class="list-group-item list-group-item-action">
+                            {{ $targetGroup->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     @endisset
 
     <p>

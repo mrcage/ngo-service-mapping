@@ -9,7 +9,7 @@
         <x-alert type="success" :message="session('message')"/>
     @endif
     @if($targetGroups->isNotEmpty())
-        <div class="list-group mt-3">
+        <div class="list-group my-3">
             @foreach ($targetGroups as $targetGroup)
                 <a href="{{  route('target-groups.show', $targetGroup) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <span>{{ $targetGroup->name }}</span>
@@ -17,6 +17,7 @@
                 </a>
             @endforeach
         </div>
+        <p><small>There are {{ $targetGroups->count() }} target groups assigned to any services.</small></p>
     @else
         <x-alert type="info" message="No target groups covered or assigned to services."/>
     @endif

@@ -21,6 +21,13 @@ class Service extends Model
 		'description',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($service) {
+            $service->targetGroups()->detach();
+        });
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);
@@ -34,5 +41,10 @@ class Service extends Model
     public function targetGroups()
     {
         return $this->belongsToMany(TargetGroup::class);
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
     }
 }

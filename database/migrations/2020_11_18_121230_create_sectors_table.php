@@ -18,12 +18,6 @@ class CreateSectorsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
         });
-
-        Schema::create('organization_sector', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('organization_id')->constrained('organizations');
-            $table->foreignId('sector_id')->constrained('sectors');
-        });
     }
 
     /**
@@ -33,7 +27,6 @@ class CreateSectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organization_sector');
         Schema::dropIfExists('sectors');
     }
 }
