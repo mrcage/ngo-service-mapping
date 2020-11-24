@@ -1,5 +1,9 @@
 <div>
-    <h2>{{ $organization->name }} <small class="text-muted">Organization</small></h2>
+    <h2>
+        {{ $organization->name }}
+        @isset($organization->abbreviation)({{ $organization->abbreviation }})@endisset
+        <small class="text-muted">Organization</small>
+    </h2>
 
     @if (session()->has('message'))
         <x-alert type="success" :message="session('message')"/>
@@ -23,20 +27,48 @@
         </p>
     @endif
 
-    @if(isset($organization->email) || isset($organization->website))
-        <p>
-            @isset($organization->email)
-                <x-bi-envelope-fill/>
-                <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
-                <br>
-            @endisset
-            @isset($organization->website)
-                <x-bi-globe/>
-                <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
-                <br>
-            @endisset
-        </p>
-    @endif
+    <p>
+        @isset($organization->email)
+            <x-bi-envelope-fill/>
+            <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
+            <br>
+        @endisset
+        @isset($organization->phone)
+            <x-bi-telephone/>
+            <a href="{{ telUrl($organization->phone) }}">{{ $organization->phone }}</a>
+            <br>
+        @endisset
+        @isset($organization->website)
+            <x-bi-globe/>
+            <a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a>
+            <br>
+        @endisset
+        @isset($organization->facebook)
+            Facebook:
+            <a href="{{ $organization->facebook }}" target="_blank">{{ $organization->facebook }}</a>
+            <br>
+        @endisset
+        @isset($organization->instagram)
+            Instagram:
+            <a href="{{ $organization->instagram }}" target="_blank">{{ $organization->instagram }}</a>
+            <br>
+        @endisset
+        @isset($organization->twitter)
+            Twitter:
+            <a href="{{ $organization->twitter }}" target="_blank">{{ $organization->twitter }}</a>
+            <br>
+        @endisset
+        @isset($organization->youtube)
+            YouTube:
+            <a href="{{ $organization->youtube }}" target="_blank">{{ $organization->youtube }}</a>
+            <br>
+        @endisset
+        @isset($organization->linkedin)
+            LinkedIn:
+            <a href="{{ $organization->linkedin }}" target="_blank">{{ $organization->linkedin }}</a>
+            <br>
+        @endisset
+    </p>
 
     <p>
         @can('update', $organization)

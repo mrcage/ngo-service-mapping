@@ -25,6 +25,11 @@ abstract class OrganizationManage extends PageComponent
             'min:3',
             'max:255',
         ],
+        'organization.abbreviation' => [
+            'nullable',
+            'string',
+            'max:5',
+        ],
         'organization.type_id' => [
             'required',
             'exists:organization_types,id',
@@ -37,7 +42,36 @@ abstract class OrganizationManage extends PageComponent
             'nullable',
             'email',
         ],
+        'organization.phone' => [
+            'nullable',
+            // TODO proper regex
+        ],
         'organization.website' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.facebook' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.instagram' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.twitter' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.youtube' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.linkedin' => [
             'nullable',
             'url',
             'max:255',

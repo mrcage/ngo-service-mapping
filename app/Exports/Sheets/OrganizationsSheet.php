@@ -28,11 +28,20 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
     {
         return [
             'Name',
+            'Abbreviation',
             'Type',
             'Description',
             'E-Mail',
+            'Phone',
             'Website',
+            'Facebook',
+            'Instagram',
+            'Twitter',
+            'YouTube',
+            'LinkedIn',
             'Sectors',
+            'Target Groups',
+            'Number of locations',
             'Registered',
             'Updated',
         ];
@@ -42,11 +51,20 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
     {
         return [
             $organization->name,
+            $organization->abbreviation,
             $organization->type->name,
             $organization->description,
             $organization->email,
+            $organization->phone." ",
             $organization->website,
+            $organization->facebook,
+            $organization->instagram,
+            $organization->twitter,
+            $organization->youtube,
+            $organization->linkedin,
             $organization->sectors->pluck('name')->implode('; '),
+            $organization->targetGroups()->pluck('name')->implode('; '),
+            $organization->locations()->count(),
             Date::dateTimeToExcel($organization->created_at->toUserTimezone()),
             Date::dateTimeToExcel($organization->updated_at->toUserTimezone()),
         ];
@@ -56,8 +74,8 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
     {
         // TODO: Format date according to user locale / settings
         return [
-            'G' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'H' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'P' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'Q' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

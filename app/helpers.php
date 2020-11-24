@@ -75,3 +75,10 @@ if (! function_exists('googleMapsPlaceUrlByCoordinates')) {
         return 'http://www.google.com/maps/place/' . $latitude . ',' . $longitude;
     }
 }
+
+if (! function_exists('tel_url')) {
+    function telUrl(string $value): string
+    {
+        return 'tel:' . preg_replace('/[^+0-9]/', '', $value);
+    }
+}

@@ -17,15 +17,29 @@ class Organization extends Model
 
     protected $fillable = [
         'name',
+        'abbreviation',
         'description',
         'email',
+        'phone',
         'website',
+        'facebook',
+        'instagram',
+        'twitter',
+        'youtube',
+        'linkedin',
     ];
 
 	protected $nullable = [
+        'abbreviation',
 		'description',
 		'email',
-		'website',
+        'phone',
+        'website',
+        'facebook',
+        'instagram',
+        'twitter',
+        'youtube',
+        'linkedin',
 	];
 
     protected static function booted()
@@ -77,7 +91,9 @@ class Organization extends Model
 
     public function scopeFilter(Builder $query, $value)
     {
-        return $query->where('name', 'like', '%' . trim($value) . '%')
-            ->orWhere('email', trim($value));
+        $val = trim($value);
+        return $query->where('name', 'like', '%' . $val . '%')
+            ->orWhere('abbreviation', $val)
+            ->orWhere('email', $val);
     }
 }
