@@ -24,6 +24,7 @@ use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
 use App\Http\Livewire\ServiceCreate;
 use App\Http\Livewire\ServiceDelete;
+use App\Http\Livewire\ServiceDetail;
 use App\Http\Livewire\ServiceEdit;
 use App\Http\Livewire\TargetGroupDetail;
 use App\Http\Livewire\TargetGroupList;
@@ -84,6 +85,9 @@ Route::get('/organizations/{organization}/service/{service}/edit', ServiceEdit::
 Route::get('/organizations/{organization}/service/{service}/delete', ServiceDelete::class)
     ->name('organizations.services.delete')
     ->middleware('auth');
+
+Route::get('/services/{service}', ServiceDetail::class)
+    ->name('service.show');
 
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
