@@ -35,8 +35,8 @@ class SectorSeeder extends Seeder
             'Safety and Security',
             'Shelter and Non-Food Items',
             'Water, Sanitation & Hygiene',
-        ] as $sector) {
-            Sector::create(['name' => $sector]);
+        ] as $name) {
+            Sector::create(['name' => $name]);
         }
         Schema::enableForeignKeyConstraints();
     }

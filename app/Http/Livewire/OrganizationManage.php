@@ -14,11 +14,7 @@ abstract class OrganizationManage extends PageComponent
 
     public string $cancelUrl;
 
-    public array $checkedSectors;
-
     public bool $disableEmail = false;
-
-    public Collection $sectors;
 
     public Collection $types;
 
@@ -28,6 +24,11 @@ abstract class OrganizationManage extends PageComponent
             'string',
             'min:3',
             'max:255',
+        ],
+        'organization.abbreviation' => [
+            'nullable',
+            'string',
+            'max:5',
         ],
         'organization.type_id' => [
             'required',
@@ -41,7 +42,36 @@ abstract class OrganizationManage extends PageComponent
             'nullable',
             'email',
         ],
+        'organization.phone' => [
+            'nullable',
+            // TODO proper regex
+        ],
         'organization.website' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.facebook' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.instagram' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.twitter' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.youtube' => [
+            'nullable',
+            'url',
+            'max:255',
+        ],
+        'organization.linkedin' => [
             'nullable',
             'url',
             'max:255',
@@ -54,8 +84,6 @@ abstract class OrganizationManage extends PageComponent
 
     public function mount()
     {
-        $this->checkedSectors = $this->organization->sectors->pluck('slug')->toArray();
-        $this->sectors = Sector::orderBy('name')->get();
         $this->types = OrganizationType::orderBy('name')->get();
     }
 
@@ -78,6 +106,5 @@ abstract class OrganizationManage extends PageComponent
         }
 
         $this->organization->save();
-        $this->organization->sectors()->sync(Sector::whereIn('slug', $this->checkedSectors)->get());
     }
 }

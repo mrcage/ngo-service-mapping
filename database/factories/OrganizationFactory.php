@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Organization;
 use App\Models\OrganizationType;
-use App\Models\Sector;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrganizationFactory extends Factory
@@ -26,9 +25,16 @@ class OrganizationFactory extends Factory
         $description = $this->faker->optional(0.7)->paragraphs;
         return [
             'name' => $this->faker->unique()->company,
+            'abbreviation' => $this->faker->boolean(50) ? strtoupper($this->faker->lexify('???')) : null,
             'description' => $description !== null ? implode("\n", $description) : null,
             'email' => $this->faker->optional(0.9)->companyEmail,
+            'phone' => $this->faker->optional(0.3)->e164PhoneNumber,
             'website' => $this->faker->optional(0.7)->url,
+            'facebook' => $this->faker->optional(0.8)->url,
+            'instagram' => $this->faker->optional(0.5)->url,
+            'twitter' => $this->faker->optional(0.3)->url,
+            'youtube' => $this->faker->optional(0.1)->url,
+            'linkedin' => $this->faker->optional(0.1)->url,
         ];
     }
 
@@ -39,19 +45,12 @@ class OrganizationFactory extends Factory
      */
     public function configure()
     {
-        $sectors = Sector::all();
         $types = OrganizationType::all();
 
         return $this->afterMaking(function (Organization $organization) use ($types) {
             if ($types->isNotEmpty()) {
                 $type = $types->random();
                 $organization->type()->associate($type);
-            }
-        })->afterCreating(function (Organization $organization) use ($sectors) {
-            if ($sectors->isNotEmpty()) {
-                $num = mt_rand(0, $sectors->count());
-                $chosen_sectors = $sectors->random($num);
-                $organization->sectors()->sync($chosen_sectors);
             }
         });
     }

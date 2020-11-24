@@ -25,8 +25,8 @@ class OrganizationTypeSeeder extends Seeder
             'Non-governmental Organization',
             'Other',
             'Red Cross/Red Crescent Movement',
-        ] as $sector) {
-            OrganizationType::create(['name' => $sector]);
+        ] as $name) {
+            OrganizationType::create(['name' => $name]);
         }
         Schema::enableForeignKeyConstraints();
     }

@@ -14,4 +14,16 @@ class OrganizationDetail extends PageComponent
     }
 
     public Organization $organization;
+
+    public string $tab;
+
+    public function mount()
+    {
+        $this->tab = session()->get('organizations.detail.tab', 'sectors');
+    }
+
+    public function updatedTab($value)
+    {
+        session()->put('organizations.detail.tab', $value);
+    }
 }

@@ -14,4 +14,16 @@ class SectorDetail extends PageComponent
     }
 
     public Sector $sector;
+
+    public string $tab;
+
+    public function mount()
+    {
+        $this->tab = session()->get('sector.detail.tab', 'services');
+    }
+
+    public function updatedTab($value)
+    {
+        session()->put('sector.detail.tab', $value);
+    }
 }

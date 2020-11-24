@@ -1,5 +1,5 @@
 <div>
-    <h2>Organization Type <strong>{{ $type->name }}</strong></h2>
+    <h2>{{ $type->name }} <small class="text-muted">Organization Type</small></h2>
     @if($type->organizations->isNotEmpty())
         <p>There are {{ $type->organizations->count() }} organizations of this type registered.</p>
         <div class="list-group mb-3">

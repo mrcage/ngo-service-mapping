@@ -29,7 +29,12 @@
     @if($organizations->isNotEmpty())
         <div class="list-group mb-3">
             @foreach ($organizations as $organization)
-                <a href="{{  route('organizations.show', $organization) }}" class="list-group-item list-group-item-action">{{ $organization->name }}</a>
+                <a href="{{  route('organizations.show', $organization) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    {{ $organization->name }}
+                    <small class="d-none d-sm-inline text-right">
+                        {{ $organization->type->name }}
+                    </small>
+                </a>
             @endforeach
         </div>
         {{ $organizations->links() }}

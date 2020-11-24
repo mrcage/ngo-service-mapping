@@ -1,8 +1,12 @@
 <?php
 
-use App\Exports\DataExport;
 use App\Http\Livewire\DataExport as LivewireDataExport;
 use App\Http\Livewire\HomePage;
+use App\Http\Livewire\LocationCreate;
+use App\Http\Livewire\LocationDelete;
+use App\Http\Livewire\LocationDetail;
+use App\Http\Livewire\LocationEdit;
+use App\Http\Livewire\LocationList;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
 use App\Http\Livewire\OrganizationDelete;
@@ -18,6 +22,13 @@ use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
+use App\Http\Livewire\ServiceCreate;
+use App\Http\Livewire\ServiceDelete;
+use App\Http\Livewire\ServiceDetail;
+use App\Http\Livewire\ServiceEdit;
+use App\Http\Livewire\TargetGroupDetail;
+use App\Http\Livewire\TargetGroupList;
+use App\Http\Livewire\TargetGroupManage;
 use App\Http\Livewire\UserCreate;
 use App\Http\Livewire\UserDelete;
 use App\Http\Livewire\UserDetail;
@@ -65,19 +76,66 @@ Route::get('/organizations/{organization}/editExternal', OrganizationEditExterna
     ->name('organizations.editExternal')
     ->middleware(['signed']);
 
+Route::get('/organizations/{organization}/service/_create', ServiceCreate::class)
+    ->name('organizations.services.create')
+    ->middleware('auth');
+Route::get('/organizations/{organization}/service/{service}/edit', ServiceEdit::class)
+    ->name('organizations.services.edit')
+    ->middleware('auth');
+Route::get('/organizations/{organization}/service/{service}/delete', ServiceDelete::class)
+    ->name('organizations.services.delete')
+    ->middleware('auth');
+
+Route::get('/services/{service}', ServiceDetail::class)
+    ->name('service.show');
+
 Route::get('/types', OrganizationTypeList::class)
     ->name('types.index');
 Route::get('/types/_manage', OrganizationTypeManage::class)
-    ->name('types.manage');
+    ->name('types.manage')
+    ->middleware('auth');
 Route::get('/types/{type}', OrganizationTypeDetail::class)
     ->name('types.show');
 
 Route::get('/sectors', SectorList::class)
     ->name('sectors.index');
 Route::get('/sectors/_manage', SectorManage::class)
-    ->name('sectors.manage');
+    ->name('sectors.manage')
+    ->middleware('auth');
 Route::get('/sectors/{sector}', SectorDetail::class)
     ->name('sectors.show');
+
+Route::get('/locations', LocationList::class)
+    ->name('locations.index');
+Route::get('/locations/_create', LocationCreate::class)
+    ->name('locations.create')
+    ->middleware('auth');
+Route::get('/locations/{location}', LocationDetail::class)
+    ->name('locations.show');
+Route::get('/locations/{location}/edit', LocationEdit::class)
+    ->name('locations.edit')
+    ->middleware('auth');
+Route::get('/locations/{location}/delete', LocationDelete::class)
+    ->name('locations.delete')
+    ->middleware('auth');
+
+Route::get('/locations/{location}/service/_create', ServiceCreate::class)
+    ->name('locations.services.create')
+    ->middleware('auth');
+Route::get('/locations/{location}/service/{service}/edit', ServiceEdit::class)
+    ->name('locations.services.edit')
+    ->middleware('auth');
+Route::get('/locations/{location}/service/{service}/delete', ServiceDelete::class)
+    ->name('locations.services.delete')
+    ->middleware('auth');
+
+Route::get('/target-groups', TargetGroupList::class)
+    ->name('target-groups.index');
+Route::get('/target-groups/_manage', TargetGroupManage::class)
+    ->name('target-groups.manage')
+    ->middleware('auth');
+Route::get('/target-groups/{targetGroup}', TargetGroupDetail::class)
+    ->name('target-groups.show');
 
 Route::get('/user', UserProfile::class)
     ->name('user-profile-information')

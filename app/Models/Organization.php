@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class Organization extends Model
 {
@@ -16,21 +17,35 @@ class Organization extends Model
 
     protected $fillable = [
         'name',
+        'abbreviation',
         'description',
         'email',
+        'phone',
         'website',
+        'facebook',
+        'instagram',
+        'twitter',
+        'youtube',
+        'linkedin',
     ];
 
 	protected $nullable = [
+        'abbreviation',
 		'description',
 		'email',
-		'website',
+        'phone',
+        'website',
+        'facebook',
+        'instagram',
+        'twitter',
+        'youtube',
+        'linkedin',
 	];
 
     protected static function booted()
     {
         static::deleting(function ($organization) {
-            $organization->sectors()->detach();
+            $organization->services->each(function ($service) { $service->delete(); });
         });
     }
 
@@ -49,19 +64,36 @@ class Organization extends Model
         return 'slug';
     }
 
-    public function scopeFilter(Builder $query, $value)
+    public function type()
     {
-        return $query->where('name', 'like', '%' . trim($value) . '%')
-            ->orWhere('email', trim($value));
+        return $this->belongsTo(OrganizationType::class, 'type_id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'services')->distinct();
     }
 
     public function sectors()
     {
-        return $this->belongsToMany(Sector::class);
+        return $this->belongsToMany(Sector::class, 'services')->distinct();
     }
 
-    public function type()
+    public function targetGroups(): Collection
     {
-        return $this->belongsTo(OrganizationType::class, 'type_id');
+        return $this->services->flatMap(fn ($s) => $s->targetGroups)->unique('id');
+    }
+
+    public function scopeFilter(Builder $query, $value)
+    {
+        $val = trim($value);
+        return $query->where('name', 'like', '%' . $val . '%')
+            ->orWhere('abbreviation', $val)
+            ->orWhere('email', $val);
     }
 }

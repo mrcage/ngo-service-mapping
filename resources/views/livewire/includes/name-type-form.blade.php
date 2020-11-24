@@ -1,5 +1,5 @@
 <form wire:submit.prevent="submit">
-    <table class="table table-striped">
+    <table class="table table-striped table-condensed">
         <thead>
             <tr>
                 <th>Name</th>
@@ -174,6 +174,7 @@
             @endif
         </tbody>
     </table>
+    <p><small>There are {{ $items->count() }} items in total.</small></p>
 </form>
 
 @push('scripts')
