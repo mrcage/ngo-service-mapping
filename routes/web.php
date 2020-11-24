@@ -22,6 +22,9 @@ use App\Http\Livewire\OrganizationTypeManage;
 use App\Http\Livewire\SectorDetail;
 use App\Http\Livewire\SectorList;
 use App\Http\Livewire\SectorManage;
+use App\Http\Livewire\ServiceCreate;
+use App\Http\Livewire\ServiceDelete;
+use App\Http\Livewire\ServiceEdit;
 use App\Http\Livewire\TargetGroupDetail;
 use App\Http\Livewire\TargetGroupList;
 use App\Http\Livewire\TargetGroupManage;
@@ -100,6 +103,16 @@ Route::get('/locations/{location}/edit', LocationEdit::class)
     ->middleware('auth');
 Route::get('/locations/{location}/delete', LocationDelete::class)
     ->name('locations.delete')
+    ->middleware('auth');
+
+Route::get('/locations/{location}/service/_create', ServiceCreate::class)
+    ->name('locations.services.create')
+    ->middleware('auth');
+Route::get('/locations/{location}/service/{service}/edit', ServiceEdit::class)
+    ->name('locations.services.edit')
+    ->middleware('auth');
+Route::get('/locations/{location}/service/{service}/delete', ServiceDelete::class)
+    ->name('locations.services.delete')
     ->middleware('auth');
 
 Route::get('/target-groups', TargetGroupList::class)

@@ -27,9 +27,23 @@
         </p>
     @endif
 
+    <p>
+        @can('update', $location)
+            <a href="{{ route('locations.edit', $location) }}">Edit</a> |
+        @endcan
+        @can('delete', $location)
+            <a href="{{ route('locations.delete', $location) }}">Delete</a>
+        @endcan
+    </p>
+
     @if($location->services->isNotEmpty())
         <hr>
-        <h3>Services</h3>
+        <div class="d-sm-flex justify-content-between align-items-center">
+            <h3>Services</h3>
+            @can('create', App\Model\Service::class)
+                <a href="{{ route('locations.services.create', $location) }}">Register service</a>
+            @endcan
+        </div>
         @foreach($location->services->sortBy('name') as $service)
             <h5>{{ $service->name }}</h5>
             <p>
@@ -56,6 +70,14 @@
             @isset($service->description)
                 @markdown($service->description)
             @endif
+            <p>
+                @can('update', $service)
+                    <a href="{{ route('locations.services.edit', [$location, $service]) }}">Edit</a>
+                @endcan
+                @can('delete', $service)
+                    | <a href="{{ route('locations.services.delete', [$location, $service]) }}">Delete</a>
+                @endcan
+            </p>
             <hr>
         @endforeach
 
@@ -128,12 +150,6 @@
     @endisset
 
     <p>
-        @can('update', $location)
-            <a href="{{ route('locations.edit', $location) }}">Edit</a> |
-        @endcan
-        @can('delete', $location)
-            <a href="{{ route('locations.delete', $location) }}">Delete</a> |
-        @endcan
         <a href="{{ route('locations.index') }}">Return to list of locations</a>
     </p>
 </div>
