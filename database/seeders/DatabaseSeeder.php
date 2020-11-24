@@ -19,16 +19,17 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 SectorSeeder::class,
                 OrganizationTypeSeeder::class,
+                TargetGroupSeeder::class,
             ]);
         }
         else
         {
             $this->call([
                 UserSeeder::class,
-                SectorSeeder::class,
                 OrganizationTypeSeeder::class,
                 OrganizationSeeder::class,
                 LocationSeeder::class,
+                SectorSeeder::class,
                 TargetGroupSeeder::class,
                 ServiceSeeder::class,
             ]);
