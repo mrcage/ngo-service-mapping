@@ -52,7 +52,7 @@ class LocationMap extends PageComponent
         $this->map = [
             'lat' => $lat,
             'lng' => $lng,
-            'zoom' => 4,
+            'zoom' => 1,
             'markers' => $markers,
         ];
     }
