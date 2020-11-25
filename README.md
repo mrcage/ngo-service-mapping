@@ -102,11 +102,3 @@ To send e-mails via [Mailgun](https://www.mailgun.com/), configure the following
     heroku config:set MAIL_MAILER=mailgun
     heroku config:set MAILGUN_DOMAIN=...
     heroku config:set MAILGUN_SECRET=...
-
-## Integrations
-
-For Google Maps to work, you need to define a Google Maps API key for the JavaScript API. More information can be found here: https://developers.google.com/maps/documentation/javascript/get-api-key
-
-Put the API key into the `.env` file:
-
-    GOOGLE_MAPS_API_KEY=XXXXX

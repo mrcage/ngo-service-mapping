@@ -3,16 +3,13 @@
     @isset($message)
         <x-alert type="warning" :message="$message"/>
     @endif
-    @isset($map)
-        {!! $map['html'] !!}
-    @endisset
+    @map($map)
 </div>
 
+@push('styles')
+    @mapstyles
+@endpush
+
 @push('scripts')
-    @isset($map)
-        <script type="text/javascript">
-            var centreGot = false;
-        </script>
-        {!!  $map['js'] !!}
-    @endisset
+    @mapscripts
 @endpush

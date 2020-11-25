@@ -8,6 +8,7 @@
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @livewireStyles
+        @stack('styles')
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
