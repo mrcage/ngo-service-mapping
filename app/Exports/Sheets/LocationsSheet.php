@@ -35,19 +35,21 @@ class LocationsSheet implements FromQuery, WithMapping, WithHeadings, WithColumn
             'Name',
             'Description',
             'Coordinates',
+            'Number of organizaitons',
             'Registered',
             'Updated',
         ];
     }
 
-    public function map($organization): array
+    public function map($location): array
     {
         return [
-            $organization->name,
-            $organization->description,
-            isset($organization->latitude) && isset($organization->longitude) ? $organization->latitude . ',' . $organization->longitude : null,
-            Date::dateTimeToExcel($organization->created_at->toUserTimezone()),
-            Date::dateTimeToExcel($organization->updated_at->toUserTimezone()),
+            $location->name,
+            $location->description,
+            $location->coordinates,
+            $location->organizations()->count(),
+            Date::dateTimeToExcel($location->created_at->toUserTimezone()),
+            Date::dateTimeToExcel($location->updated_at->toUserTimezone()),
         ];
     }
 
@@ -55,8 +57,8 @@ class LocationsSheet implements FromQuery, WithMapping, WithHeadings, WithColumn
     {
         // TODO: Format date according to user locale / settings
         return [
-            'D' => NumberFormat::FORMAT_DATE_YYYYMMDD,
             'E' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'F' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

@@ -15,6 +15,7 @@
         "dyrynda/laravel-nullable-fields": "^4.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "genealabs/laravel-maps": "^0.8.0",
         "graham-campbell/markdown": "13.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/fortify": "^1.7",

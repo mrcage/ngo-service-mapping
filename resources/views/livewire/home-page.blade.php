@@ -15,6 +15,9 @@
         <a href="{{ route('locations.index') }}" class="btn btn-outline-primary btn-block"><x-bi-geo-alt/> List of locations</a>
     </p>
     <p>
+        <a href="{{ route('locations.map') }}" class="btn btn-outline-primary btn-block"><x-bi-map/> Map of locations</a>
+    </p>
+    <p>
         <a href="{{ route('types.index') }}" class="btn btn-outline-primary btn-block"><x-bi-tag/> List of organization types</a>
     </p>
     <p>

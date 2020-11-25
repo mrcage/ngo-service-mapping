@@ -7,6 +7,7 @@ use App\Http\Livewire\LocationDelete;
 use App\Http\Livewire\LocationDetail;
 use App\Http\Livewire\LocationEdit;
 use App\Http\Livewire\LocationList;
+use App\Http\Livewire\LocationMap;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
 use App\Http\Livewire\OrganizationDelete;
@@ -107,6 +108,8 @@ Route::get('/sectors/{sector}', SectorDetail::class)
 
 Route::get('/locations', LocationList::class)
     ->name('locations.index');
+Route::get('/locations/_map', LocationMap::class)
+    ->name('locations.map');
 Route::get('/locations/_create', LocationCreate::class)
     ->name('locations.create')
     ->middleware('auth');

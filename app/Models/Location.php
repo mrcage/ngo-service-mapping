@@ -81,4 +81,24 @@ class Location extends Model
     {
         return $query->where('name', 'like', '%' . trim($value) . '%');
     }
+
+    public function getCoordinatesAttribute()
+    {
+        if (filled($this->latitude) && filled($this->longitude)) {
+            return $this->latitude . ',' . $this->longitude;
+        }
+        return null;
+    }
+
+    public function setCoordinatesAttribute($coordinates)
+    {
+        if (filled($coordinates)) {
+            $arr = preg_split('\s*,\s*', $coordinates);
+            $this->latitude = $arr[0];
+            $this->longitude = $arr[1];
+        } else {
+            $this->latitude = null;
+            $this->longitude = null;
+        }
+    }
 }
