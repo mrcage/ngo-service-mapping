@@ -25,13 +25,13 @@ abstract class LocationManage extends PageComponent
         'location.latitude' => [
             'nullable',
             'numeric',
-            'regex:/^[-]?((([0-8]?[0-9])(\.(\d{1,8}))?)|(90(\.0+)?))$/',
+            'regex:/^[-]?((([0-8]?[0-9])(\.(\d{1,14}))?)|(90(\.0+)?))$/',
             'required_with:location.longitude',
         ],
         'location.longitude' => [
             'nullable',
             'numeric',
-            'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))(\.(\d{1,8}))?)|180(\.0+)?)$/',
+            'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))(\.(\d{1,14}))?)|180(\.0+)?)$/',
             'required_with:location.latitude',
         ],
     ];

@@ -32,7 +32,7 @@
                 <input
                     type="text"
                     id="latitude"
-                    wire:model.defer="location.latitude"
+                    wire:model.lazy="location.latitude"
                     autocomplete="off"
                     aria-label="Latitude"
                     placeholder="Latitude"
@@ -40,7 +40,7 @@
                 <input
                     type="text"
                     id="longitude"
-                    wire:model.defer="location.longitude"
+                    wire:model.lazy="location.longitude"
                     autocomplete="off"
                     aria-label="Longitude"
                     placeholder="Longitude"
