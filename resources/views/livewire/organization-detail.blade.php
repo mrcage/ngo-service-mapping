@@ -44,27 +44,27 @@
             <br>
         @endisset
         @isset($organization->facebook)
-            Facebook:
+            <x-bi-globe title="Facebook"/>
             <a href="{{ $organization->facebook }}" target="_blank">{{ $organization->facebook }}</a>
             <br>
         @endisset
         @isset($organization->instagram)
-            Instagram:
+            <x-bi-globe title="Instagram"/>
             <a href="{{ $organization->instagram }}" target="_blank">{{ $organization->instagram }}</a>
             <br>
         @endisset
         @isset($organization->twitter)
-            Twitter:
+            <x-bi-globe title="Twitter"/>
             <a href="{{ $organization->twitter }}" target="_blank">{{ $organization->twitter }}</a>
             <br>
         @endisset
         @isset($organization->youtube)
-            YouTube:
+            <x-bi-globe title="YouTube"/>
             <a href="{{ $organization->youtube }}" target="_blank">{{ $organization->youtube }}</a>
             <br>
         @endisset
         @isset($organization->linkedin)
-            LinkedIn:
+            <x-bi-globe title="LinkedIn"/>
             <a href="{{ $organization->linkedin }}" target="_blank">{{ $organization->linkedin }}</a>
             <br>
         @endisset
