@@ -70,7 +70,7 @@ if (! function_exists('listTimezones')) {
 }
 
 if (! function_exists('googleMapsPlaceUrlByCoordinates')) {
-    function googleMapsPlaceUrlByCoordinates(float $latitude, float $longitude): string
+    function googleMapsPlaceUrlByCoordinates($latitude, $longitude): string
     {
         return 'http://www.google.com/maps/place/' . $latitude . ',' . $longitude;
     }
