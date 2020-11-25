@@ -70,7 +70,7 @@ if (! function_exists('listTimezones')) {
 }
 
 if (! function_exists('mapsUrlByCoordinates')) {
-    function mapsUrlByCoordinates($latitude, $longitude, $zoom=10, $layers='H'): string
+    function mapsUrlByCoordinates($latitude, $longitude, $zoom=14, $layers='H'): string
     {
         return "https://www.openstreetmap.org/?mlat=$latitude&mlon=$longitude#map=$zoom/$latitude/$longitude&layers=$layers";
     }
