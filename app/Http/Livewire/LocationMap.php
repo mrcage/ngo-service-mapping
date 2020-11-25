@@ -38,8 +38,7 @@ class LocationMap extends PageComponent
             }
             $content .= '<p><strong>Sectors:</strong> ' . $location->sectors()->orderBy('name')->get()->pluck('name')->implode(', ') . '</p>';
             $content .= '<p><strong>Target groups:</strong> ' . $location->targetGroups()->sortBy('name')->pluck('name')->implode(', ') . '</p>';
-
-            $content .= '<a href="' . route('locations.show', $location) . '" target="_blank">Show more</a>';
+            $content .= '<a href="' . route('locations.show', $location) . '" target="_blank">More information</a>';
             $googlemaps->add_marker([
                 'position' => $location->coordinates,
                 'infowindow_content' => $content,
