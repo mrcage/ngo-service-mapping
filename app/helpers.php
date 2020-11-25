@@ -69,10 +69,10 @@ if (! function_exists('listTimezones')) {
     }
 }
 
-if (! function_exists('googleMapsPlaceUrlByCoordinates')) {
-    function googleMapsPlaceUrlByCoordinates($latitude, $longitude): string
+if (! function_exists('mapsUrlByCoordinates')) {
+    function mapsUrlByCoordinates($latitude, $longitude, $zoom=10, $layers='H'): string
     {
-        return 'http://www.google.com/maps/place/' . $latitude . ',' . $longitude;
+        return "https://www.openstreetmap.org/?mlat=$latitude&mlon=$longitude#map=$zoom/$latitude/$longitude&layers=$layers";
     }
 }
 

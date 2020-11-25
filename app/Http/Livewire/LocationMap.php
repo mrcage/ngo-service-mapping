@@ -17,11 +17,6 @@ class LocationMap extends PageComponent
 
     public function mount()
     {
-        if (blank(config('services.google.maps.api-key'))) {
-            $this->message = 'No Google maps API key defined.';
-            return;
-        }
-
         $locations = Location::query()
             ->whereNotNull('latitude')
             ->whereNotNull('longitude')

@@ -9,7 +9,7 @@
         @if(isset($location->latitude) && isset($location->longitude))
             <span title="Coordinates">
                 <x-bi-geo-alt/>
-                <a href="{{ googleMapsPlaceUrlByCoordinates($location->latitude, $location->longitude) }}" target="_blank">
+                <a href="{{ mapsUrlByCoordinates($location->latitude, $location->longitude) }}" target="_blank">
                     {{ $location->latitude }}, {{ $location->longitude }}
                 </a>
             </span>

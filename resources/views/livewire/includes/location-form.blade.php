@@ -65,7 +65,7 @@
                 @if(isset($location->latitude) && isset($location->longitude))
                     <div class="input-group-append">
                         <a
-                          href="{{ googleMapsPlaceUrlByCoordinates($location->latitude, $location->longitude) }}"
+                          href="{{ mapsUrlByCoordinates($location->latitude, $location->longitude) }}"
                           class="btn btn-outline-secondary"
                           target="_blank"
                           title="Open map">
