@@ -25,7 +25,7 @@
                     id="abbreviation"
                     wire:model.defer="organization.abbreviation"
                     autocomplete="off"
-                    maxlength="3"
+                    maxlength="5"
                     class="form-control @error('organization.abbreviation') is-invalid @enderror">
                 @error('organization.abbreviation') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
