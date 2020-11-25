@@ -11,6 +11,8 @@ class LocationMap extends PageComponent
 
     protected $title = 'Map';
 
+    protected $wideLayout = true;
+
     public $message;
 
     public array $map = [];

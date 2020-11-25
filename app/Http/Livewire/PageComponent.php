@@ -10,6 +10,8 @@ abstract class PageComponent extends Component
 
     protected $title = null;
 
+    protected $wideLayout = false;
+
     public function render()
     {
         return $this->getView();
@@ -20,6 +22,7 @@ abstract class PageComponent extends Component
         return view($this->view, $args)
             ->extends('layouts.app', [
                 'title' => method_exists($this, 'title') ? $this->title() : $this->title,
+                'wideLayout' => $this->wideLayout,
             ]);
     }
 }
