@@ -30,8 +30,14 @@ class LocationMap extends PageComponent
             if (isset($location->description)) {
                 $content .= '<p>' . Str::words(preg_replace('/\s+/', ' ', $location->description), 10) . '</p>';
             }
-            $content .= '<p><strong>Sectors:</strong> ' . $location->sectors()->orderBy('name')->get()->pluck('name')->implode(', ') . '</p>';
-            $content .= '<p><strong>Target groups:</strong> ' . $location->targetGroups()->sortBy('name')->pluck('name')->implode(', ') . '</p>';
+            if ($location->sectors()->exists()) {
+                $str = $location->sectors()->orderBy('name')->get()->pluck('name')->implode(', ');
+                $content .= '<p><strong>Sectors:</strong> ' . Str::words($str, 10) . '</p>';
+            }
+            if ($location->targetGroups()->isNotEmpty()) {
+                $str = $location->targetGroups()->sortBy('name')->pluck('name')->implode(', ');
+                $content .= '<p><strong>Target groups:</strong> ' . Str::words($str, 10) . '</p>';
+            }
             $content .= '<a href="' . route('locations.show', $location) . '" target="_blank">More information</a>';
 
             $markers[] = [
