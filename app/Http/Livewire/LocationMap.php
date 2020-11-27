@@ -61,6 +61,7 @@ class LocationMap extends PageComponent
             $zoom = self::ZOOM_LEVEL;
             if ($markers->where('lat', $lat)->where('lng', $lng)->isEmpty()) {
                 $markers->push([
+                    'title' => $this->coordinates,
                     'lat' => $lat,
                     'lng' => $lng,
                 ]);
