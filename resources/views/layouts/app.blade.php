@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
         @livewireStyles
         @stack('styles')
     </head>
-    <body class="bg-light">
+    <body class="bg-light d-flex flex-column h-100">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
@@ -36,8 +36,8 @@
                 </span>
             </div>
         </nav>
-        <main role="main">
-            <div class="@if($wideLayout) container-fluid @else container @endif my-3">
+        <main role="main" class="flex-grow-1 d-flex">
+            <div class="@if($wideLayout) container-fluid @else container @endif mt-3">
                 @yield('content')
             </div>
         </main>

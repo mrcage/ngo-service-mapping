@@ -1,10 +1,15 @@
-<div>
-    <h2>Map of Locations</h2>
+<div class="h-100 pb-3">
+    {{-- <h2>Map of Locations</h2> --}}
     @map($map)
 </div>
 
 @push('styles')
     @mapstyles
+    <style type="text/css">
+        .gnw-map-service {
+            height: 100%;
+        }
+    </style>
 @endpush
 
 @push('scripts')
