@@ -12,7 +12,7 @@
     </head>
     <body class="bg-light d-flex flex-column h-100">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
+            <div class="@if($wideLayout) container-fluid @else container @endif">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <x-bi-signpost-split class="h3 p-0 m-0"/>
                     <span class="d-none d-sm-inline">{{ config('app.name') }}</span>
