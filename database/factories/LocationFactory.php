@@ -26,8 +26,8 @@ class LocationFactory extends Factory
         return [
             'name' => $this->faker->address,
             'description' => $description !== null ? implode("\n", $description) : null,
-            'latitude' => $hasCoordinates ? $this->faker->latitude : null,
-            'longitude' => $hasCoordinates? $this->faker->longitude : null,
+            'latitude' => $hasCoordinates ? $this->faker->latitude(60, -40) : null,
+            'longitude' => $hasCoordinates? $this->faker->longitude(120, -120) : null,
         ];
     }
 }
