@@ -16,10 +16,7 @@
     @mapscripts
     @unless(isset($coordinates))
         <script>
-            window.addEventListener('LaravelMaps:MapInitialized', function (event) {
-                var element = event.detail.element;
-                var map = event.detail.map;
-                var markers = event.detail.markers;
+            function fitToMarkerBounds(map, markers) {
                 if (markers.length > 0) {
                     var minLat = markers.reduce((a, b) => Math.min(a, b.getLatLng().lat), 90);
                     var maxLat = markers.reduce((a, b) => Math.max(a, b.getLatLng().lat), -90);
@@ -30,6 +27,12 @@
                         [minLat, maxLng]
                     ])
                 }
+            }
+            window.addEventListener('LaravelMaps:MapInitialized', function (event) {
+                var element = event.detail.element;
+                var map = event.detail.map;
+                var markers = event.detail.markers;
+                fitToMarkerBounds(map, markers)
             });
         </script>
     @endunless
