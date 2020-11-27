@@ -18,16 +18,19 @@ class SectorSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         Sector::truncate();
         foreach ([
+            'Advocacy',
             'Agriculture',
             'Camp Coordination and Camp Management',
             'Climate Change and Environment',
             'Coordination',
             'Disaster Management',
             'Education',
+            'Emergency Telecommunications',
             'Food and Nutrition',
             'Gender',
             'Health',
             'HIV/Aids',
+            'Logistics',
             'Mine Action',
             'Peacekeeping and Peacebuilding',
             'Protection and Human Rights',

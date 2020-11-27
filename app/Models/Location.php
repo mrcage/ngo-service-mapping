@@ -93,12 +93,16 @@ class Location extends Model
     public function setCoordinatesAttribute($coordinates)
     {
         if (filled($coordinates)) {
-            $arr = preg_split('\s*,\s*', $coordinates);
-            $this->latitude = $arr[0];
-            $this->longitude = $arr[1];
+            [$this->latitude, $this->longitude] = self::parseCoordinates($coordinates);
         } else {
             $this->latitude = null;
             $this->longitude = null;
         }
+    }
+
+    public static function parseCoordinates($coordinates)
+    {
+        $arr = preg_split('/\s*,\s*/', $coordinates);
+        return [$arr[0], $arr[1]];
     }
 }

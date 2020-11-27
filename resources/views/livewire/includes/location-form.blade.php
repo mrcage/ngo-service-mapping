@@ -65,7 +65,7 @@
                 @if(isset($location->latitude) && isset($location->longitude))
                     <div class="input-group-append">
                         <a
-                          href="{{ mapsUrlByCoordinates($location->latitude, $location->longitude) }}"
+                          href="{{ route('locations.map', ['coordinates' => $location->coordinates]) }}"
                           class="btn btn-outline-secondary"
                           target="_blank"
                           title="Open map">

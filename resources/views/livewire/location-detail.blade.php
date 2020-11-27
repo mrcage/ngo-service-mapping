@@ -8,9 +8,9 @@
     <p class="d-sm-flex justify-content-between">
         @if(isset($location->latitude) && isset($location->longitude))
             <span title="Coordinates">
-                <x-bi-geo-alt/>
-                <a href="{{ mapsUrlByCoordinates($location->latitude, $location->longitude) }}" target="_blank">
-                    {{ $location->latitude }}, {{ $location->longitude }}
+                <x-bi-map/>
+                <a href="{{ route('locations.map', ['coordinates' => $location->coordinates]) }}">
+                    {{ $location->coordinates }}
                 </a>
             </span>
         @endif
