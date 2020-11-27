@@ -1,4 +1,4 @@
-<div class="h-100 pb-3">
+<div class="h-100 {{-- pb-3 --}}">
     {{-- <h2>Map of Locations</h2> --}}
     @map($map)
 </div>

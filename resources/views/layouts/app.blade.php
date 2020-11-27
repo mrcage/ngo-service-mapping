@@ -37,7 +37,7 @@
             </div>
         </nav>
         <main role="main" class="flex-grow-1 d-flex">
-            <div class="@if($wideLayout) container-fluid @else container @endif mt-3">
+            <div class="@if($wideLayout) container-fluid @else container @endif @if($noPadding) p-0 @else mt-3 @endif">
                 @yield('content')
             </div>
         </main>

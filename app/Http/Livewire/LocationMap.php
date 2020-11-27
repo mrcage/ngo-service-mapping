@@ -13,6 +13,8 @@ class LocationMap extends PageComponent
 
     protected $wideLayout = true;
 
+    protected $noPadding = true;
+
     public $message;
 
     public array $map = [];
