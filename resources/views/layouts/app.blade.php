@@ -19,7 +19,7 @@
                 </a>
                 <span class="navbar-text">
                     @auth
-                        <a href="{{ route('user-profile-information') }}">{{ Auth::user()->name }}</a> |
+                        <a href="{{ route('user-profile-information') }}">{{ Str::of(Auth::user()->name)->words(1, '') }}</a> |
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
