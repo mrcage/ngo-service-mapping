@@ -21,10 +21,6 @@
 
     @isset($location->description)
         @markdown($location->description)
-    @else
-        <p>
-            <em>No description has been provided.</em>
-        </p>
     @endif
 
     <p>

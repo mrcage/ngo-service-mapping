@@ -21,10 +21,6 @@
 
     @isset($organization->description)
         @markdown($organization->description)
-    @else
-        <p>
-            <em>No description has been provided.</em>
-        </p>
     @endif
 
     <p>
