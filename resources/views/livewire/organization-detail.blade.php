@@ -9,14 +9,16 @@
         <x-alert type="success" :message="session('message')"/>
     @endif
 
-    <p class="d-sm-flex justify-content-between">
+    <p>
         <span title="Organization type">
             <x-bi-tag-fill/>
             <a href="{{ route('types.show', $organization->type) }}">{{ $organization->type->name }}</a>
         </span>
-        <span class="d-block d-sm-inline" title="Last updated: {{ $organization->updated_at->toUserTimezone() }}">
-            <x-bi-clock/> {{ $organization->updated_at->diffForHumans() }}
-        </span>
+        @isset($organization->country_of_origin)
+            <br>
+            <x-bi-flag/>
+            {{ Countries::getOne($organization->country_of_origin, App::getLocale()) }}
+        @endif
     </p>
 
     @isset($organization->description)
@@ -66,16 +68,21 @@
         @endisset
     </p>
 
-    <p>
-        <a href="{{ route('organizations.changes', $organization) }}">View changes</a>
-        @can('update', $organization)
-            | <a href="{{ route('organizations.edit', $organization) }}">Edit</a>
-        @elseif(isset($organization->email))
-            | <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a>
-        @endcan
-        @can('delete', $organization)
-            | <a href="{{ route('organizations.delete', $organization) }}">Delete</a>
-        @endcan
+    <p class="d-sm-flex justify-content-between">
+        <span>
+            <a href="{{ route('organizations.changes', $organization) }}">View changes</a>
+            @can('update', $organization)
+                | <a href="{{ route('organizations.edit', $organization) }}">Edit</a>
+            @elseif(isset($organization->email))
+                | <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a>
+            @endcan
+            @can('delete', $organization)
+                | <a href="{{ route('organizations.delete', $organization) }}">Delete</a>
+            @endcan
+        </span>
+        <span class="d-block d-sm-inline" title="Last updated: {{ $organization->updated_at->toUserTimezone() }}">
+            <x-bi-clock/> {{ $organization->updated_at->diffForHumans() }}
+        </span>
     </p>
 
     <hr>

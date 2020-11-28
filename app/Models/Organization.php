@@ -21,6 +21,7 @@ class Organization extends Model implements Auditable
         'name',
         'abbreviation',
         'description',
+        'country_of_origin',
         'email',
         'phone',
         'website',
@@ -33,7 +34,8 @@ class Organization extends Model implements Auditable
 
 	protected $nullable = [
         'abbreviation',
-		'description',
+        'description',
+        'country_of_origin',
 		'email',
         'phone',
         'website',

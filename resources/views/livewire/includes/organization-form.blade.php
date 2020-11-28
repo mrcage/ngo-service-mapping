@@ -57,6 +57,20 @@
             </div>
 
             <div class="form-group">
+                <label for="country_of_origin">Country of origin:</label>
+                <select
+                    id="country_of_origin"
+                    wire:model.defer="organization.country_of_origin"
+                    class="custom-select @error('organization.country_of_origin') is-invalid @enderror">
+                    <option value="">- Select country -</option>
+                    @foreach(Countries::getList(App::getLocale()) as $k => $v)
+                        <option value="{{ $k }}">{{ $v }}</option>
+                    @endforeach
+                </select>
+                @error('organization.country_of_origin') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="email">E-Mail address:</label>
                 <input
                 type="email"

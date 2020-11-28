@@ -27,6 +27,7 @@ class OrganizationFactory extends Factory
             'name' => $this->faker->unique()->company,
             'abbreviation' => $this->faker->boolean(50) ? strtoupper($this->faker->lexify('???')) : null,
             'description' => $description !== null ? implode("\n", $description) : null,
+            'country_of_origin' => $this->faker->optional(0.9)->countryCode,
             'email' => $this->faker->optional(0.9)->companyEmail,
             'phone' => $this->faker->optional(0.3)->e164PhoneNumber,
             'website' => $this->faker->optional(0.7)->url,

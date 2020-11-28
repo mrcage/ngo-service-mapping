@@ -2,8 +2,10 @@
 
 namespace App\Exports\Sheets;
 
+use App;
 use App\Exports\DefaultWorksheetStyles;
 use App\Models\Organization;
+use Countries;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -31,6 +33,7 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
             'Abbreviation',
             'Type',
             'Description',
+            'Country of origin',
             'E-Mail',
             'Phone',
             'Website',
@@ -54,6 +57,7 @@ class OrganizationsSheet implements FromQuery, WithMapping, WithHeadings, WithCo
             $organization->abbreviation,
             $organization->type->name,
             $organization->description,
+            $organization->country_of_origin !== null ? Countries::getOne($organization->country_of_origin, App::getLocale()) : null,
             $organization->email,
             $organization->phone." ",
             $organization->website,

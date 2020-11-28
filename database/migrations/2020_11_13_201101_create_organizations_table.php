@@ -19,6 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('slug')->unique();
             $table->string('abbreviation')->nullable();
             $table->text('description')->nullable();
+            $table->string('country_of_origin', 3)->nullable();
             $table->string('email')->nullable()->unique();
             $table->string('phone')->nullable();
             $table->string('website')->nullable();

@@ -38,6 +38,10 @@ abstract class OrganizationManage extends PageComponent
             'nullable',
             'min:3',
         ],
+        'organization.country_of_origin' => [
+            'nullable',
+            'country_code',
+        ],
         'organization.email' => [
             'nullable',
             'email',
