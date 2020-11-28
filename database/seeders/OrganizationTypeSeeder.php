@@ -20,11 +20,13 @@ class OrganizationTypeSeeder extends Seeder
         foreach ([
             'Academic and Research Institution',
             'Government',
-            'International Organization',
+            'Intergovernmental Organization',
+            'International non-governmental Organization',
             'Media',
             'Non-governmental Organization',
-            'Other',
             'Red Cross/Red Crescent Movement',
+            'Volunteer Group',
+            'Other',
         ] as $name) {
             OrganizationType::create(['name' => $name]);
         }
