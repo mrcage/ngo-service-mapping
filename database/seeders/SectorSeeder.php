@@ -30,13 +30,15 @@ class SectorSeeder extends Seeder
             'Gender',
             'Health',
             'HIV/Aids',
+            'Information',
             'Logistics',
             'Mine Action',
+            'Non-Food Items',
             'Peacekeeping and Peacebuilding',
             'Protection and Human Rights',
             'Recovery and Reconstruction',
             'Safety and Security',
-            'Shelter and Non-Food Items',
+            'Shelter',
             'Water, Sanitation & Hygiene',
         ] as $name) {
             Sector::create(['name' => $name]);
