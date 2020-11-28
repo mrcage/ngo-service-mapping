@@ -49,8 +49,8 @@ return [
         ],
 
         'osm' => [
-            // 'type' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'type' => 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+            'type' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            // 'type' => 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
         ],
 
         'yandex' => [
