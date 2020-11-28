@@ -8,12 +8,14 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Organization extends Model
+class Organization extends Model implements Auditable
 {
     use HasFactory;
     use Sluggable;
     use NullableFields;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',

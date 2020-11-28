@@ -8,6 +8,7 @@ use App\Http\Livewire\LocationDetail;
 use App\Http\Livewire\LocationEdit;
 use App\Http\Livewire\LocationList;
 use App\Http\Livewire\LocationMap;
+use App\Http\Livewire\OrganizationChanges;
 use App\Http\Livewire\OrganizationCreate;
 use App\Http\Livewire\OrganizationCreateExternal;
 use App\Http\Livewire\OrganizationDelete;
@@ -76,6 +77,8 @@ Route::get('/organizations/{organization}/requestEditLink', OrganizationRequestE
 Route::get('/organizations/{organization}/editExternal', OrganizationEditExternal::class)
     ->name('organizations.editExternal')
     ->middleware(['signed']);
+Route::get('/organizations/{organization}/changes', OrganizationChanges::class)
+    ->name('organizations.changes');
 
 Route::get('/organizations/{organization}/service/_create', ServiceCreate::class)
     ->name('organizations.services.create')

@@ -67,10 +67,11 @@
     </p>
 
     <p>
+        <a href="{{ route('organizations.changes', $organization) }}">View changes</a>
         @can('update', $organization)
-            <a href="{{ route('organizations.edit', $organization) }}">Edit</a>
+            | <a href="{{ route('organizations.edit', $organization) }}">Edit</a>
         @elseif(isset($organization->email))
-            <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a>
+            | <a href="{{ route('organizations.requestEditLink', $organization) }}">Request change</a>
         @endcan
         @can('delete', $organization)
             | <a href="{{ route('organizations.delete', $organization) }}">Delete</a>
